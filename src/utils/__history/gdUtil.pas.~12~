@@ -1,0 +1,154 @@
+unit gdUtil;
+
+interface
+
+uses
+  Vcl.Dialogs, System.UITypes, Vcl.Forms, Vcl.Controls,
+  Vcl.Graphics, Vcl.StdCtrls, System.SysUtils;
+
+
+function MessageDlgGD(prMensagem: String; prTipo: TMsgDlgType; prBotoes: array of TMsgDlgBtn;
+                      prCaption: Array of String; prBotaoDefault: Integer; prHelp: LongInt; prSepararBotoes2Linhas : boolean = false) : TModalResult; overload;
+
+var
+  FButtonNames                     : array[TMsgDlgBtn] of string = ('Yes', 'No', 'OK', 'Cancel', 'Abort', 'Retry','Ignore', 'All', 'NoToAll','YesToAll', 'Help', 'Close');
+
+implementation
+
+function MessageDlgGD(prMensagem: String; prTipo: TMsgDlgType; prBotoes: array of TMsgDlgBtn;
+                      prCaption: Array of String; prBotaoDefault: Integer; prHelp: LongInt; prSepararBotoes2Linhas : boolean = false) : TModalResult;
+var
+  wConta ,
+  wBotao : Integer;  { Variável que indicará o botão atual }
+  wButton : TButton;
+  wWidthPadrao : Integer;
+  wTamTotBotoes : Integer;
+  wLeft : Integer;
+  wIBtn : Integer;
+  wCjtoBtn : TMsgDlgButtons;
+  wEspaco : Integer;
+  wContaButton : integer;
+  wTopButton : integer;
+  wEspacoInicio : integer;
+  wDiv : integer;
+  wForm : TForm;
+
+const
+  C_ESPACO = 8;
+
+begin
+  wCjtoBtn := [];
+
+  for wIBtn := 0 to Length(prBotoes) - 1 do
+    Include(wCjtoBtn, prBotoes[wIBtn]);
+
+  wBotao := 0;
+  wWidthPadrao := 0;
+
+  wForm := CreateMessageDialog(prMensagem,prTipo,wCjtoBtn);
+  try
+    // Ajusta o tamanho e posição dos botões
+    for wConta := 0 to wForm.ComponentCount - 1 do
+      begin
+        if wForm.Components[wConta] is TButton then
+           begin
+             { Altera o Caption dos Botões }
+             wButton := TButton(wForm.Components[wConta]);
+
+             if (10 * Length(' ' + Trim(prCaption[wBotao]) + ' ')) > wButton.Width then
+                wButton.Width := 10 * Length(' ' + prCaption[wBotao] + ' ');
+
+             if wWidthPadrao < wButton.Width  then
+                wWidthPadrao := wButton.Width;
+
+             Inc(wBotao);
+           end;
+      end;
+
+    wDiv := 1;
+    if prSepararBotoes2Linhas then
+       wDiv := 2;
+
+    wTamTotBotoes := wWidthPadrao * trunc(wBotao/wDiv);
+
+    if (wTamTotBotoes + (C_ESPACO * (wBotao/wDiv + 1))) > wForm.Width then
+       begin
+         wForm.Width := (wTamTotBotoes + (C_ESPACO * (trunc(wBotao/wDiv) + 1)));
+         wEspaco := C_ESPACO;
+       end
+    else
+       begin
+         wEspaco := (wForm.Width - wTamTotBotoes) div (trunc(wBotao/wDiv) + 1);
+       end;
+
+    wBotao := 0;
+    wLeft := wEspaco;
+    wEspacoInicio := wLeft;
+
+    wContaButton := 0;
+    wTopButton := 0;
+    for wIBtn := 0 to Length(prBotoes) - 1 do
+      begin
+        wConta := 0;
+
+        while wConta <= wForm.ComponentCount - 1 do
+          begin
+            if wForm.Components[wConta] is TButton  then
+               begin
+                 { Altera o Caption dos Botões }
+                 wButton := TButton(wForm.Components[wConta]);
+
+                 if wButton.Name = FButtonNames[prBotoes[wIBtn]] then
+                    begin
+                      inc(wContaButton);
+                      if wContaButton = 1 then
+                         wTopButton := wButton.Top;
+
+                      if prSepararBotoes2Linhas then
+                         begin
+                           if wContaButton > 1 then
+                              begin
+                                if wContaButton = (Length(prBotoes)/2)+1 then
+                                   begin
+                                     wLeft := wEspacoInicio;
+                                     wTopButton := wTopButton + wButton.Height + 5;
+                                     wForm.Height := wForm.Height + wButton.Height + 5;
+                                   end;
+                              end;
+                         end;
+
+                      wButton.Top := wTopButton;
+                      wButton.Width := wWidthPadrao;
+                      wButton.Left := wLeft;
+                      wLeft := wLeft + wWidthPadrao + wEspaco;
+                      wButton.Caption := prCaption[wBotao];
+                      wButton.TabOrder := wBotao;
+
+                      Inc(wBotao);
+
+                      { Faz o Botão ficar Default conforme o parâmetro }
+                      if (wButton.Caption = prCaption[prBotaoDefault]) then
+                         wForm.ActiveControl := (wForm.Components[wConta] as TWinControl);
+
+                      Break;
+                    end;
+               end;
+
+            Inc(wConta);
+          end;
+      end;
+
+    case prTipo of
+      mtWarning     : wForm.Caption := 'Atenção!';
+      mtError       : wForm.Caption := 'Erro!';
+      mtInformation : wForm.Caption := 'Informação!';
+      mtConfirmation: wForm.Caption := 'Confirmação!';
+    end;
+    wForm.Position := poScreenCenter;
+    Result := wForm.ShowModal;
+  finally
+    wForm.Free;
+  end;
+end;
+
+end.
