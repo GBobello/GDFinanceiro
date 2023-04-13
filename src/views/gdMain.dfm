@@ -10,6 +10,7 @@ object frMain: TfrMain
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  WindowState = wsMaximized
   OnActivate = FormActivate
   OnKeyDown = FormKeyDown
   PixelsPerInch = 96
