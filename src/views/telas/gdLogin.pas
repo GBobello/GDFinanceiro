@@ -23,10 +23,17 @@ type
     imgLogo: TImage;
     pnEntrar: TPanel;
     spEntrar: TSpeedButton;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
     procedure imgOlhoAbertoClick(Sender: TObject);
     procedure imgOlhoFechadoClick(Sender: TObject);
     procedure spEntrarMouseEnter(Sender: TObject);
     procedure spEntrarMouseLeave(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure spEntrarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -40,6 +47,26 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrLogin.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin                                      { TODO : Descomentar depois }
+//  if Application.MessageBox('Deseja realmente sair do GD Financeiro?', 'Confirmação!', MB_ICONQUESTION + MB_YESNO) = mrYes then
+//  begin
+    CanClose := True;
+//    Application.Terminate;
+//  end
+//  else
+//    CanClose := False;
+end;
+
+procedure TfrLogin.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_ESCAPE then
+  begin
+    Close;
+  end;
+end;
+
 procedure TfrLogin.imgOlhoAbertoClick(Sender: TObject);
 begin
   imgOlhoAberto.Visible := False;
@@ -52,6 +79,11 @@ begin
   imgOlhoAberto.Visible := True;
   imgOlhoFechado.Visible := False;
   edSenha.PasswordChar := '*';
+end;
+
+procedure TfrLogin.spEntrarClick(Sender: TObject);
+begin
+  Close;
 end;
 
 procedure TfrLogin.spEntrarMouseEnter(Sender: TObject);
