@@ -41,8 +41,6 @@ object frMain: TfrMain
     ParentBackground = False
     TabOrder = 1
     OnResize = pnPrincipalResize
-    ExplicitWidth = 1356
-    ExplicitHeight = 739
     object pnLateral: TPanel
       Left = 185
       Top = 0
@@ -50,7 +48,6 @@ object frMain: TfrMain
       Height = 682
       Align = alLeft
       TabOrder = 2
-      ExplicitHeight = 739
     end
     object pnMenu: TPanel
       Left = 0
@@ -62,7 +59,6 @@ object frMain: TfrMain
       Color = clWhite
       ParentBackground = False
       TabOrder = 0
-      ExplicitHeight = 739
       object pnSeparador4: TPanel
         Left = 0
         Top = 352
@@ -673,7 +669,6 @@ object frMain: TfrMain
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 4
-        ExplicitTop = 691
         object spUsuario: TSpeedButton
           Left = 0
           Top = 0
@@ -715,7 +710,6 @@ object frMain: TfrMain
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 9
-        ExplicitTop = 690
       end
     end
     object pnFoco: TPanel
@@ -738,10 +732,6 @@ object frMain: TfrMain
       BevelOuter = bvNone
       Caption = 'pnCentral'
       TabOrder = 3
-      ExplicitLeft = 880
-      ExplicitTop = 480
-      ExplicitWidth = 73
-      ExplicitHeight = 9
       object imgDegradeCentral: TImage
         Left = 0
         Top = 0
