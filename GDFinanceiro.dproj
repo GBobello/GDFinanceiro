@@ -116,6 +116,10 @@
             <Form>frSimples</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="src\views\telas\gdUsuarios.pas">
+            <Form>frUsuarios</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
