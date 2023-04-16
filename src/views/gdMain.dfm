@@ -2,8 +2,8 @@ object frMain: TfrMain
   Left = 0
   Top = 0
   Caption = 'GD Financeiro'
-  ClientHeight = 682
-  ClientWidth = 1092
+  ClientHeight = 729
+  ClientWidth = 1350
   Color = clWhite
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -33,32 +33,36 @@ object frMain: TfrMain
   object pnPrincipal: TPanel
     Left = 0
     Top = 0
-    Width = 1092
-    Height = 682
+    Width = 1350
+    Height = 729
     Align = alClient
     BevelOuter = bvNone
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
     OnResize = pnPrincipalResize
+    ExplicitWidth = 1092
+    ExplicitHeight = 682
     object pnLateral: TPanel
       Left = 185
       Top = 0
       Width = 1
-      Height = 682
+      Height = 729
       Align = alLeft
       TabOrder = 2
+      ExplicitHeight = 682
     end
     object pnMenu: TPanel
       Left = 0
       Top = 0
       Width = 185
-      Height = 682
+      Height = 729
       Align = alLeft
       BevelOuter = bvNone
       Color = clWhite
       ParentBackground = False
       TabOrder = 0
+      ExplicitHeight = 682
       object pnSeparador4: TPanel
         Left = 0
         Top = 352
@@ -613,6 +617,7 @@ object frMain: TfrMain
           Margin = 25
           ParentFont = False
           Spacing = 15
+          OnClick = spProdutosClick
           OnMouseEnter = SetaFoco
           OnMouseLeave = TiraFoco
           ExplicitLeft = 72
@@ -663,12 +668,13 @@ object frMain: TfrMain
       end
       object pnUsuario: TPanel
         Left = 0
-        Top = 634
+        Top = 681
         Width = 185
         Height = 48
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 4
+        ExplicitTop = 634
         object spUsuario: TSpeedButton
           Left = 0
           Top = 0
@@ -703,13 +709,14 @@ object frMain: TfrMain
       end
       object pnSeparador5: TPanel
         Left = 0
-        Top = 633
+        Top = 680
         Width = 185
         Height = 1
         Align = alBottom
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 9
+        ExplicitTop = 633
       end
     end
     object pnFoco: TPanel
@@ -726,15 +733,17 @@ object frMain: TfrMain
     object pnCentral: TPanel
       Left = 186
       Top = 0
-      Width = 906
-      Height = 682
+      Width = 1164
+      Height = 729
       Align = alClient
       BevelOuter = bvNone
       Caption = 'pnCentral'
       TabOrder = 3
+      ExplicitWidth = 906
+      ExplicitHeight = 682
       object pnLogoCentral: TPanel
-        Left = 293
-        Top = 196
+        Left = 421
+        Top = 219
         Width = 321
         Height = 290
         BevelOuter = bvNone

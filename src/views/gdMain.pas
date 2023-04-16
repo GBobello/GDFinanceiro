@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.WinXCtrls,
   Vcl.ExtCtrls, Vcl.Buttons, System.ImageList, Vcl.ImgList, gdFuncoes,
-  Vcl.Imaging.pngimage;
+  Vcl.Imaging.pngimage, gdSimples;
 
 type
   TfrMain = class(TForm)
@@ -45,6 +45,7 @@ type
     procedure SetaFoco(Sender: TObject);
     procedure TiraFoco(Sender: TObject);
     procedure pnPrincipalResize(Sender: TObject);
+    procedure spProdutosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -69,6 +70,13 @@ end;
 procedure TfrMain.SetaFoco(Sender: TObject);
 begin
   fFuncoes.SetaFoco(pnFoco, TComponent(Sender) as TSpeedButton, TComponent(Sender).GetParentComponent as TPanel, True);
+end;
+
+procedure TfrMain.spProdutosClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrSimples, frSimples);
+  frSimples.Parent := pnCentral;
+  frSimples.Show;
 end;
 
 procedure TfrMain.TiraFoco(Sender: TObject);

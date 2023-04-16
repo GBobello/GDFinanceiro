@@ -7,7 +7,8 @@ uses
   gdSplashScreen in 'src\views\telas\gdSplashScreen.pas' {frSplashScreen},
   Vcl.Themes,
   Vcl.Styles,
-  gdFuncoes in 'src\utils\gdFuncoes.pas';
+  gdFuncoes in 'src\utils\gdFuncoes.pas',
+  gdSimples in 'src\views\padroes\gdSimples.pas' {frSimples};
 
 {$R *.res}
 
@@ -15,5 +16,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrMain, frMain);
+  Application.CreateForm(TfrSimples, frSimples);
   Application.Run;
 end.
