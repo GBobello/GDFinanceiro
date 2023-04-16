@@ -33,7 +33,6 @@ type
     pnSeparador5: TPanel;
     pnLateral: TPanel;
     pnCentral: TPanel;
-    imgDegradeCentral: TImage;
     pnLogoCentral: TPanel;
     imgLogoCentral: TImage;
     lbGD: TLabel;

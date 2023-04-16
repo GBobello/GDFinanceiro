@@ -732,17 +732,6 @@ object frMain: TfrMain
       BevelOuter = bvNone
       Caption = 'pnCentral'
       TabOrder = 3
-      object imgDegradeCentral: TImage
-        Left = 0
-        Top = 0
-        Width = 906
-        Height = 682
-        Align = alClient
-        ExplicitLeft = 400
-        ExplicitTop = 288
-        ExplicitWidth = 105
-        ExplicitHeight = 105
-      end
       object pnLogoCentral: TPanel
         Left = 293
         Top = 196
@@ -1595,8 +1584,8 @@ object frMain: TfrMain
   object imgListMenu: TImageList
     Height = 32
     Width = 32
-    Left = 776
-    Top = 208
+    Left = 1024
+    Top = 24
     Bitmap = {
       494C01010C001800040020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000008000000001002000000000000000
