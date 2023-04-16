@@ -95,7 +95,7 @@ end;
 procedure TfrLogin.spEntrarMouseLeave(Sender: TObject);
 begin
   pnEntrar.Color := clWhite;
-  spEntrar.Font.Color := clGray;
+  spEntrar.Font.Color := clBlack;
 end;
 
 end.

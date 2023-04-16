@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.WinXCtrls,
   Vcl.ExtCtrls, Vcl.Buttons, System.ImageList, Vcl.ImgList, gdFuncoes,
-  Vcl.Imaging.pngimage, gdSimples;
+  Vcl.Imaging.pngimage, gdSimples, gdUsuarios;
 
 type
   TfrMain = class(TForm)
@@ -74,9 +74,12 @@ end;
 
 procedure TfrMain.spProdutosClick(Sender: TObject);
 begin
-  Application.CreateForm(TfrSimples, frSimples);
-  frSimples.Parent := pnCentral;
-  frSimples.Show;
+  if frUsuarios = nil then
+  begin
+    Application.CreateForm(TfrUsuarios, frUsuarios);
+    frUsuarios.Parent := pnCentral;
+  end;
+  frUsuarios.Show;
 end;
 
 procedure TfrMain.TiraFoco(Sender: TObject);
@@ -97,15 +100,15 @@ end;
 
 procedure TfrMain.FormCreate(Sender: TObject);
 
-begin     //Descomentar depois
+begin
   fFuncoes := TFuncoes.Create(nil);
-
-  try
-    Application.CreateForm(TfrSplashScreen, frSplashScreen);
-    frSplashScreen.ShowModal;
-  finally
-    FreeAndNil(frSplashScreen);
-  end;
+//    Descomentar depois
+//  try
+//    Application.CreateForm(TfrSplashScreen, frSplashScreen);
+//    frSplashScreen.ShowModal;
+//  finally
+//    FreeAndNil(frSplashScreen);
+//  end;
 end;
 
 procedure TfrMain.FormKeyDown(Sender: TObject; var Key: Word;
@@ -121,12 +124,12 @@ procedure TfrMain.FormShow(Sender: TObject);
 var
   s: String;
 begin  //Descomentar depois
-  try
-    Application.CreateForm(TfrLogin, frLogin);
-    frLogin.ShowModal;
-  finally
-    FreeAndNil(frLogin);
-  end;
+//  try
+//    Application.CreateForm(TfrLogin, frLogin);
+//    frLogin.ShowModal;
+//  finally
+//    FreeAndNil(frLogin);
+//  end;
 
   {$REGION 'ComboBox de Estilos do Windows'}
 //  ComboBox1.items.BeginUpdate;
