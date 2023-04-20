@@ -388,6 +388,7 @@ object frLogin: TfrLogin
         ParentFont = False
         PasswordChar = '*'
         TabOrder = 1
+        OnKeyDown = edSenhaKeyDown
       end
     end
     object pnEntrar: TPanel
@@ -430,8 +431,6 @@ object frLogin: TfrLogin
         Color = clBlack
         ParentBackground = False
         TabOrder = 0
-        ExplicitTop = 0
-        ExplicitHeight = 23
       end
       object Panel2: TPanel
         Left = 219
@@ -442,7 +441,6 @@ object frLogin: TfrLogin
         Color = clBlack
         ParentBackground = False
         TabOrder = 1
-        ExplicitLeft = 1
       end
       object Panel3: TPanel
         Left = 0
@@ -453,8 +451,6 @@ object frLogin: TfrLogin
         Color = clBlack
         ParentBackground = False
         TabOrder = 2
-        ExplicitLeft = 218
-        ExplicitWidth = 23
       end
       object Panel4: TPanel
         Left = 0
@@ -465,7 +461,6 @@ object frLogin: TfrLogin
         Color = clBlack
         ParentBackground = False
         TabOrder = 3
-        ExplicitTop = 8
       end
     end
   end

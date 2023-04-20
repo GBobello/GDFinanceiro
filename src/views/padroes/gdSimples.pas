@@ -13,8 +13,10 @@ type
     spFecha: TSpeedButton;
     spMinimiza: TSpeedButton;
     imgList: TImageList;
+    pnBarraSuperior: TPanel;
     procedure spFechaClick(Sender: TObject);
     procedure spMinimizaClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -27,6 +29,13 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrSimples.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_ESCAPE then
+    Close;
+end;
 
 procedure TfrSimples.spFechaClick(Sender: TObject);
 begin

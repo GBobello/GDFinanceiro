@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.WinXCtrls,
   Vcl.ExtCtrls, Vcl.Buttons, System.ImageList, Vcl.ImgList, gdFuncoes,
-  Vcl.Imaging.pngimage, gdSimples, gdUsuarios;
+  Vcl.Imaging.pngimage, gdSimples, gdUsuarios, Vcl.Mask, GD_MaskEdit_Data,
+  gdNovo;
 
 type
   TfrMain = class(TForm)
@@ -74,12 +75,13 @@ end;
 
 procedure TfrMain.spProdutosClick(Sender: TObject);
 begin
-  if frUsuarios = nil then
+  if frNovo = nil then
   begin
-    Application.CreateForm(TfrUsuarios, frUsuarios);
-    frUsuarios.Parent := pnCentral;
+    Application.CreateForm(TfrNovo, frNovo);
+    frNovo.Parent := pnCentral;
   end;
-  frUsuarios.Show;
+  frNovo.Show;
+  frNovo.SetFocus;
 end;
 
 procedure TfrMain.TiraFoco(Sender: TObject);

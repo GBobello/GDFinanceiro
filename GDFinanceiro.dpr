@@ -9,7 +9,8 @@ uses
   Vcl.Styles,
   gdFuncoes in 'src\utils\gdFuncoes.pas',
   gdSimples in 'src\views\padroes\gdSimples.pas' {frSimples},
-  gdUsuarios in 'src\views\telas\gdUsuarios.pas' {frUsuarios};
+  gdUsuarios in 'src\views\telas\gdUsuarios.pas' {frUsuarios},
+  gdNovo in 'src\views\telas\gdNovo.pas' {frNovo};
 
 {$R *.res}
 

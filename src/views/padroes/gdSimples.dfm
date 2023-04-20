@@ -12,7 +12,9 @@ object frSimples: TfrSimples
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
+  OnKeyDown = FormKeyDown
   PixelsPerInch = 96
   TextHeight = 13
   object pnPrincipal: TPanel
@@ -25,46 +27,55 @@ object frSimples: TfrSimples
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
-    DesignSize = (
-      1164
-      729)
-    object spFecha: TSpeedButton
-      Left = 1137
-      Top = 4
-      Width = 24
-      Height = 24
-      Anchors = [akTop, akRight]
-      DisabledImageIndex = 2
-      ImageIndex = 0
-      Images = imgList
-      HotImageIndex = 1
-      Flat = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clRed
-      Font.Height = -11
-      Font.Name = 'JejuGothic'
-      Font.Style = [fsBold]
-      ParentFont = False
-      OnClick = spFechaClick
-    end
-    object spMinimiza: TSpeedButton
-      Left = 1108
-      Top = 4
-      Width = 24
-      Height = 24
-      Anchors = [akTop, akRight]
-      DisabledImageIndex = 5
-      ImageIndex = 3
-      Images = imgList
-      HotImageIndex = 4
-      Flat = True
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
-      Font.Height = -11
-      Font.Name = 'JejuGothic'
-      Font.Style = [fsBold]
-      ParentFont = False
-      OnClick = spMinimizaClick
+    object pnBarraSuperior: TPanel
+      Left = 0
+      Top = 0
+      Width = 1164
+      Height = 41
+      Align = alTop
+      BevelOuter = bvNone
+      TabOrder = 0
+      DesignSize = (
+        1164
+        41)
+      object spFecha: TSpeedButton
+        Left = 1137
+        Top = 4
+        Width = 24
+        Height = 24
+        Anchors = [akTop, akRight]
+        DisabledImageIndex = 2
+        ImageIndex = 0
+        Images = imgList
+        HotImageIndex = 1
+        Flat = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'JejuGothic'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = spFechaClick
+      end
+      object spMinimiza: TSpeedButton
+        Left = 1108
+        Top = 4
+        Width = 24
+        Height = 24
+        Anchors = [akTop, akRight]
+        DisabledImageIndex = 5
+        ImageIndex = 3
+        Images = imgList
+        HotImageIndex = 4
+        Flat = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clGreen
+        Font.Height = -11
+        Font.Name = 'JejuGothic'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = spMinimizaClick
+      end
     end
   end
   object imgList: TImageList

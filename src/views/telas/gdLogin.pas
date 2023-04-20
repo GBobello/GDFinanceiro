@@ -34,6 +34,8 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure spEntrarClick(Sender: TObject);
+    procedure edSenhaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -46,6 +48,13 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrLogin.edSenhaKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if key = VK_RETURN then
+    spEntrar.Click;
+end;
 
 procedure TfrLogin.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin                                      { TODO : Descomentar depois }
@@ -83,6 +92,11 @@ end;
 
 procedure TfrLogin.spEntrarClick(Sender: TObject);
 begin
+  if not((LowerCase(edUsuario.Text) = 'gabriel') and (edSenha.Text = '123')) then
+  begin
+    Application.MessageBox('Usuário e senha inválidos!', 'Atenção', MB_ICONERROR + MB_OK);
+    Exit;
+  end;
   Close;
 end;
 
