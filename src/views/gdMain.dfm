@@ -2,7 +2,7 @@ object frMain: TfrMain
   Left = 0
   Top = 0
   Caption = 'GD Financeiro'
-  ClientHeight = 729
+  ClientHeight = 749
   ClientWidth = 1350
   Color = clWhite
   DoubleBuffered = True
@@ -17,6 +17,7 @@ object frMain: TfrMain
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  OnResize = FormResize
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -34,18 +35,17 @@ object frMain: TfrMain
     Left = 0
     Top = 0
     Width = 1350
-    Height = 729
+    Height = 749
     Align = alClient
     BevelOuter = bvNone
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    OnResize = pnPrincipalResize
     object pnLateral: TPanel
       Left = 185
       Top = 0
       Width = 1
-      Height = 729
+      Height = 749
       Align = alLeft
       TabOrder = 2
     end
@@ -53,7 +53,7 @@ object frMain: TfrMain
       Left = 0
       Top = 0
       Width = 185
-      Height = 729
+      Height = 749
       Align = alLeft
       BevelOuter = bvNone
       Color = clWhite
@@ -573,6 +573,7 @@ object frMain: TfrMain
           Margin = 25
           ParentFont = False
           Spacing = 15
+          OnClick = spPesquisaClick
           OnMouseEnter = SetaFoco
           OnMouseLeave = TiraFoco
           ExplicitLeft = 80
@@ -616,10 +617,8 @@ object frMain: TfrMain
           OnClick = spProdutosClick
           OnMouseEnter = SetaFoco
           OnMouseLeave = TiraFoco
-          ExplicitLeft = 72
-          ExplicitTop = 16
-          ExplicitWidth = 23
-          ExplicitHeight = 22
+          ExplicitLeft = -2
+          ExplicitTop = -2
         end
       end
       object pnRelatorio: TPanel
@@ -654,6 +653,7 @@ object frMain: TfrMain
           Margin = 25
           ParentFont = False
           Spacing = 15
+          OnClick = spRelatorioClick
           OnMouseEnter = SetaFoco
           OnMouseLeave = TiraFoco
           ExplicitLeft = 88
@@ -664,7 +664,7 @@ object frMain: TfrMain
       end
       object pnUsuario: TPanel
         Left = 0
-        Top = 681
+        Top = 701
         Width = 185
         Height = 48
         Align = alBottom
@@ -694,6 +694,7 @@ object frMain: TfrMain
           Margin = 25
           ParentFont = False
           Spacing = 15
+          OnClick = spUsuarioClick
           OnMouseEnter = SetaFoco
           OnMouseLeave = TiraFoco
           ExplicitLeft = 112
@@ -704,7 +705,7 @@ object frMain: TfrMain
       end
       object pnSeparador5: TPanel
         Left = 0
-        Top = 680
+        Top = 700
         Width = 185
         Height = 1
         Align = alBottom
@@ -728,7 +729,7 @@ object frMain: TfrMain
       Left = 186
       Top = 0
       Width = 1164
-      Height = 729
+      Height = 749
       Align = alClient
       BevelOuter = bvNone
       Caption = 'pnCentral'
@@ -3706,5 +3707,29 @@ object frMain: TfrMain
       80001FFF80001FFF80001FFFFFFFFFFFC0003FFFC0003FFFC0003FFFFFFFFFFF
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  object aclBotoes: TActionList
+    Left = 978
+    Top = 448
+    object alNovoShortCut: TAction
+      Caption = 'alNovoShortCut'
+      ShortCut = 16462
+      OnExecute = spProdutosClick
+    end
+    object aclPesquisaShortCut: TAction
+      Caption = 'aclPesquisaShortCut'
+      ShortCut = 16464
+      OnExecute = spPesquisaClick
+    end
+    object aclRelatoriosShortCut: TAction
+      Caption = 'aclRelatoriosShortCut'
+      ShortCut = 16466
+      OnExecute = spRelatorioClick
+    end
+    object aclUsuarios: TAction
+      Caption = 'aclUsuarios'
+      ShortCut = 16469
+      OnExecute = spUsuarioClick
+    end
   end
 end

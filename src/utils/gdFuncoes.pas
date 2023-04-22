@@ -8,8 +8,10 @@ uses
 type
   TFuncoes = record
     public
-      constructor Create(AOwner: TObject);
       procedure SetaFoco(prPainel: TPanel; prSpeedButton: TSpeedButton; prPainelButton: TPanel; prFocar: Boolean);
+      procedure SetaFocoBotoes(prSpeedButton: TSpeedButton; prPainelButton: TPanel; prFocar: Boolean; prColor: TColor);
+      procedure SetCentralizaControles(prControlePai: TControl; prControleFilho: TControl);
+
   end;
 
 
@@ -17,11 +19,6 @@ implementation
 
 
 { TFuncoes }
-
-constructor TFuncoes.Create;
-begin
-  //
-end;
 
 procedure TFuncoes.SetaFoco(prPainel: TPanel; prSpeedButton: TSpeedButton;
   prPainelButton: TPanel; prFocar: Boolean);
@@ -41,6 +38,31 @@ begin
     prPainel.Visible := False;
     prSpeedButton.Font.Color := clWindowText;
     prSpeedButton.Font.Style := [];
+  end;
+end;
+
+procedure TFuncoes.SetaFocoBotoes(prSpeedButton: TSpeedButton;
+  prPainelButton: TPanel; prFocar: Boolean; prColor: TColor);
+begin
+  if prFocar then
+  begin
+    prSpeedButton.Font.Color := prColor;
+//    prSpeedButton.Font.Style := [TFontStyle.fsBold];
+  end
+  else
+  begin
+    prSpeedButton.Font.Color := clWindowText;
+//    prSpeedButton.Font.Style := [];
+  end;
+end;
+
+procedure TFuncoes.SetCentralizaControles(prControlePai,
+  prControleFilho: TControl);
+begin
+  if (prControleFilho <> nil) and (prControlePai <> nil) then
+  begin
+    prControleFilho.Left := (prControlePai.Width div 2) - (prControleFilho.Width div 2);
+    prControleFilho.Top  := (prControlePai.Height div 2) - (prControleFilho.Height div 2);
   end;
 end;
 

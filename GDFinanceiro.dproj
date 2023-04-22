@@ -125,6 +125,16 @@
             <Form>frNovo</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="src\dataModules\udmConexao.pas">
+            <Form>dmConexao</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\utils\gdClasses_GD.pas"/>
+        <DCCReference Include="src\classes\gdUsuarioLogado.pas"/>
+        <DCCReference Include="src\classes\gdLoginClass.pas"/>
+        <DCCReference Include="src\classes\gdNovoClass.pas"/>
+        <DCCReference Include="src\classes\gdUsuarioClass.pas"/>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

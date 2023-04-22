@@ -10,13 +10,20 @@ uses
   gdFuncoes in 'src\utils\gdFuncoes.pas',
   gdSimples in 'src\views\padroes\gdSimples.pas' {frSimples},
   gdUsuarios in 'src\views\telas\gdUsuarios.pas' {frUsuarios},
-  gdNovo in 'src\views\telas\gdNovo.pas' {frNovo};
+  gdNovo in 'src\views\telas\gdNovo.pas' {frNovo},
+  udmConexao in 'src\dataModules\udmConexao.pas' {dmConexao: TDataModule},
+  gdClasses_GD in 'src\utils\gdClasses_GD.pas',
+  gdUsuarioLogado in 'src\classes\gdUsuarioLogado.pas',
+  gdLoginClass in 'src\classes\gdLoginClass.pas',
+  gdNovoClass in 'src\classes\gdNovoClass.pas',
+  gdUsuarioClass in 'src\classes\gdUsuarioClass.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TdmConexao, dmConexao);
   Application.CreateForm(TfrMain, frMain);
   Application.Run;
 end.

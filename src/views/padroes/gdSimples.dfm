@@ -14,6 +14,7 @@ object frSimples: TfrSimples
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  Position = poMainFormCenter
   OnKeyDown = FormKeyDown
   PixelsPerInch = 96
   TextHeight = 13
@@ -75,6 +76,51 @@ object frSimples: TfrSimples
         Font.Style = [fsBold]
         ParentFont = False
         OnClick = spMinimizaClick
+      end
+      object pnNomeDaTela: TPanel
+        Left = 0
+        Top = 0
+        Width = 209
+        Height = 41
+        Align = alLeft
+        BevelOuter = bvNone
+        TabOrder = 0
+        object Label1: TLabel
+          Left = 59
+          Top = 0
+          Width = 150
+          Height = 41
+          Align = alClient
+          AutoSize = False
+          Caption = 'Nome da Tela'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -17
+          Font.Name = 'JejuGothic'
+          Font.Style = []
+          ParentFont = False
+          Layout = tlCenter
+          ExplicitLeft = 88
+          ExplicitTop = 16
+          ExplicitWidth = 31
+          ExplicitHeight = 13
+        end
+        object Image1: TImage
+          Left = 0
+          Top = 0
+          Width = 49
+          Height = 41
+          Align = alLeft
+        end
+        object pnSeparadorNome: TPanel
+          Left = 49
+          Top = 0
+          Width = 10
+          Height = 41
+          Align = alLeft
+          BevelOuter = bvNone
+          TabOrder = 0
+        end
       end
     end
   end

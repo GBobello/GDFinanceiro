@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.WinXCtrls,
   Vcl.ExtCtrls, Vcl.Buttons, System.ImageList, Vcl.ImgList, gdFuncoes,
   Vcl.Imaging.pngimage, gdSimples, gdUsuarios, Vcl.Mask, GD_MaskEdit_Data,
-  gdNovo;
+  gdNovo, Vcl.Menus, System.Actions, Vcl.ActnList, gdClasses_GD;
 
 type
   TfrMain = class(TForm)
@@ -38,6 +38,11 @@ type
     imgLogoCentral: TImage;
     lbGD: TLabel;
     lbSistemas: TLabel;
+    aclBotoes: TActionList;
+    alNovoShortCut: TAction;
+    aclPesquisaShortCut: TAction;
+    aclRelatoriosShortCut: TAction;
+    aclUsuarios: TAction;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
@@ -45,8 +50,11 @@ type
     procedure cbEstilosChange(Sender: TObject);
     procedure SetaFoco(Sender: TObject);
     procedure TiraFoco(Sender: TObject);
-    procedure pnPrincipalResize(Sender: TObject);
     procedure spProdutosClick(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+    procedure spPesquisaClick(Sender: TObject);
+    procedure spRelatorioClick(Sender: TObject);
+    procedure spUsuarioClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -73,15 +81,27 @@ begin
   fFuncoes.SetaFoco(pnFoco, TComponent(Sender) as TSpeedButton, TComponent(Sender).GetParentComponent as TPanel, True);
 end;
 
+procedure TfrMain.spPesquisaClick(Sender: TObject);
+begin
+  ShowMessage('Abrir Pesquisa');
+end;
+
 procedure TfrMain.spProdutosClick(Sender: TObject);
 begin
-  if frNovo = nil then
-  begin
-    Application.CreateForm(TfrNovo, frNovo);
-    frNovo.Parent := pnCentral;
-  end;
+  Application.CreateForm(TfrNovo, frNovo);
+  frNovo.Parent := pnCentral;
   frNovo.Show;
   frNovo.SetFocus;
+end;
+
+procedure TfrMain.spRelatorioClick(Sender: TObject);
+begin
+  ShowMessage('Abrir Relatórios');
+end;
+
+procedure TfrMain.spUsuarioClick(Sender: TObject);
+begin
+  ShowMessage('Abrir Usuários');
 end;
 
 procedure TfrMain.TiraFoco(Sender: TObject);
@@ -101,9 +121,7 @@ begin
 end;
 
 procedure TfrMain.FormCreate(Sender: TObject);
-
 begin
-  fFuncoes := TFuncoes.Create(nil);
 //    Descomentar depois
 //  try
 //    Application.CreateForm(TfrSplashScreen, frSplashScreen);
@@ -111,6 +129,19 @@ begin
 //  finally
 //    FreeAndNil(frSplashScreen);
 //  end;
+
+  try
+    Application.CreateForm(TfrLogin, frLogin);
+    frLogin.ShowModal;
+    if frLogin.ModalResult <> mrOk then
+    begin
+      Application.Terminate;
+      Abort;
+    end;
+    spUsuario.Caption := gdClasses_GD.fUsuarioLogado.Nome;
+  finally
+    FreeAndNil(frLogin);
+  end;
 end;
 
 procedure TfrMain.FormKeyDown(Sender: TObject; var Key: Word;
@@ -120,19 +151,20 @@ begin
   begin
     CloseQuery;
   end;
+
+
+end;
+
+procedure TfrMain.FormResize(Sender: TObject);
+begin
+  fFuncoes.SetCentralizaControles(TControl(pnCentral), TControl(pnLogoCentral));
 end;
 
 procedure TfrMain.FormShow(Sender: TObject);
 var
   s: String;
-begin  //Descomentar depois
-//  try
-//    Application.CreateForm(TfrLogin, frLogin);
-//    frLogin.ShowModal;
-//  finally
-//    FreeAndNil(frLogin);
-//  end;
-
+begin
+  fFuncoes.SetCentralizaControles(TControl(pnCentral), TControl(pnLogoCentral));
   {$REGION 'ComboBox de Estilos do Windows'}
 //  ComboBox1.items.BeginUpdate;
 //  try
@@ -148,13 +180,5 @@ begin  //Descomentar depois
 end;
 
 
-
-procedure TfrMain.pnPrincipalResize(Sender: TObject);
-begin
-  pnLogoCentral.Left := (pnCentral.Width div 2) - (pnLogoCentral.Width div 2);
-  pnLogoCentral.Top := (pnCentral.Height div 2) - (pnLogoCentral.Height div 2);
-
-  pnLogoCentral.Update;
-end;
 
 end.

@@ -5,7 +5,10 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
-  Vcl.Imaging.pngimage, Vcl.Buttons;
+  Vcl.Imaging.pngimage, Vcl.Buttons, udmConexao, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, gdClasses_GD, gdLoginClass;
 
 type
   TfrLogin = class(TForm)
@@ -36,10 +39,15 @@ type
     procedure spEntrarClick(Sender: TObject);
     procedure edSenhaKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
+    FDaoLogin: TLoginClass;
+    procedure SetDaoLogin(const Value: TLoginClass);
     { Private declarations }
   public
     { Public declarations }
+    property DaoLogin: TLoginClass read FDaoLogin write SetDaoLogin;
   end;
 
 var
@@ -56,15 +64,26 @@ begin
     spEntrar.Click;
 end;
 
+procedure TfrLogin.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if Assigned(FDaoLogin) then
+    FreeAndNil(FDaoLogin);
+end;
+
 procedure TfrLogin.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin                                      { TODO : Descomentar depois }
-//  if Application.MessageBox('Deseja realmente sair do GD Financeiro?', 'Confirmação!', MB_ICONQUESTION + MB_YESNO) = mrYes then
-//  begin
-    CanClose := True;
-//    Application.Terminate;
-//  end
-//  else
-//    CanClose := False;
+  if ModalResult <> mrOk then
+    if Application.MessageBox('Deseja realmente sair do GD Financeiro?', 'Confirmação!', MB_ICONQUESTION + MB_YESNO) = mrYes then
+    begin
+      CanClose := True;
+    end
+  else
+    CanClose := False;
+end;
+
+procedure TfrLogin.FormCreate(Sender: TObject);
+begin
+  FDaoLogin := TLoginClass.Create;
 end;
 
 procedure TfrLogin.FormKeyDown(Sender: TObject; var Key: Word;
@@ -90,14 +109,38 @@ begin
   edSenha.PasswordChar := '*';
 end;
 
+procedure TfrLogin.SetDaoLogin(const Value: TLoginClass);
+begin
+  FDaoLogin := Value;
+end;
+
 procedure TfrLogin.spEntrarClick(Sender: TObject);
 begin
-  if not((LowerCase(edUsuario.Text) = 'gabriel') and (edSenha.Text = '123')) then
+  if Trim(edUsuario.Text) = '' then
   begin
-    Application.MessageBox('Usuário e senha inválidos!', 'Atenção', MB_ICONERROR + MB_OK);
-    Exit;
+    edUsuario.SetFocus;
+    Application.MessageBox('Informe o seu usuário!', 'Atenção', MB_OK + MB_ICONWARNING);
+    Abort;
   end;
-  Close;
+
+  if Trim(edSenha.Text) = '' then
+  begin
+    edSenha.SetFocus;
+    Application.MessageBox('Informe a sua senha!', 'Atenção', MB_OK + MB_ICONWARNING);
+    Abort;
+  end;
+
+
+  try
+    FDaoLogin.EfetuarLogin(Trim(edUsuario.Text), Trim(edSenha.Text));
+    ModalResult := mrOk;
+  except on E: Exception do 
+    begin                         
+      Application.MessageBox(PWideChar(E.Message), 'Atenção!', + MB_OK + MB_ICONWARNING);
+      edUsuario.SetFocus;
+    end;
+  end;
+
 end;
 
 procedure TfrLogin.spEntrarMouseEnter(Sender: TObject);
