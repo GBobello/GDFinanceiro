@@ -195,6 +195,7 @@ inherited frUsuarios: TfrUsuarios
                 Expanded = False
                 FieldName = 'BDISADM'
                 Title.Caption = 'Administrador'
+                Width = 64
                 Visible = True
               end>
           end

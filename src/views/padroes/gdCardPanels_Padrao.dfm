@@ -451,7 +451,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Height = 28
                 Align = alClient
                 DisabledImageIndex = 14
-                Caption = 'Consultar (F9)'
+                Caption = 'Consultar'
                 ImageIndex = 12
                 Images = imageList
                 HotImageIndex = 13

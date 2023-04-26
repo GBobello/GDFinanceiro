@@ -18,7 +18,8 @@ uses
   gdNovoClass in 'src\classes\gdNovoClass.pas',
   gdUsuarioClass in 'src\classes\gdUsuarioClass.pas',
   udmUsuarios in 'src\dataModules\udmUsuarios.pas' {dmUsuarios: TDataModule},
-  gdCardPanels_Padrao in 'src\views\padroes\gdCardPanels_Padrao.pas' {frCardPanels_Padrao};
+  gdCardPanels_Padrao in 'src\views\padroes\gdCardPanels_Padrao.pas' {frCardPanels_Padrao},
+  udmNovo in 'src\dataModules\udmNovo.pas' {dmNovo: TDataModule};
 
 {$R *.res}
 
@@ -28,5 +29,6 @@ begin
   Application.CreateForm(TdmConexao, dmConexao);
   Application.CreateForm(TdmUsuarios, dmUsuarios);
   Application.CreateForm(TfrMain, frMain);
+  Application.CreateForm(TdmNovo, dmNovo);
   Application.Run;
 end.
