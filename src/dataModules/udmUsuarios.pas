@@ -48,10 +48,10 @@ begin
   try
     SQLConsulta.Connection := dmConexao.Conexao;
     SQLConsulta.SQL.Clear;
-    SQLConsulta.SQL.Add('SELECT MAX(BDCODUSU) FROM TB_USUARIOS');
+    SQLConsulta.SQL.Add('SELECT first 1 BDCODUSU FROM TB_USUARIOS order by BDCODUSU desc');
     SQLConsulta.Open;
 
-    if SQLConsulta.FieldByName('MAX').AsInteger = prID then
+    if SQLConsulta.FieldByName('BDCODUSU').AsInteger = prID then
     begin
       try
         SQLCommand := TFDCommand.Create(nil);

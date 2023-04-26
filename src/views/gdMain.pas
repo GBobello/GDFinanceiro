@@ -165,12 +165,12 @@ end;
 procedure TfrMain.FormCreate(Sender: TObject);
 begin
 //    Descomentar depois
-//  try
-//    Application.CreateForm(TfrSplashScreen, frSplashScreen);
-//    frSplashScreen.ShowModal;
-//  finally
-//    FreeAndNil(frSplashScreen);
-//  end;
+  try
+    Application.CreateForm(TfrSplashScreen, frSplashScreen);
+    frSplashScreen.ShowModal;
+  finally
+    FreeAndNil(frSplashScreen);
+  end;
 
   try
     Application.CreateForm(TfrLogin, frLogin);

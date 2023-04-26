@@ -18,6 +18,10 @@ type
     pnProgressao: TPanel;
     Timer: TTimer;
     Label1: TLabel;
+    imgPreparacao: TImage;
+    imgBancoDeDados: TImage;
+    imgConfiguracao: TImage;
+    imgFoguete: TImage;
     procedure FormCreate(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
   private
@@ -53,6 +57,15 @@ begin
   fStep := fStep + fStepUnit;
   pnProgressao.Width := fStep;
   Label1.Caption := Format('%1d', [Trunc((fStep / pnProgressBar.Width) * 100)]) + '%';
+
+  if Trunc((fStep / pnProgressBar.Width) * 100) = 25 then
+    imgPreparacao.Visible := True
+  else if Trunc((fStep / pnProgressBar.Width) * 100) = 45 then
+    imgBancoDeDados.Visible := True
+  else if Trunc((fStep / pnProgressBar.Width) * 100) = 70 then
+    imgConfiguracao.Visible := True
+  else if Trunc((fStep / pnProgressBar.Width) * 100) = 90 then
+    imgFoguete.Visible := True;
 end;
 
 end.
