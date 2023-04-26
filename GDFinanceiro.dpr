@@ -26,8 +26,7 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TdmConexao, dmConexao);
-  Application.CreateForm(TfrMain, frMain);
   Application.CreateForm(TdmUsuarios, dmUsuarios);
-  Application.CreateForm(TfrCardPanels_Padrao, frCardPanels_Padrao);
+  Application.CreateForm(TfrMain, frMain);
   Application.Run;
 end.
