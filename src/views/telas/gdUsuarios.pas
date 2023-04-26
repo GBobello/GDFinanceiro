@@ -4,13 +4,39 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, gdSimples, Vcl.Buttons, Vcl.ExtCtrls,
-  System.ImageList, Vcl.ImgList;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.ExtCtrls,
+  System.ImageList, Vcl.ImgList, Vcl.StdCtrls, Vcl.WinXPanels, Data.DB,
+  Vcl.Grids, Vcl.DBGrids, GD_Edit, GD_CheckBox, Vcl.Imaging.pngimage, gdFuncoes,
+  Datasnap.DBClient, Datasnap.Provider, udmUsuarios, gdCardPanels_Padrao, StrUtils,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  gdClasses_GD;
 
 type
-  TfrUsuarios = class(TfrSimples)
-    pnCentral: TPanel;
-    procedure FormResize(Sender: TObject);
+  TfrUsuarios = class(TfrCardPanels_Padrao)
+    dsUsuarios: TDataSource;
+    imgGrid: TImageList;
+    edNome: TGD_Edit;
+    edLogin: TGD_Edit;
+    edSenha: TGD_Edit;
+    chkIsAdministrador: TGD_CheckBox;
+    lbNome: TLabel;
+    lbLogin: TLabel;
+    lbSenha: TLabel;
+    imgOlhoAberto: TImage;
+    imgOlhoFechado: TImage;
+    procedure imgOlhoAbertoClick(Sender: TObject);
+    procedure imgOlhoFechadoClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure dbGridDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure spEditarClick(Sender: TObject);
+    procedure spSalvarClick(Sender: TObject);
+    procedure spNovoItemClick(Sender: TObject);
+    procedure spCancelarClick(Sender: TObject);
+    procedure spConsultarClick(Sender: TObject);
+    procedure spExcluirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -19,16 +45,154 @@ type
 
 var
   frUsuarios: TfrUsuarios;
+  fFuncoes: TFuncoes;
 
 implementation
 
 {$R *.dfm}
 
-procedure TfrUsuarios.FormResize(Sender: TObject);
+procedure TfrUsuarios.dbGridDrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
   inherited;
-  pnCentral.Left := (pnPrincipal.Width div 2) - (pnCentral.Width div 2);
-  pnCentral.Top  := (pnPrincipal.Height div 2) - (pnCentral.Height div 2);
+  if not dbGrid.DataSource.DataSet.IsEmpty then
+  begin
+    if Column.FieldName = 'BDISADM' then
+    begin
+      dbGrid.Canvas.FillRect(Rect);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 32, Rect.Top + 4, 0);
+
+      if dmUsuarios.cdsUsuariosBDISADM.Value = False then
+        imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 32, Rect.Top + 4, 1);
+    end;
+  end;
+end;
+
+procedure TfrUsuarios.FormCreate(Sender: TObject);
+begin
+  inherited;
+  cdPanel.ActiveCard := cardConsultaUsuarios;
+  dmUsuarios.cdsUsuarios.Close;
+  dmUsuarios.cdsUsuarios.CommandText := 'SELECT * FROM TB_USUARIOS';
+  dmUsuarios.cdsUsuarios.Open;
+end;
+
+procedure TfrUsuarios.imgOlhoAbertoClick(Sender: TObject);
+begin
+  inherited;
+  imgOlhoAberto.Visible := False;
+  imgOlhoFechado.Visible := True;
+  edSenha.PasswordChar := #0;
+end;
+
+procedure TfrUsuarios.imgOlhoFechadoClick(Sender: TObject);
+begin
+  inherited;
+  imgOlhoAberto.Visible := True;
+  imgOlhoFechado.Visible := False;
+  edSenha.PasswordChar := '*';
+end;
+
+procedure TfrUsuarios.spCancelarClick(Sender: TObject);
+begin
+  inherited;
+  dmUsuarios.cdsUsuarios.Cancel;
+end;
+
+procedure TfrUsuarios.spConsultarClick(Sender: TObject);
+begin
+  inherited;
+  dmUsuarios.cdsUsuarios.Cancel;
+end;
+
+procedure TfrUsuarios.spEditarClick(Sender: TObject);
+begin
+  inherited;
+  dmUsuarios.cdsUsuarios.Edit;
+
+  edNome.Text                 := dmUsuarios.cdsUsuariosBDNOMUSU.AsString;
+  edLogin.Text                := dmUsuarios.cdsUsuariosBDLOGINUSU.AsString;
+  edSenha.Text                := dmUsuarios.cdsUsuariosBDSENHAUSU.AsString;
+  chkIsAdministrador.Checked  := dmUsuarios.cdsUsuariosBDISADM.AsBoolean;
+end;
+
+procedure TfrUsuarios.spExcluirClick(Sender: TObject);
+begin
+  inherited;
+  if gdClasses_GD.fUsuarioLogado.ID = dmUsuarios.cdsUsuariosBDCODUSU.AsInteger then
+  begin
+    Application.MessageBox('Você não pode excluir seu próprio usuário!', 'Atenção!', MB_OK + MB_ICONEXCLAMATION);
+    Exit;
+  end;
+
+  if Application.MessageBox('Deseja realmente excluir esse registro?', 'Pergunta!', MB_YESNO + MB_ICONQUESTION) <> mrYes then
+    Exit;
+
+  try
+    dmUsuarios.DecrementaGenerator(dmUsuarios.cdsUsuariosBDCODUSU.AsInteger);
+    dmUsuarios.cdsUsuarios.Delete;
+    dmUsuarios.cdsUsuarios.ApplyUpdates(0);
+    Application.MessageBox('Registro excluído com sucesso!', 'Confirmação!', MB_OK + MB_ICONINFORMATION);
+  except on E: Exception do
+    Application.MessageBox(PWideChar(E.Message), 'Erro ao excluir registro!', MB_OK + MB_ICONERROR);
+  end;
+end;
+
+procedure TfrUsuarios.spNovoItemClick(Sender: TObject);
+begin
+  inherited;
+  LimparCampos;
+  dmUsuarios.cdsUsuarios.Insert;
+end;
+
+procedure TfrUsuarios.spSalvarClick(Sender: TObject);
+var
+  wMsg: String;
+begin
+  if Trim(edNome.Text) = '' then
+  begin
+    edNome.SetFocus;
+    Application.MessageBox('O campo nome não pode ser vazio!', 'Atenção!', MB_OK + MB_ICONWARNING);
+    Abort;
+  end;
+  if Trim(edLogin.Text) = '' then
+  begin
+    edLogin.SetFocus;
+    Application.MessageBox('O campo login não pode ser vazio!', 'Atenção!', MB_OK + MB_ICONWARNING);
+    Abort;
+  end;
+  if Trim(edSenha.Text) = '' then
+  begin
+    edSenha.SetFocus;
+    Application.MessageBox('O campo senha não pode ser vazio!', 'Atenção!', MB_OK + MB_ICONWARNING);
+    Abort;
+  end;
+
+  if dmUsuarios.TemLoginCadastrado(Trim(edLogin.Text), dmUsuarios.cdsUsuariosBDCODUSU.AsString) then
+  begin
+    edLogin.SetFocus;
+    Application.MessageBox(PWideChar(Format('O login %s já se encontra cadastrado!', [edLogin.Text])), 'Atenção!', MB_OK + MB_ICONWARNING);
+    Abort;
+  end;
+
+  wMsg := 'Registro alterado com sucesso!';
+
+  if dmUsuarios.cdsUsuarios.State in [dsInsert] then
+  begin
+    dmUsuarios.cdsUsuariosBDCODUSU.AsInteger := dmUsuarios.GetChaveGenerator;
+    wMsg := 'Registro incluído com sucesso!'
+  end;
+
+  dmUsuarios.cdsUsuariosBDNOMUSU.AsString   := Trim(edNome.Text);
+  dmUsuarios.cdsUsuariosBDLOGINUSU.AsString := Trim(edLogin.Text);
+  dmUsuarios.cdsUsuariosBDSENHAUSU.AsString := Trim(edSenha.Text);
+  dmUsuarios.cdsUsuariosBDISADM.AsBoolean   := chkIsAdministrador.Checked;
+
+  dmUsuarios.cdsUsuarios.Post;
+  dmUsuarios.cdsUsuarios.ApplyUpdates(0);
+  Application.MessageBox(PWideChar(wMsg), 'Confirmação!', MB_OK + MB_ICONINFORMATION);
+
+  inherited;
 end;
 
 end.

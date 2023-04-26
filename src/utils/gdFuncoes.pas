@@ -3,7 +3,8 @@ unit gdFuncoes;
 interface
 
 uses
-  Windows, Vcl.Graphics, Vcl.Controls, Vcl.ExtCtrls, Vcl.Buttons;
+  System.Classes, Windows, Vcl.Graphics, Vcl.Forms, Vcl.Controls, Vcl.ExtCtrls, Vcl.Buttons,
+  IdHash ,IdHashMessageDigest, StrUtils, SysUtils;
 
 type
   TFuncoes = record
@@ -11,6 +12,8 @@ type
       procedure SetaFoco(prPainel: TPanel; prSpeedButton: TSpeedButton; prPainelButton: TPanel; prFocar: Boolean);
       procedure SetaFocoBotoes(prSpeedButton: TSpeedButton; prPainelButton: TPanel; prFocar: Boolean; prColor: TColor);
       procedure SetCentralizaControles(prControlePai: TControl; prControleFilho: TControl);
+      function CriptografaSenha(prSenha: String): String;
+      function DescriptografaSenha(prSenha: String): String;
 
   end;
 
@@ -19,6 +22,27 @@ implementation
 
 
 { TFuncoes }
+
+
+function TFuncoes.CriptografaSenha(prSenha: String): String;
+var
+  wI: Integer;
+begin
+  for wI := 1 to Length(prSenha) do
+  begin
+    Result := Result + Chr(Ord(prSenha[wI]) + wI + 25);
+  end;
+end;
+
+function TFuncoes.DescriptografaSenha(prSenha: String): String;
+var
+  wI: Integer;
+begin
+  for wI := 1 to Length(prSenha) do
+  begin
+    Result := Result + Chr(Ord(prSenha[wI]) - wI - 25);
+  end;
+end;
 
 procedure TFuncoes.SetaFoco(prPainel: TPanel; prSpeedButton: TSpeedButton;
   prPainelButton: TPanel; prFocar: Boolean);

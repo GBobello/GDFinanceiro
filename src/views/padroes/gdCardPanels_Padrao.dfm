@@ -1,39 +1,58 @@
-inherited frNovo: TfrNovo
-  Caption = 'Novo'
-  OnClose = FormClose
-  OnCreate = FormCreate
+inherited frCardPanels_Padrao: TfrCardPanels_Padrao
+  Caption = 'frCardPanels_Padrao'
+  ClientHeight = 608
+  ClientWidth = 1055
   OnResize = FormResize
-  OnShow = FormShow
+  ExplicitWidth = 1055
+  ExplicitHeight = 608
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnPrincipal: TPanel
-    object cdPanel: TCardPanel [0]
+    Width = 1055
+    Height = 608
+    ExplicitWidth = 1055
+    ExplicitHeight = 608
+    inherited pnBarraSuperior: TPanel
+      Width = 1055
+      ExplicitWidth = 1055
+      DesignSize = (
+        1055
+        41)
+      inherited spFecha: TSpeedButton
+        Left = 1028
+        ExplicitLeft = 1028
+      end
+      inherited spMinimiza: TSpeedButton
+        Left = 999
+        ExplicitLeft = 999
+      end
+    end
+    object cdPanel: TCardPanel
       Left = 0
       Top = 41
-      Width = 1164
-      Height = 688
+      Width = 1055
+      Height = 567
       Align = alClient
-      ActiveCard = cardCadastro
-      BevelOuter = bvNone
-      TabOrder = 0
-      object cardConsulta: TCard
-        Left = 0
-        Top = 0
-        Width = 1164
-        Height = 688
+      ActiveCard = cardCadastroUsuarios
+      TabOrder = 1
+      object cardConsultaUsuarios: TCard
+        Left = 1
+        Top = 1
+        Width = 1053
+        Height = 565
         Caption = 'cardConsulta'
         CardIndex = 0
         TabOrder = 0
         object pnBotoesConsulta: TPanel
           Left = 0
-          Top = 616
-          Width = 1164
+          Top = 493
+          Width = 1053
           Height = 72
           Align = alBottom
           BevelOuter = bvNone
           TabOrder = 0
-          object pnLeftBotoes: TPanel
-            Left = 624
+          object pnLeftBotoesConsulta: TPanel
+            Left = 513
             Top = 0
             Width = 540
             Height = 72
@@ -273,23 +292,40 @@ inherited frNovo: TfrNovo
             end
           end
         end
+        object pnPesquisa: TPanel
+          Left = 0
+          Top = 0
+          Width = 1053
+          Height = 50
+          Align = alTop
+          BevelOuter = bvNone
+          Caption = 'Pesquisa'
+          TabOrder = 1
+        end
         object pnCentralPesquisa: TPanel
           Left = 0
           Top = 50
-          Width = 1164
-          Height = 566
+          Width = 1053
+          Height = 443
           Align = alClient
           BevelOuter = bvNone
           Padding.Left = 50
           Padding.Right = 50
           Padding.Bottom = 15
-          TabOrder = 1
-          object DBGrid1: TDBGrid
+          TabOrder = 2
+          object dbGrid: TDBGrid
             Left = 50
             Top = 0
-            Width = 1064
-            Height = 551
+            Width = 953
+            Height = 428
             Align = alClient
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+            ParentFont = False
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
             TitleFont.Color = clWindowText
@@ -298,35 +334,25 @@ inherited frNovo: TfrNovo
             TitleFont.Style = []
           end
         end
-        object pnPesquisa: TPanel
-          Left = 0
-          Top = 0
-          Width = 1164
-          Height = 50
-          Align = alTop
-          BevelOuter = bvNone
-          Caption = 'Pesquisa'
-          TabOrder = 2
-        end
       end
-      object cardCadastro: TCard
-        Left = 0
-        Top = 0
-        Width = 1164
-        Height = 688
+      object cardCadastroUsuarios: TCard
+        Left = 1
+        Top = 1
+        Width = 1053
+        Height = 565
         Caption = 'cardCadastro'
         CardIndex = 1
         TabOrder = 1
         object pnBotoesCadastro: TPanel
           Left = 0
-          Top = 616
-          Width = 1164
+          Top = 493
+          Width = 1053
           Height = 72
           Align = alBottom
           BevelOuter = bvNone
           TabOrder = 0
           object pnLeftBotoesCadastro: TPanel
-            Left = 624
+            Left = 513
             Top = 0
             Width = 540
             Height = 72
@@ -361,10 +387,8 @@ inherited frNovo: TfrNovo
                 Font.Style = []
                 ParentFont = False
                 OnClick = spCancelarClick
-                ExplicitLeft = -4
-                ExplicitTop = -4
-                ExplicitWidth = 141
-                ExplicitHeight = 26
+                ExplicitLeft = -5
+                ExplicitTop = -5
               end
               object pnCimaCancelar: TPanel
                 Left = 0
@@ -439,10 +463,8 @@ inherited frNovo: TfrNovo
                 Font.Style = []
                 ParentFont = False
                 OnClick = spConsultarClick
-                ExplicitLeft = 72
-                ExplicitTop = 8
-                ExplicitWidth = 23
-                ExplicitHeight = 22
+                ExplicitLeft = -5
+                ExplicitTop = -5
               end
               object pnCimaConsultar: TPanel
                 Left = 0
@@ -516,6 +538,7 @@ inherited frNovo: TfrNovo
                 Font.Name = 'JejuGothic'
                 Font.Style = []
                 ParentFont = False
+                OnClick = spSalvarClick
                 ExplicitLeft = -5
                 ExplicitTop = -5
               end
@@ -569,328 +592,30 @@ inherited frNovo: TfrNovo
         object pnEditsCadastro: TPanel
           Left = 0
           Top = 0
-          Width = 1164
-          Height = 616
+          Width = 1053
+          Height = 493
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          object pnCentralCadastro: TPanel
-            Left = 278
-            Top = 209
-            Width = 609
-            Height = 200
+          object pnCentralCadastros: TPanel
+            Left = 266
+            Top = 131
+            Width = 521
+            Height = 231
             BevelOuter = bvNone
             TabOrder = 0
-            object lbCodigo: TLabel
-              Left = 32
-              Top = 7
-              Width = 48
-              Height = 18
-              Caption = 'C'#243'digo:'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object lbDataDoItem: TLabel
-              Left = 164
-              Top = 7
-              Width = 90
-              Height = 18
-              Caption = 'Data do item:'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object lbResponsavel: TLabel
-              Left = 272
-              Top = 7
-              Width = 86
-              Height = 18
-              Caption = 'Respons'#225'vel:'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object lbQuantidade: TLabel
-              Left = 32
-              Top = 70
-              Width = 79
-              Height = 18
-              Caption = 'Quantidade:'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object lbModelo: TLabel
-              Left = 164
-              Top = 70
-              Width = 51
-              Height = 18
-              Caption = 'Modelo:'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object lbTotal: TLabel
-              Left = 489
-              Top = 163
-              Width = 94
-              Height = 18
-              Caption = 'Total: R$ 0,00'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clGrayText
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              Visible = False
-            end
-            object lbServico: TLabel
-              Left = 32
-              Top = 135
-              Width = 51
-              Height = 18
-              Caption = 'Servi'#231'o:'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object edCodigo: TGD_Edit
-              Left = 32
-              Top = 30
-              Width = 121
-              Height = 27
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -16
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 0
-              MudarCor = 13828095
-            end
-            object mskDataDoItem: TGD_MaskEdit_Data
-              Left = 164
-              Top = 30
-              Width = 98
-              Height = 27
-              Alignment = taCenter
-              EditMask = '99/99/9999;1; '
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -16
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              MaxLength = 10
-              ParentFont = False
-              TabOrder = 1
-              Text = '  /  /    '
-              MudarCor = 13828095
-            end
-            object spedQuantidade: TGD_SpinEdit
-              Left = 32
-              Top = 94
-              Width = 121
-              Height = 29
-              Ctl3D = True
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -16
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              MaxValue = 0
-              MinValue = 0
-              ParentCtl3D = False
-              ParentFont = False
-              TabOrder = 3
-              Value = 0
-              MudarCor = 13828095
-            end
-            object dbcbModelo: TGD_DBLookupComboBox
-              Left = 159
-              Top = 94
-              Width = 419
-              Height = 27
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -16
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              KeyField = 'BDCODSOFA'
-              ListField = 'BDDESCSOFA'
-              ListSource = dsModelo
-              ParentFont = False
-              TabOrder = 4
-              MudarCor = 13828095
-            end
-            object dbcbResponsavel: TGD_DBLookupComboBox
-              Left = 268
-              Top = 31
-              Width = 311
-              Height = 27
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -16
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              KeyField = 'BDCODUSU'
-              ListField = 'BDNOMUSU'
-              ListSource = dsResponsavel
-              ParentFont = False
-              TabOrder = 2
-              MudarCor = 13828095
-            end
-            object cbServico: TGD_ComboBox
-              Left = 32
-              Top = 160
-              Width = 436
-              Height = 26
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -15
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 5
-              Text = 'Corte'
-              OnChange = cbServicoChange
-              OnEnter = cbServicoEnter
-              Items.Strings = (
-                'Corte'
-                'Costura'
-                'Corte + Costura')
-              MudarCor = 13828095
-            end
           end
         end
       end
     end
-    inherited pnBarraSuperior: TPanel
-      TabOrder = 1
-      inherited pnNomeDaTela: TPanel
-        inherited lbNomeDaTela: TLabel
-          Caption = 'Novo'
-          ExplicitLeft = 49
-          ExplicitTop = -6
-          ExplicitWidth = 160
-          ExplicitHeight = 41
-        end
-        inherited imgTela: TImage
-          Picture.Data = {
-            07544269746D6170FE0A0000424DFE0A00000000000036000000280000001E00
-            00001E0000000100180000000000C80A0000C40E0000C40E0000000000000000
-            0000FFFFFFA1A1A1252525010101000000000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000000E0E0E5959
-            59E9E9E9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000A0A0
-            A00000000303032A2A2A33333333333333333333333333333333333333333333
-            33333333333333333333333333333333333333333333331212120000002F2F2F
-            F9F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000232323030303
-            C2C2C2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7F7F7454545000000ACACACFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000010101272727FFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF9F9F9F0000007E7E7EFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000002D2D2DFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFF5F5F58383830000005C5C5CEDEDEDFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFF00000000002D2D2DFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFDFDFDF5D5D5D070707000000000000000000010101474747C7C7C7FFFFFFFF
-            FFFFFFFFFFFFFFFF00000000002D2D2DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB1B1B10C0C0C
-            0000001010104E4E4E7070705C5C5C1D1D1D000000030303868686FFFFFFFFFF
-            FFFFFFFF00000000002D2D2DFFFFFFFFFFFFF4F4F48282827777777777777777
-            77777777777777909090FFFFFFFFFFFFFFFFFFC1C1C10505050202027F7F7FF2
-            F2F2FFFFFFFFFFFFFFFFFFFDFDFD9E9E9E0D0D0D0000008F8F8FFFFFFFFFFFFF
-            00000000002D2D2DFFFFFFFFFFFFBCBCBC000000000000000000000000000000
-            000000010101EAEAEAFFFFFFF9F9F9202020000000A1A1A1FFFFFFFFFFFFEEEE
-            EE818181DDDDDDFFFFFFFFFFFFCACACA090909060606DBDBDBFFFFFF00000000
-            002D2D2DFFFFFFFFFFFFFCFCFCB2B2B2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABE
-            BEBEFFFFFFFFFFFFA0A0A0000000515151FFFFFFFFFFFFFFFFFFA8A8A8000000
-            7B7B7BFFFFFFFFFFFFFFFFFF868686000000686868FFFFFF00000000002D2D2D
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFF535353000000BFBFBFFFFFFFFFFFFFFFFFFFA5A5A5000000787878FF
-            FFFFFFFFFFFFFFFFEDEDED0404041B1B1BFFFFFF00000000002D2D2DFFFFFFFF
-            FFFFE5E5E54B4B4B444444444444444444444444444444575757FBFBFBFFFFFF
-            2C2C2C030303F7F7F7FBFBFB5757574444442C2C2C0000002020204444444B4B
-            4BE6E6E6FFFFFF292929000000F2F2F200000000002D2D2DFFFFFFFFFFFFC8C8
-            C8010101000000000000000000000000000000090909EEEEEEFFFFFF25252501
-            0101FDFDFDEEEEEE090909000000000000000000000000000000010101C9C9C9
-            FFFFFF2E2E2E000000EAEAEA00000000002D2D2DFFFFFFFFFFFFFFFFFFE8E8E8
-            DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDEEEEEEFFFFFFFFFFFF404040000000DCDC
-            DCFFFFFFEEEEEEDDDDDD8F8F8F000000686868DDDDDDE8E8E8FFFFFFFDFDFD0A
-            0A0A090909FDFDFD00000000002D2D2DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF818181000000848484FFFFFF
-            FFFFFFFFFFFFA5A5A5000000787878FFFFFFFFFFFFFFFFFFABABAB0000004848
-            48FFFFFF00000000002D2D2DFFFFFFFFFFFFD2D2D20B0B0B0000000000000000
-            00000000000000191919F2F2F2FFFFFFE2E2E20606060D0D0DDADADAFFFFFFFF
-            FFFFD1D1D1272727B0B0B0FFFFFFFFFFFFEFEFEF282828000000B1B1B1FFFFFF
-            00000000002D2D2DFFFFFFFFFFFFDBDBDB2A2A2A222222222222222222222222
-            222222373737F7F7F7FFFFFFFFFFFF818181000000242424CFCFCFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFE4E4E43C3C3C0000004A4A4AFEFEFEFFFFFF00000000
-            002D2D2DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFCFCFC5C5C5C0000000808085E5E5EAFAFAFC5C5C5
-            B4B4B47272720D0D0D000000353535EDEDEDFFFFFFFFFFFF00000000002D2D2D
-            FFFFFFFFFFFFFFFFFFCBCBCBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-            BBBBBBBBBBBBBBE8E8E8FDFDFD8F8F8F0E0E0E00000000000000000000000000
-            00000505056C6C6CF4F4F4FFFFFFFFFFFFFFFFFF00000000002D2D2DFFFFFFFF
-            FFFFC0C0C0000000000000000000000000000000000000000000000000000000
-            0000002C2C2CFFFFFFFFFFFFF2F2F2A0A0A0474747000000313131919191E4E4
-            E4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000002D2D2DFFFFFFFFFFFFEDED
-            ED62626255555555555555555555555555555555555555555555555555555597
-            9797FFFFFFFFFFFFFFFFFFFFFFFFA5A5A5000000787878FFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFF00000000002D2D2DFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFA5A5A5000000787878FFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFF00000000002D2D2DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBEBEBE888888888888888888
-            888888888888585858000000787878FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFF00000000002D2D2DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF1B1B1B00000000000000000000000000
-            0000000000000000818181FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            00000000002D2D2DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFF0F0F0F0909099999999999996C6C6C0000000000
-            003D3D3DEEEEEEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000
-            002D2D2DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFF0F0F0F0F0F0FFFFFFFBBBBBB0F0F0F000000555555F6F6F6
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000010101272727
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFF0F0F0F0F0F0F9898980404040101017F7F7FFEFEFEFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000232323030303C3C3C3FF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            0F0F0F010101000000070707A3A3A3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00009E9E9E0000000303032A2A2A3333
-            3333333333333333333333333333333333333333333333333333333303030300
-            0000131313C1C1C1FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFF9E9E9E242424000000000000000000
-            0000000000000000000000000000000000000000000000000000002A2A2ADADA
-            DAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFF0000}
-        end
-      end
-    end
+  end
+  inherited imgList: TImageList
+    Left = 896
+    Top = 64
   end
   object imageList: TImageList
-    Left = 1120
-    Top = 129
+    Left = 891
+    Top = 121
     Bitmap = {
       494C010112001800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000005000000001002000000000000050
@@ -1558,35 +1283,5 @@ inherited frNovo: TfrNovo
       318C318C318C3E0313C813C813C83F019FF99FF99FF91F8087E187E187E10000
       C183C183C1838020F00FF00FF00FFFF000000000000000000000000000000000
       000000000000}
-  end
-  object dsResponsavel: TDataSource
-    DataSet = queryUsuarios
-    Left = 1064
-    Top = 264
-  end
-  object dsModelo: TDataSource
-    DataSet = queryModelo
-    OnUpdateData = dsModeloUpdateData
-    Left = 1064
-    Top = 355
-  end
-  object queryModelo: TFDQuery
-    Connection = dmConexao.Conexao
-    SQL.Strings = (
-      'select * from TB_SOFAS;')
-    Left = 1064
-    Top = 402
-  end
-  object queryUsuarios: TFDQuery
-    Connection = dmConexao.Conexao
-    SQL.Strings = (
-      'SELECT * FROM TB_USUARIOS')
-    Left = 1064
-    Top = 311
-  end
-  object queryConsulta: TFDQuery
-    Connection = dmConexao.Conexao
-    Left = 1064
-    Top = 472
   end
 end

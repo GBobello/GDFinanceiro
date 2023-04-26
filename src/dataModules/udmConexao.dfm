@@ -12,6 +12,7 @@ object dmConexao: TdmConexao
       'Password=masterkey'
       'DriverID=FB')
     Connected = True
+    LoginPrompt = False
     Left = 48
     Top = 16
   end

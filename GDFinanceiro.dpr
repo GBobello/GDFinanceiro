@@ -16,7 +16,9 @@ uses
   gdUsuarioLogado in 'src\classes\gdUsuarioLogado.pas',
   gdLoginClass in 'src\classes\gdLoginClass.pas',
   gdNovoClass in 'src\classes\gdNovoClass.pas',
-  gdUsuarioClass in 'src\classes\gdUsuarioClass.pas';
+  gdUsuarioClass in 'src\classes\gdUsuarioClass.pas',
+  udmUsuarios in 'src\dataModules\udmUsuarios.pas' {dmUsuarios: TDataModule},
+  gdCardPanels_Padrao in 'src\views\padroes\gdCardPanels_Padrao.pas' {frCardPanels_Padrao};
 
 {$R *.res}
 
@@ -25,5 +27,7 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TdmConexao, dmConexao);
   Application.CreateForm(TfrMain, frMain);
+  Application.CreateForm(TdmUsuarios, dmUsuarios);
+  Application.CreateForm(TfrCardPanels_Padrao, frCardPanels_Padrao);
   Application.Run;
 end.

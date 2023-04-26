@@ -55,6 +55,7 @@ type
     procedure spPesquisaClick(Sender: TObject);
     procedure spRelatorioClick(Sender: TObject);
     procedure spUsuarioClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -96,17 +97,58 @@ end;
 
 procedure TfrMain.spRelatorioClick(Sender: TObject);
 begin
-  ShowMessage('Abrir Relatórios');
+  if spRelatorio.Enabled then
+    ShowMessage('Abrir Relatórios')
+  else
+    Application.MessageBox('Somente usuários administradores podem acessar essa função!', 'Atenção!', MB_OK + MB_ICONERROR);
 end;
 
 procedure TfrMain.spUsuarioClick(Sender: TObject);
 begin
-  ShowMessage('Abrir Usuários');
+  if spUsuario.Enabled then
+  begin
+    Application.CreateForm(TfrUsuarios, frUsuarios);
+    frUsuarios.Parent := pnCentral;
+    frUsuarios.Show;
+    frUsuarios.SetFocus;
+  end
+  else
+    Application.MessageBox('Somente usuários administradores podem acessar essa função!', 'Atenção!', MB_OK + MB_ICONERROR);
 end;
 
 procedure TfrMain.TiraFoco(Sender: TObject);
 begin
   fFuncoes.SetaFoco(pnFoco, TComponent(Sender) as TSpeedButton, TComponent(Sender).GetParentComponent as TPanel, False);
+end;
+
+procedure TfrMain.FormActivate(Sender: TObject);
+begin
+  if gdClasses_GD.fUsuarioLogado.IsAdm then
+  begin
+    spUsuario.Enabled := True;
+    spUsuario.OnMouseEnter := SetaFoco;
+    spUsuario.OnMouseLeave := TiraFoco;
+    spUsuario.ShowHint := False;
+
+    spRelatorio.Enabled := True;
+    spRelatorio.OnMouseEnter := SetaFoco;
+    spRelatorio.OnMouseLeave := TiraFoco;
+    spUsuario.ShowHint := False;
+  end
+  else
+  begin
+    spUsuario.Enabled := False;
+    spUsuario.OnMouseEnter := nil;
+    spUsuario.OnMouseLeave := nil;
+    spUsuario.Hint := 'Somente usuários administradores podem acessar essa função!';
+    spUsuario.ShowHint := True;
+
+    spRelatorio.Enabled := False;
+    spRelatorio.OnMouseEnter := nil;
+    spRelatorio.OnMouseLeave := nil;
+    spRelatorio.Hint := 'Somente usuários administradores podem acessar essa função!';
+    spRelatorio.ShowHint := True;
+  end;
 end;
 
 procedure TfrMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);

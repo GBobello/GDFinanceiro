@@ -15,8 +15,8 @@ type
     imgList: TImageList;
     pnBarraSuperior: TPanel;
     pnNomeDaTela: TPanel;
-    Label1: TLabel;
-    Image1: TImage;
+    lbNomeDaTela: TLabel;
+    imgTela: TImage;
     pnSeparadorNome: TPanel;
     procedure spFechaClick(Sender: TObject);
     procedure spMinimizaClick(Sender: TObject);
@@ -25,6 +25,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    procedure LimparCampos;
   end;
 
 var
@@ -39,6 +40,19 @@ procedure TfrSimples.FormKeyDown(Sender: TObject; var Key: Word;
 begin
   if Key = VK_ESCAPE then
     Close;
+end;
+
+procedure TfrSimples.LimparCampos;
+var
+  wI: Integer;
+begin
+  for wI := 0 to Pred(ComponentCount) do
+  begin
+    if Components[wI] is TCustomEdit then
+      TCustomEdit(Components[wI]).Clear;
+    if Components[wI] is TCheckBox then
+      TCheckBox(Components[wI]).Checked := False;
+  end;
 end;
 
 procedure TfrSimples.spFechaClick(Sender: TObject);

@@ -10,6 +10,9 @@ uses
   FireDAC.Phys.IBBase, FireDAC.Comp.UI, udmConexao, gdClasses_GD,
   System.SysUtils;
 
+const
+  C_SELECT_PADRAO = 'SELECT * FROM TB_USUARIOS';
+
 type
   TUsuarioClass = class
     private
@@ -66,7 +69,7 @@ end;
 procedure TUsuarioClass.GetUsuarios;
 begin
   FQueryConsulta.SQL.Clear;
-  FQueryConsulta.SQL.Add('SELECT * FROM TB_USUARIOS');
+  FQueryConsulta.SQL.Add(C_SELECT_PADRAO);
   FQueryConsulta.Open;
 end;
 

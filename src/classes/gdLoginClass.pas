@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
   Data.DB, FireDAC.Comp.Client, FireDAC.Phys.FB, FireDAC.Phys.FBDef,
   FireDAC.Phys.IBBase, FireDAC.Comp.UI, udmConexao, gdClasses_GD,
-  System.SysUtils;
+  System.SysUtils, gdFuncoes;
 
 type
   TLoginClass = class
@@ -40,6 +40,9 @@ type
       property BDSENHAUSU: String read FBDSENHAUSU write SetBDSENHAUSU;
       property BDISADM: Boolean read FBDISADM write SetBDISADM;
   end;
+
+var
+  fFuncoes: TFuncoes;
 
 implementation
 
