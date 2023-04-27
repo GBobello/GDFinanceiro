@@ -166,11 +166,15 @@ begin
   begin
     lbTotal.Visible := False;
     dmNovo.cdsNovo.Close;
-    dmNovo.cdsNovo.CommandText := 'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA ' +
-                              'from TB_SERVICOS SERV ' +
-                              'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU) ' +
-                              'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA)' +
-                              'where SERV.BDCODUSU = ' + IntToStr(gdClasses_GD.fUsuarioLogado.ID);
+    dmNovo.cdsNovo.CommandText := 'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA, ' +
+                                  'case SERV.BDSERVICO ' +
+                                  'when ' + QuotedStr('0') + ' then ' + QuotedStr('Corte') + ' ' +
+                                  'when ' + QuotedStr('1') + ' then ' + QuotedStr('Costura') + ' ' +
+                                  'when ' + QuotedStr('2') + ' then ' + QuotedStr('Corte + Costura') + ' ' +
+                                  'end as BDSERVICOPALAVRA ' +
+                                  'from TB_SERVICOS SERV ' +
+                                  'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU) ' +
+                                  'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA)';
     dmNovo.cdsNovo.Open;
     dbGrid.Columns[6].Visible := False;
     dmNovo.queryUsuarios.SQL.Clear;

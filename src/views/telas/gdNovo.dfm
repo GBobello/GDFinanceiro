@@ -147,11 +147,6 @@ inherited frNovo: TfrNovo
         inherited pnPesquisa: TPanel
           Width = 1035
           ExplicitWidth = 1035
-          inherited Label1: TLabel
-            ExplicitLeft = 55
-            ExplicitTop = 10
-            ExplicitHeight = 16
-          end
           inherited GD_Edit1: TGD_Edit
             Width = 863
             ExplicitLeft = 122
@@ -206,6 +201,7 @@ inherited frNovo: TfrNovo
                 Expanded = False
                 FieldName = 'BDSERVICOPALAVRA'
                 Title.Caption = 'Servi'#231'o'
+                Width = 64
                 Visible = True
               end
               item
