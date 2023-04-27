@@ -33,7 +33,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
       Width = 1055
       Height = 567
       Align = alClient
-      ActiveCard = cardCadastroUsuarios
+      ActiveCard = cardConsultaUsuarios
       TabOrder = 1
       object cardConsultaUsuarios: TCard
         Left = 1
@@ -299,8 +299,48 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
           Height = 50
           Align = alTop
           BevelOuter = bvNone
-          Caption = 'Pesquisa'
+          Padding.Left = 55
+          Padding.Top = 10
+          Padding.Right = 50
+          Padding.Bottom = 10
           TabOrder = 1
+          object Label1: TLabel
+            Left = 55
+            Top = 10
+            Width = 67
+            Height = 30
+            Align = alLeft
+            Caption = 'Pesquisa: '
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'JejuGothic'
+            Font.Style = []
+            ParentFont = False
+            Layout = tlCenter
+            Visible = False
+            ExplicitLeft = 49
+            ExplicitTop = 5
+          end
+          object GD_Edit1: TGD_Edit
+            Left = 122
+            Top = 10
+            Width = 881
+            Height = 30
+            Align = alClient
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+            Text = 'GD_Edit1'
+            Visible = False
+            MudarCor = 13828095
+            ExplicitLeft = 128
+            ExplicitTop = 14
+          end
         end
         object pnCentralPesquisa: TPanel
           Left = 0

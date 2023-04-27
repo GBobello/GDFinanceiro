@@ -43,6 +43,7 @@ type
     aclPesquisaShortCut: TAction;
     aclRelatoriosShortCut: TAction;
     aclUsuarios: TAction;
+    Image1: TImage;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
@@ -56,6 +57,7 @@ type
     procedure spRelatorioClick(Sender: TObject);
     procedure spUsuarioClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -193,8 +195,6 @@ begin
   begin
     CloseQuery;
   end;
-
-
 end;
 
 procedure TfrMain.FormResize(Sender: TObject);
@@ -222,5 +222,15 @@ begin
 end;
 
 
+
+procedure TfrMain.Image1Click(Sender: TObject);
+begin    //Só para trocar a personalização
+  try
+    application.CreateForm(TfrLogin, frLogin);
+    frLogin.ShowModal;
+  finally
+    FreeAndNil(frLogin);
+  end;
+end;
 
 end.

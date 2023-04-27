@@ -36,22 +36,20 @@ type
     procedure spCancelarClick(Sender: TObject);
     procedure cbServicoChange(Sender: TObject);
     procedure dbcbModeloExit(Sender: TObject);
-    {$REGION 'Controla Foco dos Botões'}
-//    procedure spSalvarMouseEnter(Sender: TObject);
-//    procedure spSalvarMouseLeave(Sender: TObject);
-//    procedure spConsultarMouseEnter(Sender: TObject);
-//    procedure spConsultarMouseLeave(Sender: TObject);
-//    procedure spCancelarMouseEnter(Sender: TObject);
-//    procedure spCancelarMouseLeave(Sender: TObject);
-//    procedure spNovoItemMouseEnter(Sender: TObject);
-//    procedure spNovoItemMouseLeave(Sender: TObject);
-//    procedure spEditarMouseEnter(Sender: TObject);
-//    procedure spEditarMouseLeave(Sender: TObject);
-//    procedure spExcluirMouseEnter(Sender: TObject);
-//    procedure spExcluirMouseLeave(Sender: TObject);
-    {$ENDREGION}
+    procedure spSalvarClick(Sender: TObject);
+    procedure spExcluirClick(Sender: TObject);
+    procedure cbServicoEnter(Sender: TObject);
+    procedure cbServicoExit(Sender: TObject);
+    procedure dbcbModeloEnter(Sender: TObject);
+    procedure dsModeloDataChange(Sender: TObject; Field: TField);
+    procedure spedQuantidadeExit(Sender: TObject);
+    procedure spedQuantidadeChange(Sender: TObject);
+    procedure dbGridDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure FormShow(Sender: TObject);
   private
     procedure SetaValor;
+    procedure SetaSQLs;
     { Private declarations }
   public
     { Public declarations }
@@ -60,6 +58,7 @@ type
 var
   frNovo: TfrNovo;
   fFuncoes: TFuncoes;
+  wTotal: Currency;
 
 implementation
 
@@ -71,15 +70,55 @@ begin
   SetaValor;
 end;
 
+procedure TfrNovo.cbServicoEnter(Sender: TObject);
+begin
+  inherited;
+  SetaValor;
+end;
+
+procedure TfrNovo.cbServicoExit(Sender: TObject);
+begin
+  inherited;
+  SetaValor;
+end;
+
+procedure TfrNovo.dbcbModeloEnter(Sender: TObject);
+begin
+  inherited;
+  SetaValor;
+end;
+
 procedure TfrNovo.dbcbModeloExit(Sender: TObject);
 begin
   inherited;
   SetaValor
 end;
 
-procedure TfrNovo.SetaValor;
+procedure TfrNovo.dbGridDrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState);
 var
-  wTotal: Currency;
+  wLinha: Integer;
+begin
+  inherited;
+//  wLinha := dbGrid.DataSource.DataSet.RecNo;
+//
+//  if Odd(wLinha) then
+//    dbGrid.Canvas.Brush.Color := clMenu
+//  else
+//    dbGrid.Canvas.Brush.Color := clRed;
+//
+//  dbGrid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+end;
+
+procedure TfrNovo.dsModeloDataChange(Sender: TObject; Field: TField);
+begin
+  inherited;
+  if dbcbModelo.KeyValue = null then
+    dbcbModelo.KeyValue := 1;
+  SetaValor;
+end;
+
+procedure TfrNovo.SetaValor;
 begin
   dmNovo.queryConsulta.SQL.Clear;
   dmNovo.queryConsulta.SQL.Add('SELECT * FROM TB_SOFAS WHERE BDCODSOFA = :ID');
@@ -93,29 +132,31 @@ begin
     wTotal := dmNovo.queryConsulta.FieldByName('BDVALCOSTURA').AsCurrency
   else
     wTotal := dmNovo.queryConsulta.FieldByName('BDVALCOSTURA').AsCurrency + dmNovo.queryConsulta.FieldByName('BDVALCORTE').AsCurrency;
+  wTotal := wTotal * spedQuantidade.Value;
   lbTotal.Caption := 'Total: R$ ' + CurrTostr(wTotal);
 end;
 
-procedure TfrNovo.FormCreate(Sender: TObject);
+procedure TfrNovo.SetaSQLs;
 begin
-  inherited;
   if gdClasses_GD.fUsuarioLogado.IsAdm then
   begin
     lbTotal.Visible := True;
-
     dmNovo.cdsNovo.Close;
-    dmNovo.cdsNovo.CommandText := 'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA ' +
+    dmNovo.cdsNovo.CommandText := 'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA, ' +
+                                  'case SERV.BDSERVICO ' +
+                                  'when ' + QuotedStr('0') + ' then ' + QuotedStr('Corte') + ' ' +
+                                  'when ' + QuotedStr('1') + ' then ' + QuotedStr('Costura') + ' ' + 
+                                  'when ' + QuotedStr('2') + ' then ' + QuotedStr('Corte + Costura') + ' ' +
+                                  'end as BDSERVICOPALAVRA ' +
                                   'from TB_SERVICOS SERV ' +
                                   'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU) ' +
                                   'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA)';
-
     dmNovo.cdsNovo.Open;
-
+    dbGrid.Columns[6].Visible := True;
     dmNovo.queryUsuarios.Close;
     dmNovo.queryUsuarios.SQL.Clear;
     dmNovo.queryUsuarios.SQL.Add('SELECT * FROM TB_USUARIOS');
     dmNovo.queryUsuarios.Open;
-
     dmNovo.queryModelo.Close;
     dmNovo.queryModelo.SQL.Clear;
     dmNovo.queryModelo.SQL.Add('SELECT * FROM TB_SOFAS');
@@ -123,45 +164,172 @@ begin
   end
   else
   begin
+    lbTotal.Visible := False;
+    dmNovo.cdsNovo.Close;
+    dmNovo.cdsNovo.CommandText := 'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA ' +
+                              'from TB_SERVICOS SERV ' +
+                              'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU) ' +
+                              'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA)' +
+                              'where SERV.BDCODUSU = ' + IntToStr(gdClasses_GD.fUsuarioLogado.ID);
+    dmNovo.cdsNovo.Open;
+    dbGrid.Columns[6].Visible := False;
     dmNovo.queryUsuarios.SQL.Clear;
     dmNovo.queryUsuarios.SQL.Add('SELECT * FROM TB_USUARIOS WHERE BDCODUSU = :ID');
     dmNovo.queryUsuarios.ParamByName('ID').AsInteger := gdClasses_GD.fUsuarioLogado.ID;
     dmNovo.queryUsuarios.Open;
-
     dmNovo.queryModelo.Close;
     dmNovo.queryModelo.SQL.Clear;
     dmNovo.queryModelo.SQL.Add('SELECT * FROM TB_SOFAS');
     dmNovo.queryModelo.Open;
   end;
-  dmNovo.queryModelo.Active   := True;
+  dmNovo.queryModelo.Active := True;
   dmNovo.queryUsuarios.Active := True;
-
   dbcbModelo.KeyValue := dmNovo.queryModelo.FieldByName('BDCODSOFA').AsInteger;
   dbcbResponsavel.KeyValue := dmNovo.queryUsuarios.FieldByName('BDCODUSU').AsInteger;
+end;
+
+procedure TfrNovo.FormCreate(Sender: TObject);
+begin
+  inherited;
+  SetaSQLs;
+end;
+
+procedure TfrNovo.FormShow(Sender: TObject);
+begin
+  inherited;
+  cdPanel.ActiveCard := cardCadastroUsuarios;
 end;
 
 procedure TfrNovo.spNovoItemClick(Sender: TObject);
 begin
   inherited;
-  //
+  LimparCampos;
+  spedQuantidade.Value := 1;
+  cbServico.ItemIndex := 0;
+  dmNovo.cdsNovo.Insert;
+end;
+
+procedure TfrNovo.spSalvarClick(Sender: TObject);
+var
+  wMsg: String;
+begin
+  if spedQuantidade.Value = 0 then
+  begin
+    spedQuantidade.SetFocus;
+    Application.MessageBox('A quantidade não pode ser menor que 1!', 'Atenção!',
+      MB_OK + MB_ICONWARNING);
+    Abort;
+  end;
+  
+  try
+    StrToDate(mskDataDoItem.Text);
+  except on E: EConvertError do
+    begin
+      mskDataDoItem.SetFocus;
+      Application.MessageBox('Data inválida!', 'Atenção!',
+        MB_OK + MB_ICONWARNING);
+      Abort;
+    end;
+  end;
+  
+  if (mskDataDoItem.Text = '') then
+  begin
+    mskDataDoItem.SetFocus;
+    Application.MessageBox('A data não pode ser vazia!', 'Atenção!',
+      MB_OK + MB_ICONWARNING);
+    Abort;
+  end
+  else if StrToDate(mskDataDoItem.Text) > Now then
+  begin
+    mskDataDoItem.SetFocus;
+    Application.MessageBox('A data não pode ser maior que a atual!',
+      'Atenção!', MB_OK + MB_ICONWARNING);
+    Abort;
+  end
+  else if StrToDate(mskDataDoItem.Text) < StrToDate('01/01/1998')  then
+  begin
+    mskDataDoItem.SetFocus;
+    Application.MessageBox('A data não pode ser menor que 01/01/1998!',
+      'Atenção!', MB_OK + MB_ICONWARNING);
+    Abort;
+  end;
+
+  wMsg := 'Registro alterado com sucesso!';
+
+  if dmNovo.cdsNovo.State in [dsInsert] then
+  begin
+    dmNovo.cdsNovoBDCODSERV.AsInteger := dmNovo.GetChaveGenerator;
+    wMsg := 'Registro inserido com sucesso!';
+  end;
+
+  dmNovo.cdsNovoBDDATASERV.AsString := mskDataDoItem.Text;
+  dmNovo.cdsNovoBDCODUSU.AsInteger := dbcbResponsavel.KeyValue;
+  dmNovo.cdsNovoBDQUANTIDADE.AsInteger := spedQuantidade.Value;
+  dmNovo.cdsNovoBDCODSOFA.AsInteger := dbcbModelo.KeyValue;
+  dmNovo.cdsNovoBDSERVICO.AsInteger := cbServico.ItemIndex;
+  dmNovo.cdsNovoBDTOTALSERV.AsCurrency := wTotal;
+
+  dmNovo.cdsNovo.Post;
+  dmNovo.cdsNovo.ApplyUpdates(0);
+  Application.MessageBox(PWideChar(wMsg), 'Confirmação!',
+    MB_OK + MB_ICONINFORMATION);
+
+  SetaSQLs;
+  dbGrid.Refresh;
+
+  inherited;
 end;
 
 procedure TfrNovo.spEditarClick(Sender: TObject);
 begin
   inherited;
-  //
+  dmNovo.cdsNovo.Edit;
+
+  dbcbModelo.KeyValue := dmNovo.cdsNovoBDCODSOFA.AsInteger;
+  mskDataDoItem.Text  := dmNovo.cdsNovoBDDATASERV.AsString;
+  spedQuantidade.Value := dmNovo.cdsNovoBDQUANTIDADE.AsInteger;
+  dbcbResponsavel.KeyValue := dmNovo.cdsNovoBDCODUSU.AsInteger;
+  cbServico.ItemIndex := dmNovo.cdsNovoBDSERVICO.AsInteger;
+end;
+
+procedure TfrNovo.spedQuantidadeChange(Sender: TObject);
+begin
+  inherited;
+  SetaValor;
+end;
+
+procedure TfrNovo.spedQuantidadeExit(Sender: TObject);
+begin
+  inherited;
+  SetaValor;
+end;
+
+procedure TfrNovo.spExcluirClick(Sender: TObject);
+begin
+  inherited;
+  if Application.MessageBox('Deseja realmente excluir esse registro?', 'Pergunta!', MB_YESNO + MB_ICONQUESTION) <> mrYes then
+    Exit;
+
+  try
+    dmNovo.DecrementaGenerator(dmNovo.cdsNovoBDCODSERV.AsInteger);
+    dmNovo.cdsNovo.Delete;
+    dmNovo.cdsNovo.ApplyUpdates(0);
+    Application.MessageBox('Registro excluído com sucesso!', 'Confirmação!', MB_OK + MB_ICONINFORMATION);
+  except on E: Exception do
+    Application.MessageBox(PWideChar(E.Message), 'Erro ao excluir registro!', MB_OK + MB_ICONERROR);
+  end;
 end;
 
 procedure TfrNovo.spCancelarClick(Sender: TObject);
 begin
   inherited;
-//
+  dmNovo.cdsNovo.Cancel;
 end;
 
 procedure TfrNovo.spConsultarClick(Sender: TObject);
 begin
   inherited;
-  //
+  dmNovo.cdsNovo.Cancel;
 end;
 
 

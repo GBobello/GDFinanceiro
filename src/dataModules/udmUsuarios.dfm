@@ -39,6 +39,7 @@ object dmUsuarios: TdmUsuarios
     object cdsUsuariosBDISADM: TBooleanField
       FieldName = 'BDISADM'
       Required = True
+      OnGetText = cdsUsuariosBDISADMGetText
     end
   end
 end

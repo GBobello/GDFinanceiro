@@ -2,6 +2,7 @@ inherited frNovo: TfrNovo
   Caption = 'Novo'
   ClientWidth = 1037
   OnCreate = FormCreate
+  OnShow = FormShow
   ExplicitWidth = 1037
   PixelsPerInch = 96
   TextHeight = 13
@@ -136,11 +137,28 @@ inherited frNovo: TfrNovo
           inherited pnLeftBotoesConsulta: TPanel
             Left = 495
             ExplicitLeft = 495
+            inherited pnExcluir: TPanel
+              inherited spExcluir: TSpeedButton
+                OnClick = spExcluirClick
+              end
+            end
           end
         end
         inherited pnPesquisa: TPanel
           Width = 1035
           ExplicitWidth = 1035
+          inherited Label1: TLabel
+            ExplicitLeft = 55
+            ExplicitTop = 10
+            ExplicitHeight = 16
+          end
+          inherited GD_Edit1: TGD_Edit
+            Width = 863
+            ExplicitLeft = 122
+            ExplicitTop = 10
+            ExplicitWidth = 863
+            ExplicitHeight = 27
+          end
         end
         inherited pnCentralPesquisa: TPanel
           Width = 1035
@@ -148,6 +166,7 @@ inherited frNovo: TfrNovo
           inherited dbGrid: TDBGrid
             Width = 935
             DataSource = dsNovo
+            OnDrawColumnCell = dbGridDrawColumnCell
             Columns = <
               item
                 Expanded = False
@@ -159,6 +178,7 @@ inherited frNovo: TfrNovo
                 Expanded = False
                 FieldName = 'BDDATASERV'
                 Title.Caption = 'Data'
+                Width = 64
                 Visible = True
               end
               item
@@ -172,6 +192,7 @@ inherited frNovo: TfrNovo
                 Expanded = False
                 FieldName = 'BDQUANTIDADE'
                 Title.Caption = 'Quantidade'
+                Width = 64
                 Visible = True
               end
               item
@@ -183,7 +204,7 @@ inherited frNovo: TfrNovo
               end
               item
                 Expanded = False
-                FieldName = 'BDSERVICO'
+                FieldName = 'BDSERVICOPALAVRA'
                 Title.Caption = 'Servi'#231'o'
                 Visible = True
               end
@@ -191,6 +212,7 @@ inherited frNovo: TfrNovo
                 Expanded = False
                 FieldName = 'BDTOTALSERV'
                 Title.Caption = 'Total'
+                Width = 64
                 Visible = True
               end>
           end
@@ -314,6 +336,8 @@ inherited frNovo: TfrNovo
               TabOrder = 4
               Text = 'Corte'
               OnChange = cbServicoChange
+              OnEnter = cbServicoEnter
+              OnExit = cbServicoExit
               Items.Strings = (
                 'Corte'
                 'Costura'
@@ -336,6 +360,7 @@ inherited frNovo: TfrNovo
               ListSource = dsModelo
               ParentFont = False
               TabOrder = 0
+              OnEnter = dbcbModeloEnter
               OnExit = dbcbModeloExit
               MudarCor = 13828095
             end
@@ -392,6 +417,8 @@ inherited frNovo: TfrNovo
               ParentFont = False
               TabOrder = 2
               Value = 1
+              OnChange = spedQuantidadeChange
+              OnExit = spedQuantidadeExit
               MudarCor = 13828095
             end
           end
@@ -413,6 +440,7 @@ inherited frNovo: TfrNovo
   end
   object dsModelo: TDataSource
     DataSet = dmNovo.queryModelo
+    OnDataChange = dsModeloDataChange
     Left = 816
     Top = 39
   end

@@ -38,6 +38,7 @@ type
     procedure spConsultarClick(Sender: TObject);
     procedure spExcluirClick(Sender: TObject);
   private
+    procedure SetaSQLs;
     { Private declarations }
   public
     { Public declarations }
@@ -53,18 +54,24 @@ implementation
 
 procedure TfrUsuarios.dbGridDrawColumnCell(Sender: TObject; const Rect: TRect;
   DataCol: Integer; Column: TColumn; State: TGridDrawState);
+var
+  wMarcar: word;
+  wRetangulo: TRect;
 begin
   inherited;
-  if not dbGrid.DataSource.DataSet.IsEmpty then
+  if UpperCase(Column.FieldName) = 'BDISADM' then
   begin
-    if Column.FieldName = 'BDISADM' then
-    begin
-      dbGrid.Canvas.FillRect(Rect);
-      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 32, Rect.Top + 4, 0);
+    dbGrid.Canvas.FillRect(Rect);
 
-      if dmUsuarios.cdsUsuariosBDISADM.Value = False then
-        imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 32, Rect.Top + 4, 1);
-    end;
+    if Column.Field.AsBoolean = True then
+      wMarcar := DFCS_CHECKED
+    else
+      wMarcar := DFCS_BUTTONCHECK;
+
+    wRetangulo := Rect;
+    InflateRect(wRetangulo, -2, -2);
+
+    DrawFrameControl(dbGrid.Canvas.Handle, wRetangulo, DFC_BUTTON, wMarcar);
   end;
 end;
 
@@ -72,9 +79,7 @@ procedure TfrUsuarios.FormCreate(Sender: TObject);
 begin
   inherited;
   cdPanel.ActiveCard := cardConsultaUsuarios;
-  dmUsuarios.cdsUsuarios.Close;
-  dmUsuarios.cdsUsuarios.CommandText := 'SELECT * FROM TB_USUARIOS';
-  dmUsuarios.cdsUsuarios.Open;
+  SetaSQLs;
 end;
 
 procedure TfrUsuarios.imgOlhoAbertoClick(Sender: TObject);
@@ -138,6 +143,13 @@ begin
   end;
 end;
 
+procedure TfrUsuarios.SetaSQLs;
+begin
+  dmUsuarios.cdsUsuarios.Close;
+  dmUsuarios.cdsUsuarios.CommandText := 'SELECT * FROM TB_USUARIOS order by BDCODUSU';
+  dmUsuarios.cdsUsuarios.Open;
+end;
+
 procedure TfrUsuarios.spNovoItemClick(Sender: TObject);
 begin
   inherited;
@@ -191,6 +203,9 @@ begin
   dmUsuarios.cdsUsuarios.Post;
   dmUsuarios.cdsUsuarios.ApplyUpdates(0);
   Application.MessageBox(PWideChar(wMsg), 'Confirmação!', MB_OK + MB_ICONINFORMATION);
+
+  SetaSQLs;
+  dbGrid.Refresh;
 
   inherited;
 end;

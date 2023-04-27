@@ -4,11 +4,6 @@ object dmNovo: TdmNovo
   Width = 415
   object queryNovo: TFDQuery
     Connection = dmConexao.Conexao
-    SQL.Strings = (
-      'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA'
-      'from TB_SERVICOS SERV'
-      'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU)'
-      'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA)   ')
     Left = 32
     Top = 56
   end
@@ -63,6 +58,12 @@ object dmNovo: TdmNovo
       FieldName = 'BDDESCSOFA'
       ReadOnly = True
       Size = 255
+    end
+    object cdsNovoBDSERVICOPALAVRA: TStringField
+      FieldName = 'BDSERVICOPALAVRA'
+      ReadOnly = True
+      FixedChar = True
+      Size = 15
     end
   end
   object queryModelo: TFDQuery

@@ -19,6 +19,8 @@ type
     cdsUsuariosBDLOGINUSU: TStringField;
     cdsUsuariosBDSENHAUSU: TStringField;
     cdsUsuariosBDISADM: TBooleanField;
+    procedure cdsUsuariosBDISADMGetText(Sender: TField; var Text: string;
+      DisplayText: Boolean);
   private
     { Private declarations }
   public
@@ -38,6 +40,12 @@ implementation
 {$R *.dfm}
 
 { TdmUsuarios }
+
+procedure TdmUsuarios.cdsUsuariosBDISADMGetText(Sender: TField;
+  var Text: string; DisplayText: Boolean);
+begin
+  Text := '';
+end;
 
 procedure TdmUsuarios.DecrementaGenerator(prID: Integer);
 var

@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, gdSimples, System.ImageList,
   Vcl.ImgList, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, Data.DB, Vcl.Grids,
-  Vcl.DBGrids, Vcl.WinXPanels, gdFuncoes;
+  Vcl.DBGrids, Vcl.WinXPanels, gdFuncoes, GD_Edit;
 
 type
   TfrCardPanels_Padrao = class(TfrSimples)
@@ -59,6 +59,8 @@ type
     pnEditsCadastro: TPanel;
     pnCentralCadastros: TPanel;
     imageList: TImageList;
+    GD_Edit1: TGD_Edit;
+    Label1: TLabel;
     procedure spConsultarClick(Sender: TObject);
     procedure spEditarClick(Sender: TObject);
     procedure spCancelarClick(Sender: TObject);
