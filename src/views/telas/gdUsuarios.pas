@@ -59,6 +59,21 @@ var
   wRetangulo: TRect;
 begin
   inherited;
+  if Odd(dbGrid.DataSource.DataSet.RecNo) then
+    dbGrid.Canvas.Brush.Color := $00E9E9E9
+  else
+    dbGrid.Canvas.Brush.Color := clWhite;
+
+  if (gdSelected in State) then
+  begin
+    dbGrid.Canvas.Brush.Color := clBlue;//$00FBCDAE;
+    dbGrid.Canvas.Font.Color := clWhite;
+    dbGrid.Canvas.Font.Style  := [TFontStyle.fsBold];
+  end;
+
+  dbGrid.Canvas.FillRect(Rect);
+  dbGrid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+
   if UpperCase(Column.FieldName) = 'BDISADM' then
   begin
     dbGrid.Canvas.FillRect(Rect);

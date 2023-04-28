@@ -60,8 +60,6 @@ object frMain: TfrMain
       Color = clWhite
       ParentBackground = False
       TabOrder = 0
-      ExplicitLeft = 16
-      ExplicitTop = 8
       object pnSeparador4: TPanel
         Left = 0
         Top = 352

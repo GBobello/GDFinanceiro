@@ -159,12 +159,11 @@ inherited frUsuarios: TfrUsuarios
           Width = 749
           ExplicitWidth = 749
           inherited Label1: TLabel
-            ExplicitLeft = 55
-            ExplicitTop = 10
-            ExplicitHeight = 16
+            Height = 30
           end
           inherited GD_Edit1: TGD_Edit
             Width = 577
+            ExplicitWidth = 577
           end
         end
         inherited pnCentralPesquisa: TPanel
@@ -175,33 +174,81 @@ inherited frUsuarios: TfrUsuarios
           inherited dbGrid: TDBGrid
             Width = 649
             Height = 305
+            BorderStyle = bsNone
+            Color = clWhite
             DataSource = dsUsuarios
+            DrawingStyle = gdsClassic
+            FixedColor = 7165253
+            Font.Color = 7165253
+            Font.Height = -12
+            Font.Style = [fsBold]
+            Options = [dgTitles, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgTitleClick]
             OnDrawColumnCell = dbGridDrawColumnCell
             Columns = <
               item
                 Expanded = False
                 FieldName = 'BDCODUSU'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clBlack
+                Font.Height = -12
+                Font.Name = 'Tahoma'
+                Font.Style = []
                 Title.Caption = 'C'#243'digo'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWhite
+                Title.Font.Height = -11
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'BDNOMUSU'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clBlack
+                Font.Height = -12
+                Font.Name = 'Tahoma'
+                Font.Style = []
                 Title.Caption = 'Nome'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWhite
+                Title.Font.Height = -11
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
                 Width = 150
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'BDLOGINUSU'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clBlack
+                Font.Height = -12
+                Font.Name = 'Tahoma'
+                Font.Style = []
                 Title.Caption = 'Login'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWhite
+                Title.Font.Height = -11
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
                 Width = 150
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'BDISADM'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clBlack
+                Font.Height = -12
+                Font.Name = 'Tahoma'
+                Font.Style = []
                 Title.Caption = 'Administrador'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWhite
+                Title.Font.Height = -11
+                Title.Font.Name = 'Tahoma'
+                Title.Font.Style = [fsBold]
                 Visible = True
               end>
           end

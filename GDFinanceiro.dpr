@@ -19,7 +19,10 @@ uses
   gdUsuarioClass in 'src\classes\gdUsuarioClass.pas',
   udmUsuarios in 'src\dataModules\udmUsuarios.pas' {dmUsuarios: TDataModule},
   gdCardPanels_Padrao in 'src\views\padroes\gdCardPanels_Padrao.pas' {frCardPanels_Padrao},
-  udmNovo in 'src\dataModules\udmNovo.pas' {dmNovo: TDataModule};
+  udmNovo in 'src\dataModules\udmNovo.pas' {dmNovo: TDataModule},
+  gdPesquisa_Padrao in 'src\views\padroes\gdPesquisa_Padrao.pas' {frPesquisa_Padrao},
+  udmPesquisaSofas in 'src\dataModules\udmPesquisaSofas.pas' {dmPesquisaSofas: TDataModule},
+  gdPesquisaSofas in 'src\views\telas\gdPesquisaSofas.pas' {frPesquisaSofas};
 
 {$R *.res}
 
@@ -30,5 +33,8 @@ begin
   Application.CreateForm(TdmUsuarios, dmUsuarios);
   Application.CreateForm(TfrMain, frMain);
   Application.CreateForm(TdmNovo, dmNovo);
+  Application.CreateForm(TfrPesquisa_Padrao, frPesquisa_Padrao);
+  Application.CreateForm(TdmPesquisaSofas, dmPesquisaSofas);
+  Application.CreateForm(TfrPesquisaSofas, frPesquisaSofas);
   Application.Run;
 end.

@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.WinXCtrls,
   Vcl.ExtCtrls, Vcl.Buttons, System.ImageList, Vcl.ImgList, gdFuncoes,
   Vcl.Imaging.pngimage, gdSimples, gdUsuarios, Vcl.Mask, GD_MaskEdit_Data,
-  gdNovo, Vcl.Menus, System.Actions, Vcl.ActnList, gdClasses_GD;
+  gdNovo, Vcl.Menus, System.Actions, Vcl.ActnList, gdClasses_GD, gdPesquisaSofas;
 
 type
   TfrMain = class(TForm)
@@ -86,7 +86,10 @@ end;
 
 procedure TfrMain.spPesquisaClick(Sender: TObject);
 begin
-  ShowMessage('Abrir Pesquisa');
+  Application.CreateForm(TfrPesquisaSofas, frPesquisaSofas);
+  frPesquisaSofas.Parent := pnCentral;
+  frPesquisaSofas.Show;
+  frPesquisaSofas.SetFocus;
 end;
 
 procedure TfrMain.spProdutosClick(Sender: TObject);

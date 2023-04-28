@@ -149,6 +149,19 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="src\views\padroes\gdPesquisa_Padrao.pas">
+            <Form>frPesquisa_Padrao</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\dataModules\udmPesquisaSofas.pas">
+            <Form>dmPesquisaSofas</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\views\telas\gdPesquisaSofas.pas">
+            <Form>frPesquisaSofas</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include=".gitignore"/>
         <None Include="LICENSE"/>
         <BuildConfiguration Include="Release">
