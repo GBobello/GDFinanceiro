@@ -51,6 +51,7 @@ var
   SQLConsulta: TFDQuery;
   SQLCommand: TFDCommand;
 begin
+  //Ficou obsoleto pois é utilizado na trigger da tabela
   SQLConsulta := TFDQuery.Create(nil);
   try
     SQLConsulta.Connection := dmConexao.Conexao;
@@ -81,6 +82,7 @@ function TdmNovo.GetChaveGenerator: Integer;
 var
   SQLConsulta: TFDQuery;
 begin
+  //Ficou obsoleto pois é utilizado na trigger da tabela
   SQLConsulta := TFDQuery.Create(nil);
   try
     SQLConsulta.Connection := dmConexao.Conexao;

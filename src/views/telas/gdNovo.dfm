@@ -1,26 +1,28 @@
 inherited frNovo: TfrNovo
   Caption = 'Novo'
-  ClientWidth = 1037
-  OnCreate = FormCreate
+  ClientHeight = 491
+  ClientWidth = 752
   OnShow = FormShow
-  ExplicitWidth = 1037
+  ExplicitWidth = 752
+  ExplicitHeight = 491
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnPrincipal: TPanel
-    Width = 1037
-    ExplicitWidth = 1037
+    Width = 752
+    Height = 491
+    ExplicitWidth = 752
     inherited pnBarraSuperior: TPanel
-      Width = 1037
-      ExplicitWidth = 1037
+      Width = 752
+      ExplicitWidth = 752
       DesignSize = (
-        1037
+        752
         41)
       inherited spFecha: TSpeedButton
-        Left = 1010
+        Left = 725
         ExplicitLeft = 1010
       end
       inherited spMinimiza: TSpeedButton
-        Left = 981
+        Left = 696
         ExplicitLeft = 981
       end
       inherited pnNomeDaTela: TPanel
@@ -126,17 +128,23 @@ inherited frNovo: TfrNovo
       end
     end
     inherited cdPanel: TCardPanel
-      Width = 1037
-      ExplicitWidth = 1037
+      Width = 752
+      Height = 450
+      ExplicitWidth = 752
+      ExplicitHeight = 450
       inherited cardConsultaUsuarios: TCard
-        Width = 1035
-        ExplicitWidth = 1035
+        Width = 750
+        Height = 448
+        ExplicitWidth = 750
+        ExplicitHeight = 448
         inherited pnBotoesConsulta: TPanel
-          Width = 1035
-          ExplicitWidth = 1035
+          Top = 376
+          Width = 750
+          ExplicitTop = 376
+          ExplicitWidth = 750
           inherited pnLeftBotoesConsulta: TPanel
-            Left = 495
-            ExplicitLeft = 495
+            Left = 210
+            ExplicitLeft = 210
             inherited pnExcluir: TPanel
               inherited spExcluir: TSpeedButton
                 OnClick = spExcluirClick
@@ -145,83 +153,90 @@ inherited frNovo: TfrNovo
           end
         end
         inherited pnPesquisa: TPanel
-          Width = 1035
-          ExplicitWidth = 1035
+          Width = 750
+          ExplicitWidth = 750
+          inherited Label1: TLabel
+            Height = 30
+          end
           inherited GD_Edit1: TGD_Edit
-            Width = 863
-            ExplicitLeft = 122
-            ExplicitTop = 10
-            ExplicitWidth = 863
-            ExplicitHeight = 27
+            Width = 578
+            ExplicitWidth = 578
           end
         end
         inherited pnCentralPesquisa: TPanel
-          Width = 1035
-          ExplicitWidth = 1035
+          Width = 750
+          Height = 326
+          ExplicitWidth = 750
+          ExplicitHeight = 326
           inherited dbGrid: TDBGrid
-            Width = 935
+            Width = 650
+            Height = 311
             DataSource = dsNovo
-            OnDrawColumnCell = dbGridDrawColumnCell
             Columns = <
               item
                 Expanded = False
                 FieldName = 'BDCODSERV'
                 Title.Caption = 'C'#243'digo'
+                Width = 47
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'BDDATASERV'
                 Title.Caption = 'Data'
-                Width = 64
+                Width = 36
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'BDNOMUSU'
                 Title.Caption = 'Nome do usu'#225'rio'
-                Width = 200
+                Width = 84
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'BDQUANTIDADE'
                 Title.Caption = 'Quantidade'
-                Width = 64
+                Width = 61
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'BDDESCSOFA'
                 Title.Caption = 'Sof'#225
-                Width = 200
+                Width = 29
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'BDSERVICOPALAVRA'
                 Title.Caption = 'Servi'#231'o'
-                Width = 64
+                Width = 44
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'BDTOTALSERV'
                 Title.Caption = 'Total'
-                Width = 64
+                Width = 31
                 Visible = True
               end>
           end
         end
       end
       inherited cardCadastroUsuarios: TCard
-        Width = 1035
+        Width = 750
+        Height = 448
         ExplicitWidth = 1035
+        ExplicitHeight = 448
         inherited pnBotoesCadastro: TPanel
-          Width = 1035
+          Top = 376
+          Width = 750
+          ExplicitTop = 376
           ExplicitWidth = 1035
           inherited pnLeftBotoesCadastro: TPanel
-            Left = 495
+            Left = 210
             ExplicitLeft = 495
             inherited pnConsultar: TPanel
               inherited spConsultar: TSpeedButton
@@ -231,8 +246,10 @@ inherited frNovo: TfrNovo
           end
         end
         inherited pnEditsCadastro: TPanel
-          Width = 1035
+          Width = 750
+          Height = 376
           ExplicitWidth = 1035
+          ExplicitHeight = 376
           inherited pnCentralCadastros: TPanel
             Left = 218
             Width = 600

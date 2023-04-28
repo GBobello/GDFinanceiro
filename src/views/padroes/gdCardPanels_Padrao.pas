@@ -67,7 +67,11 @@ type
     procedure spNovoItemClick(Sender: TObject);
     procedure spSalvarClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure dbGridDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure FormCreate(Sender: TObject);
   private
+    procedure AjustaTamanhoCelulas;
     { Private declarations }
   public
     { Public declarations }
@@ -81,10 +85,59 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrCardPanels_Padrao.dbGridDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  if Odd(dbGrid.DataSource.DataSet.RecNo) then
+    dbGrid.Canvas.Brush.Color := $00E9E9E9
+  else
+    dbGrid.Canvas.Brush.Color := clWhite;
+
+  if (gdSelected in State) then
+  begin
+    dbGrid.Canvas.Brush.Color := clBlue;//$00FBCDAE;
+    dbGrid.Canvas.Font.Color := clWhite;
+    dbGrid.Canvas.Font.Style  := [TFontStyle.fsBold];
+  end;
+
+  dbGrid.Canvas.FillRect(Rect);
+  dbGrid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+end;
+
+procedure TfrCardPanels_Padrao.FormCreate(Sender: TObject);
+var
+  wI: Integer;
+begin
+  inherited;
+  for wI := 0 to Pred(dbGrid.Columns.Count) do
+  begin
+    dbGrid.Columns[wI].Title.Color := $006D5545;
+    dbGrid.Columns[wI].Title.Font.Color := clWhite;
+    dbGrid.Columns[wI].Title.Font.Size := 8;
+    dbGrid.Columns[wI].Title.Font.Style := [TFontStyle.fsBold];
+  end;
+end;
+
+procedure TfrCardPanels_Padrao.AjustaTamanhoCelulas;
+var
+  wTotalWidth: Integer;
+  wI: Integer;
+  wColWidth: Integer;
+begin
+  wTotalWidth := 0;
+  for wI := 0 to Pred(dbGrid.Columns.Count) do
+    wTotalWidth := wTotalWidth + dbGrid.Columns[wI].Width;
+  wColWidth := ((dbGrid.ClientWidth) - wTotalWidth) div dbGrid.Columns.Count;
+  for wI := 0 to Pred(dbGrid.Columns.Count) do
+    dbGrid.Columns[wI].Width := dbGrid.Columns[wI].Width + wColWidth;
+end;
+
 procedure TfrCardPanels_Padrao.FormResize(Sender: TObject);
 begin
   inherited;
   fFuncoes.SetCentralizaControles(TControl(pnEditsCadastro), TControl(pnCentralCadastros));
+  AjustaTamanhoCelulas;
 end;
 
 procedure TfrCardPanels_Padrao.spCancelarClick(Sender: TObject);
@@ -96,6 +149,7 @@ end;
 procedure TfrCardPanels_Padrao.spConsultarClick(Sender: TObject);
 begin
   inherited;
+  AjustaTamanhoCelulas;
   cdPanel.ActiveCard := cardConsultaUsuarios;
 end;
 

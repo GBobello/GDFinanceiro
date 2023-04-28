@@ -1,64 +1,72 @@
 inherited frCardPanels_Padrao: TfrCardPanels_Padrao
   Caption = 'frCardPanels_Padrao'
-  ClientHeight = 608
-  ClientWidth = 1055
+  ClientHeight = 425
+  ClientWidth = 684
+  OnCreate = FormCreate
   OnResize = FormResize
-  ExplicitWidth = 1055
-  ExplicitHeight = 608
+  ExplicitWidth = 684
+  ExplicitHeight = 425
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnPrincipal: TPanel
-    Width = 1055
-    Height = 608
+    Width = 684
+    Height = 425
     ExplicitWidth = 1055
     ExplicitHeight = 608
     inherited pnBarraSuperior: TPanel
-      Width = 1055
+      Width = 684
       ExplicitWidth = 1055
       DesignSize = (
-        1055
+        684
         41)
       inherited spFecha: TSpeedButton
-        Left = 1028
+        Left = 657
         ExplicitLeft = 1028
       end
       inherited spMinimiza: TSpeedButton
-        Left = 999
+        Left = 628
         ExplicitLeft = 999
       end
     end
     object cdPanel: TCardPanel
       Left = 0
       Top = 41
-      Width = 1055
-      Height = 567
+      Width = 684
+      Height = 384
       Align = alClient
       ActiveCard = cardConsultaUsuarios
       TabOrder = 1
+      ExplicitWidth = 1055
+      ExplicitHeight = 567
       object cardConsultaUsuarios: TCard
         Left = 1
         Top = 1
-        Width = 1053
-        Height = 565
+        Width = 682
+        Height = 382
         Caption = 'cardConsulta'
         CardIndex = 0
         TabOrder = 0
+        ExplicitWidth = 1053
+        ExplicitHeight = 565
         object pnBotoesConsulta: TPanel
           Left = 0
-          Top = 493
-          Width = 1053
+          Top = 310
+          Width = 682
           Height = 72
           Align = alBottom
           BevelOuter = bvNone
           TabOrder = 0
+          ExplicitTop = 493
+          ExplicitWidth = 1053
           object pnLeftBotoesConsulta: TPanel
-            Left = 513
+            Left = 142
             Top = 0
             Width = 540
             Height = 72
             Align = alRight
             BevelOuter = bvNone
             TabOrder = 0
+            ExplicitLeft = 513
             object pnExcluir: TPanel
               Left = 40
               Top = 21
@@ -295,7 +303,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
         object pnPesquisa: TPanel
           Left = 0
           Top = 0
-          Width = 1053
+          Width = 682
           Height = 50
           Align = alTop
           BevelOuter = bvNone
@@ -304,6 +312,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
           Padding.Right = 50
           Padding.Bottom = 10
           TabOrder = 1
+          ExplicitWidth = 1053
           object Label1: TLabel
             Left = 55
             Top = 10
@@ -319,13 +328,12 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
             ParentFont = False
             Layout = tlCenter
             Visible = False
-            ExplicitLeft = 49
-            ExplicitTop = 5
+            ExplicitHeight = 16
           end
           object GD_Edit1: TGD_Edit
             Left = 122
             Top = 10
-            Width = 881
+            Width = 510
             Height = 30
             Align = alClient
             Font.Charset = DEFAULT_CHARSET
@@ -338,33 +346,40 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
             Text = 'GD_Edit1'
             Visible = False
             MudarCor = 13828095
-            ExplicitLeft = 128
-            ExplicitTop = 14
+            ExplicitWidth = 881
+            ExplicitHeight = 27
           end
         end
         object pnCentralPesquisa: TPanel
           Left = 0
           Top = 50
-          Width = 1053
-          Height = 443
+          Width = 682
+          Height = 260
           Align = alClient
           BevelOuter = bvNone
           Padding.Left = 50
           Padding.Right = 50
           Padding.Bottom = 15
           TabOrder = 2
+          ExplicitWidth = 1053
+          ExplicitHeight = 443
           object dbGrid: TDBGrid
             Left = 50
             Top = 0
-            Width = 953
-            Height = 428
+            Width = 582
+            Height = 245
             Align = alClient
+            BorderStyle = bsNone
+            Color = clWhite
+            DrawingStyle = gdsClassic
+            FixedColor = 7165253
+            GradientEndColor = 7165253
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -15
             Font.Name = 'Tahoma'
             Font.Style = []
-            Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+            Options = [dgTitles, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgTitleClick]
             ParentFont = False
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
@@ -372,27 +387,28 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
             TitleFont.Height = -11
             TitleFont.Name = 'Tahoma'
             TitleFont.Style = []
+            OnDrawColumnCell = dbGridDrawColumnCell
           end
         end
       end
       object cardCadastroUsuarios: TCard
         Left = 1
         Top = 1
-        Width = 1053
-        Height = 565
+        Width = 682
+        Height = 382
         Caption = 'cardCadastro'
         CardIndex = 1
         TabOrder = 1
         object pnBotoesCadastro: TPanel
           Left = 0
-          Top = 493
-          Width = 1053
+          Top = 310
+          Width = 682
           Height = 72
           Align = alBottom
           BevelOuter = bvNone
           TabOrder = 0
           object pnLeftBotoesCadastro: TPanel
-            Left = 513
+            Left = 142
             Top = 0
             Width = 540
             Height = 72
@@ -632,8 +648,8 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
         object pnEditsCadastro: TPanel
           Left = 0
           Top = 0
-          Width = 1053
-          Height = 493
+          Width = 682
+          Height = 310
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1

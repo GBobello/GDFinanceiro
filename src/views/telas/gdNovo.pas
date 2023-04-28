@@ -202,6 +202,7 @@ procedure TfrNovo.FormShow(Sender: TObject);
 begin
   inherited;
   cdPanel.ActiveCard := cardCadastroUsuarios;
+  fFuncoes.SetCentralizaControles(TControl(pnEditsCadastro), TControl(pnCentralCadastros));
 end;
 
 procedure TfrNovo.spNovoItemClick(Sender: TObject);
@@ -262,7 +263,8 @@ begin
 
   if dmNovo.cdsNovo.State in [dsInsert] then
   begin
-    dmNovo.cdsNovoBDCODSERV.AsInteger := dmNovo.GetChaveGenerator;
+    // Vai pegar o código direto da generator na trigger before insert
+    dmNovo.cdsNovoBDCODSERV.AsInteger := 0;
     wMsg := 'Registro inserido com sucesso!';
   end;
 
@@ -315,7 +317,6 @@ begin
     Exit;
 
   try
-    dmNovo.DecrementaGenerator(dmNovo.cdsNovoBDCODSERV.AsInteger);
     dmNovo.cdsNovo.Delete;
     dmNovo.cdsNovo.ApplyUpdates(0);
     Application.MessageBox('Registro excluído com sucesso!', 'Confirmação!', MB_OK + MB_ICONINFORMATION);

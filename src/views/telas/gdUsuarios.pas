@@ -59,21 +59,6 @@ var
   wRetangulo: TRect;
 begin
   inherited;
-  if Odd(dbGrid.DataSource.DataSet.RecNo) then
-    dbGrid.Canvas.Brush.Color := $00E9E9E9
-  else
-    dbGrid.Canvas.Brush.Color := clWhite;
-
-  if (gdSelected in State) then
-  begin
-    dbGrid.Canvas.Brush.Color := clBlue;//$00FBCDAE;
-    dbGrid.Canvas.Font.Color := clWhite;
-    dbGrid.Canvas.Font.Style  := [TFontStyle.fsBold];
-  end;
-
-  dbGrid.Canvas.FillRect(Rect);
-  dbGrid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
-
   if UpperCase(Column.FieldName) = 'BDISADM' then
   begin
     dbGrid.Canvas.FillRect(Rect);
@@ -149,7 +134,6 @@ begin
     Exit;
 
   try
-    dmUsuarios.DecrementaGenerator(dmUsuarios.cdsUsuariosBDCODUSU.AsInteger);
     dmUsuarios.cdsUsuarios.Delete;
     dmUsuarios.cdsUsuarios.ApplyUpdates(0);
     Application.MessageBox('Registro excluído com sucesso!', 'Confirmação!', MB_OK + MB_ICONINFORMATION);
@@ -206,7 +190,8 @@ begin
 
   if dmUsuarios.cdsUsuarios.State in [dsInsert] then
   begin
-    dmUsuarios.cdsUsuariosBDCODUSU.AsInteger := dmUsuarios.GetChaveGenerator;
+    // Vai pegar o código direto da generator na trigger before insert
+    dmUsuarios.cdsUsuariosBDCODUSU.AsInteger := 0;
     wMsg := 'Registro incluído com sucesso!'
   end;
 

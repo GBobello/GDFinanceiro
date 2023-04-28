@@ -16,11 +16,7 @@ inherited frPesquisaSofas: TfrPesquisaSofas
             Font.Name = 'Tahoma'
             Font.Style = []
             Title.Caption = 'C'#243'digo'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWhite
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = [fsBold]
+            Width = 43
             Visible = True
           end
           item
@@ -32,12 +28,7 @@ inherited frPesquisaSofas: TfrPesquisaSofas
             Font.Name = 'Tahoma'
             Font.Style = []
             Title.Caption = 'Nome'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWhite
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = [fsBold]
-            Width = 300
+            Width = 59
             Visible = True
           end
           item
@@ -49,12 +40,7 @@ inherited frPesquisaSofas: TfrPesquisaSofas
             Font.Name = 'Tahoma'
             Font.Style = []
             Title.Caption = 'Valor da Costura'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWhite
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = [fsBold]
-            Width = 64
+            Width = 68
             Visible = True
           end
           item
@@ -66,11 +52,6 @@ inherited frPesquisaSofas: TfrPesquisaSofas
             Font.Name = 'Tahoma'
             Font.Style = []
             Title.Caption = 'Valor do Corte'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWhite
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = [fsBold]
             Width = 64
             Visible = True
           end
@@ -83,12 +64,7 @@ inherited frPesquisaSofas: TfrPesquisaSofas
             Font.Name = 'Tahoma'
             Font.Style = []
             Title.Caption = 'Quantidade de horas'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWhite
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = [fsBold]
-            Width = 64
+            Width = 96
             Visible = True
           end>
       end

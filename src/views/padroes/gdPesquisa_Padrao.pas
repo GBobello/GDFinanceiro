@@ -16,8 +16,13 @@ type
     dsPesquisa: TDataSource;
     procedure dbGridDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
+    fTamanhoGrid: Integer;
+    procedure ResizeCampos;
   public
     { Public declarations }
   end;
@@ -48,6 +53,39 @@ begin
 
   dbGrid.Canvas.FillRect(Rect);
   dbGrid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+end;
+
+procedure TfrPesquisa_Padrao.FormCreate(Sender: TObject);
+begin
+  inherited;
+  fTamanhoGrid := 0;
+end;
+
+procedure TfrPesquisa_Padrao.FormResize(Sender: TObject);
+begin
+  inherited;
+  ResizeCampos;
+end;
+
+procedure TfrPesquisa_Padrao.FormShow(Sender: TObject);
+
+begin
+  inherited;
+  ResizeCampos;
+end;
+
+procedure TfrPesquisa_Padrao.ResizeCampos;
+var
+  wTotalWidth: Integer;
+  wI: Integer;
+  wColWidth: Integer;
+begin
+  wTotalWidth := 0;
+  for wI := 0 to Pred(dbGrid.Columns.Count) do
+    wTotalWidth := wTotalWidth + dbGrid.Columns[wI].Width;
+  wColWidth := ((dbGrid.ClientWidth - 20) - wTotalWidth) div dbGrid.Columns.Count;
+  for wI := 0 to Pred(dbGrid.Columns.Count) do
+    dbGrid.Columns[wI].Width := dbGrid.Columns[wI].Width + wColWidth;
 end;
 
 end.

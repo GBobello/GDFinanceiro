@@ -2,7 +2,6 @@ inherited frUsuarios: TfrUsuarios
   Caption = 'GD'
   ClientHeight = 485
   ClientWidth = 751
-  OnCreate = FormCreate
   ExplicitWidth = 751
   ExplicitHeight = 485
   PixelsPerInch = 96
@@ -174,16 +173,10 @@ inherited frUsuarios: TfrUsuarios
           inherited dbGrid: TDBGrid
             Width = 649
             Height = 305
-            BorderStyle = bsNone
-            Color = clWhite
             DataSource = dsUsuarios
-            DrawingStyle = gdsClassic
-            FixedColor = 7165253
             Font.Color = 7165253
             Font.Height = -12
             Font.Style = [fsBold]
-            Options = [dgTitles, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgTitleClick]
-            OnDrawColumnCell = dbGridDrawColumnCell
             Columns = <
               item
                 Expanded = False

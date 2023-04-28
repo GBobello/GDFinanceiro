@@ -11,7 +11,6 @@ object dmConexao: TdmConexao
       'User_Name=SYSDBA'
       'Password=masterkey'
       'DriverID=FB')
-    Connected = True
     LoginPrompt = False
     Left = 48
     Top = 16
