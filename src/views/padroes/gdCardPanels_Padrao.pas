@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, gdSimples, System.ImageList,
   Vcl.ImgList, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, Data.DB, Vcl.Grids,
-  Vcl.DBGrids, Vcl.WinXPanels, gdFuncoes, GD_Edit;
+  Vcl.DBGrids, Vcl.WinXPanels, gdFuncoes, GD_Edit, System.Actions, Vcl.ActnList;
 
 type
   TfrCardPanels_Padrao = class(TfrSimples)
@@ -70,6 +70,8 @@ type
     procedure dbGridDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure dbGridDblClick(Sender: TObject);
   private
     procedure AjustaTamanhoCelulas;
     { Private declarations }
@@ -84,6 +86,12 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrCardPanels_Padrao.dbGridDblClick(Sender: TObject);
+begin
+  inherited;
+  spEditar.Click;
+end;
 
 procedure TfrCardPanels_Padrao.dbGridDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
@@ -128,7 +136,7 @@ begin
   wTotalWidth := 0;
   for wI := 0 to Pred(dbGrid.Columns.Count) do
     wTotalWidth := wTotalWidth + dbGrid.Columns[wI].Width;
-  wColWidth := ((dbGrid.ClientWidth) - wTotalWidth) div dbGrid.Columns.Count;
+  wColWidth := ((dbGrid.ClientWidth - 20) - wTotalWidth) div dbGrid.Columns.Count;
   for wI := 0 to Pred(dbGrid.Columns.Count) do
     dbGrid.Columns[wI].Width := dbGrid.Columns[wI].Width + wColWidth;
 end;
@@ -137,6 +145,12 @@ procedure TfrCardPanels_Padrao.FormResize(Sender: TObject);
 begin
   inherited;
   fFuncoes.SetCentralizaControles(TControl(pnEditsCadastro), TControl(pnCentralCadastros));
+  AjustaTamanhoCelulas;
+end;
+
+procedure TfrCardPanels_Padrao.FormShow(Sender: TObject);
+begin
+  inherited;
   AjustaTamanhoCelulas;
 end;
 
@@ -149,8 +163,8 @@ end;
 procedure TfrCardPanels_Padrao.spConsultarClick(Sender: TObject);
 begin
   inherited;
-  AjustaTamanhoCelulas;
   cdPanel.ActiveCard := cardConsultaUsuarios;
+  AjustaTamanhoCelulas;
 end;
 
 procedure TfrCardPanels_Padrao.spEditarClick(Sender: TObject);

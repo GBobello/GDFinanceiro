@@ -44,8 +44,6 @@ type
     procedure dsModeloDataChange(Sender: TObject; Field: TField);
     procedure spedQuantidadeExit(Sender: TObject);
     procedure spedQuantidadeChange(Sender: TObject);
-    procedure dbGridDrawColumnCell(Sender: TObject; const Rect: TRect;
-      DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure FormShow(Sender: TObject);
   private
     procedure SetaValor;
@@ -92,22 +90,6 @@ procedure TfrNovo.dbcbModeloExit(Sender: TObject);
 begin
   inherited;
   SetaValor
-end;
-
-procedure TfrNovo.dbGridDrawColumnCell(Sender: TObject; const Rect: TRect;
-  DataCol: Integer; Column: TColumn; State: TGridDrawState);
-var
-  wLinha: Integer;
-begin
-  inherited;
-//  wLinha := dbGrid.DataSource.DataSet.RecNo;
-//
-//  if Odd(wLinha) then
-//    dbGrid.Canvas.Brush.Color := clMenu
-//  else
-//    dbGrid.Canvas.Brush.Color := clRed;
-//
-//  dbGrid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
 end;
 
 procedure TfrNovo.dsModeloDataChange(Sender: TObject; Field: TField);

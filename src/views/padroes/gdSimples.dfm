@@ -4,8 +4,8 @@ object frSimples: TfrSimples
   Align = alClient
   BorderStyle = bsNone
   Caption = 'Simples'
-  ClientHeight = 729
-  ClientWidth = 1164
+  ClientHeight = 415
+  ClientWidth = 627
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,26 +21,29 @@ object frSimples: TfrSimples
   object pnPrincipal: TPanel
     Left = 0
     Top = 0
-    Width = 1164
-    Height = 729
+    Width = 627
+    Height = 415
     Align = alClient
     BevelOuter = bvNone
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
+    ExplicitWidth = 1164
+    ExplicitHeight = 729
     object pnBarraSuperior: TPanel
       Left = 0
       Top = 0
-      Width = 1164
+      Width = 627
       Height = 41
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitWidth = 1164
       DesignSize = (
-        1164
+        627
         41)
       object spFecha: TSpeedButton
-        Left = 1137
+        Left = 600
         Top = 4
         Width = 24
         Height = 24
@@ -57,9 +60,10 @@ object frSimples: TfrSimples
         Font.Style = [fsBold]
         ParentFont = False
         OnClick = spFechaClick
+        ExplicitLeft = 1137
       end
       object spMinimiza: TSpeedButton
-        Left = 1108
+        Left = 571
         Top = 4
         Width = 24
         Height = 24
@@ -76,6 +80,7 @@ object frSimples: TfrSimples
         Font.Style = [fsBold]
         ParentFont = False
         OnClick = spMinimizaClick
+        ExplicitLeft = 1108
       end
       object pnNomeDaTela: TPanel
         Left = 0

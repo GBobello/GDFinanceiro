@@ -31,10 +31,8 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TdmConexao, dmConexao);
   Application.CreateForm(TdmUsuarios, dmUsuarios);
-  Application.CreateForm(TfrMain, frMain);
   Application.CreateForm(TdmNovo, dmNovo);
-  Application.CreateForm(TfrPesquisa_Padrao, frPesquisa_Padrao);
   Application.CreateForm(TdmPesquisaSofas, dmPesquisaSofas);
-  Application.CreateForm(TfrPesquisaSofas, frPesquisaSofas);
+  Application.CreateForm(TfrMain, frMain);
   Application.Run;
 end.

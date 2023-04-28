@@ -4,6 +4,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
   ClientWidth = 684
   OnCreate = FormCreate
   OnResize = FormResize
+  OnShow = FormShow
   ExplicitWidth = 684
   ExplicitHeight = 425
   PixelsPerInch = 96
@@ -11,11 +12,11 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
   inherited pnPrincipal: TPanel
     Width = 684
     Height = 425
-    ExplicitWidth = 1055
-    ExplicitHeight = 608
+    ExplicitWidth = 684
+    ExplicitHeight = 425
     inherited pnBarraSuperior: TPanel
       Width = 684
-      ExplicitWidth = 1055
+      ExplicitWidth = 684
       DesignSize = (
         684
         41)
@@ -36,8 +37,6 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
       Align = alClient
       ActiveCard = cardConsultaUsuarios
       TabOrder = 1
-      ExplicitWidth = 1055
-      ExplicitHeight = 567
       object cardConsultaUsuarios: TCard
         Left = 1
         Top = 1
@@ -46,8 +45,6 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
         Caption = 'cardConsulta'
         CardIndex = 0
         TabOrder = 0
-        ExplicitWidth = 1053
-        ExplicitHeight = 565
         object pnBotoesConsulta: TPanel
           Left = 0
           Top = 310
@@ -56,8 +53,6 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
           Align = alBottom
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitTop = 493
-          ExplicitWidth = 1053
           object pnLeftBotoesConsulta: TPanel
             Left = 142
             Top = 0
@@ -66,7 +61,6 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
             Align = alRight
             BevelOuter = bvNone
             TabOrder = 0
-            ExplicitLeft = 513
             object pnExcluir: TPanel
               Left = 40
               Top = 21
@@ -312,7 +306,6 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
           Padding.Right = 50
           Padding.Bottom = 10
           TabOrder = 1
-          ExplicitWidth = 1053
           object Label1: TLabel
             Left = 55
             Top = 10
@@ -346,7 +339,6 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
             Text = 'GD_Edit1'
             Visible = False
             MudarCor = 13828095
-            ExplicitWidth = 881
             ExplicitHeight = 27
           end
         end
@@ -361,8 +353,6 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
           Padding.Right = 50
           Padding.Bottom = 15
           TabOrder = 2
-          ExplicitWidth = 1053
-          ExplicitHeight = 443
           object dbGrid: TDBGrid
             Left = 50
             Top = 0
@@ -388,6 +378,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
             TitleFont.Name = 'Tahoma'
             TitleFont.Style = []
             OnDrawColumnCell = dbGridDrawColumnCell
+            OnDblClick = dbGridDblClick
           end
         end
       end

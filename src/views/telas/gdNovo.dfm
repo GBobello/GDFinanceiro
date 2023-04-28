@@ -2,7 +2,6 @@ inherited frNovo: TfrNovo
   Caption = 'Novo'
   ClientHeight = 491
   ClientWidth = 752
-  OnShow = FormShow
   ExplicitWidth = 752
   ExplicitHeight = 491
   PixelsPerInch = 96
@@ -11,6 +10,7 @@ inherited frNovo: TfrNovo
     Width = 752
     Height = 491
     ExplicitWidth = 752
+    ExplicitHeight = 491
     inherited pnBarraSuperior: TPanel
       Width = 752
       ExplicitWidth = 752
@@ -155,9 +155,6 @@ inherited frNovo: TfrNovo
         inherited pnPesquisa: TPanel
           Width = 750
           ExplicitWidth = 750
-          inherited Label1: TLabel
-            Height = 30
-          end
           inherited GD_Edit1: TGD_Edit
             Width = 578
             ExplicitWidth = 578
@@ -176,6 +173,11 @@ inherited frNovo: TfrNovo
               item
                 Expanded = False
                 FieldName = 'BDCODSERV'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -12
+                Font.Name = 'Tahoma'
+                Font.Style = []
                 Title.Caption = 'C'#243'digo'
                 Width = 47
                 Visible = True
@@ -183,6 +185,11 @@ inherited frNovo: TfrNovo
               item
                 Expanded = False
                 FieldName = 'BDDATASERV'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -12
+                Font.Name = 'Tahoma'
+                Font.Style = []
                 Title.Caption = 'Data'
                 Width = 36
                 Visible = True
@@ -190,6 +197,11 @@ inherited frNovo: TfrNovo
               item
                 Expanded = False
                 FieldName = 'BDNOMUSU'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -12
+                Font.Name = 'Tahoma'
+                Font.Style = []
                 Title.Caption = 'Nome do usu'#225'rio'
                 Width = 84
                 Visible = True
@@ -197,6 +209,11 @@ inherited frNovo: TfrNovo
               item
                 Expanded = False
                 FieldName = 'BDQUANTIDADE'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -12
+                Font.Name = 'Tahoma'
+                Font.Style = []
                 Title.Caption = 'Quantidade'
                 Width = 61
                 Visible = True
@@ -204,6 +221,11 @@ inherited frNovo: TfrNovo
               item
                 Expanded = False
                 FieldName = 'BDDESCSOFA'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -12
+                Font.Name = 'Tahoma'
+                Font.Style = []
                 Title.Caption = 'Sof'#225
                 Width = 29
                 Visible = True
@@ -211,6 +233,11 @@ inherited frNovo: TfrNovo
               item
                 Expanded = False
                 FieldName = 'BDSERVICOPALAVRA'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -12
+                Font.Name = 'Tahoma'
+                Font.Style = []
                 Title.Caption = 'Servi'#231'o'
                 Width = 44
                 Visible = True
@@ -218,6 +245,11 @@ inherited frNovo: TfrNovo
               item
                 Expanded = False
                 FieldName = 'BDTOTALSERV'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -12
+                Font.Name = 'Tahoma'
+                Font.Style = []
                 Title.Caption = 'Total'
                 Width = 31
                 Visible = True
@@ -228,16 +260,16 @@ inherited frNovo: TfrNovo
       inherited cardCadastroUsuarios: TCard
         Width = 750
         Height = 448
-        ExplicitWidth = 1035
+        ExplicitWidth = 750
         ExplicitHeight = 448
         inherited pnBotoesCadastro: TPanel
           Top = 376
           Width = 750
           ExplicitTop = 376
-          ExplicitWidth = 1035
+          ExplicitWidth = 750
           inherited pnLeftBotoesCadastro: TPanel
             Left = 210
-            ExplicitLeft = 495
+            ExplicitLeft = 210
             inherited pnConsultar: TPanel
               inherited spConsultar: TSpeedButton
                 ExplicitLeft = 7
@@ -248,7 +280,7 @@ inherited frNovo: TfrNovo
         inherited pnEditsCadastro: TPanel
           Width = 750
           Height = 376
-          ExplicitWidth = 1035
+          ExplicitWidth = 750
           ExplicitHeight = 376
           inherited pnCentralCadastros: TPanel
             Left = 218

@@ -169,7 +169,6 @@ end;
 
 procedure TfrMain.FormCreate(Sender: TObject);
 begin
-//    Descomentar depois
   try
     Application.CreateForm(TfrSplashScreen, frSplashScreen);
     frSplashScreen.ShowModal;
@@ -181,10 +180,7 @@ begin
     Application.CreateForm(TfrLogin, frLogin);
     frLogin.ShowModal;
     if frLogin.ModalResult <> mrOk then
-    begin
-      Application.Terminate;
-      Abort;
-    end;
+      Halt;
     spUsuario.Caption := gdClasses_GD.fUsuarioLogado.Nome;
   finally
     FreeAndNil(frLogin);
