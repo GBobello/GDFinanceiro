@@ -1,5 +1,6 @@
 inherited frPesquisaSofas: TfrPesquisaSofas
   Caption = 'Pesquisa Sof'#225's'
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnPrincipal: TPanel
@@ -82,11 +83,9 @@ inherited frPesquisaSofas: TfrPesquisaSofas
         end
       end
     end
-    inherited pnPesquisa: TPanel
-      ExplicitTop = 41
-    end
     inherited pnGrid: TPanel
       inherited dbGrid: TDBGrid
+        OnDblClick = dbGridDblClick
         Columns = <
           item
             Expanded = False

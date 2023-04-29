@@ -155,6 +155,9 @@ inherited frNovo: TfrNovo
         inherited pnPesquisa: TPanel
           Width = 750
           ExplicitWidth = 750
+          inherited Label1: TLabel
+            Height = 16
+          end
           inherited GD_Edit1: TGD_Edit
             Width = 578
             ExplicitWidth = 578
@@ -478,18 +481,18 @@ inherited frNovo: TfrNovo
     Left = 947
     Top = 41
   end
-  object dsUsuarios: TDataSource
+  object dsUsuarios: TDataSource [3]
     DataSet = dmNovo.queryUsuarios
     Left = 752
     Top = 39
   end
-  object dsModelo: TDataSource
+  object dsModelo: TDataSource [4]
     DataSet = dmNovo.queryModelo
     OnDataChange = dsModeloDataChange
     Left = 816
     Top = 39
   end
-  object dsNovo: TDataSource
+  object dsNovo: TDataSource [5]
     DataSet = dmNovo.cdsNovo
     Left = 153
     Top = 404

@@ -35,7 +35,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
       Width = 684
       Height = 384
       Align = alClient
-      ActiveCard = cardConsultaUsuarios
+      ActiveCard = cardCadastroUsuarios
       TabOrder = 1
       object cardConsultaUsuarios: TCard
         Left = 1
@@ -62,7 +62,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
             BevelOuter = bvNone
             TabOrder = 0
             object pnExcluir: TPanel
-              Left = 40
+              Left = 32
               Top = 21
               Width = 145
               Height = 30
@@ -77,7 +77,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Height = 28
                 Align = alClient
                 DisabledImageIndex = 8
-                Caption = 'Excluir'
+                Caption = 'Excluir (Del)'
                 ImageIndex = 6
                 Images = imageList
                 HotImageIndex = 7
@@ -139,9 +139,9 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
               end
             end
             object pnEditar: TPanel
-              Left = 199
+              Left = 188
               Top = 21
-              Width = 145
+              Width = 147
               Height = 30
               BevelOuter = bvNone
               Color = clWhite
@@ -150,11 +150,11 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
               object spEditar: TSpeedButton
                 Left = 1
                 Top = 1
-                Width = 143
+                Width = 145
                 Height = 28
                 Align = alClient
                 DisabledImageIndex = 5
-                Caption = 'Editar'
+                Caption = 'Editar (Ctrl + E)'
                 ImageIndex = 3
                 Images = imageList
                 HotImageIndex = 4
@@ -166,33 +166,36 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Font.Style = []
                 ParentFont = False
                 OnClick = spEditarClick
-                ExplicitLeft = -5
+                ExplicitLeft = 2
                 ExplicitTop = -5
+                ExplicitWidth = 143
               end
               object pnCimaEditar: TPanel
                 Left = 0
                 Top = 0
-                Width = 145
+                Width = 147
                 Height = 1
                 Align = alTop
                 BevelOuter = bvNone
                 Color = clBlack
                 ParentBackground = False
                 TabOrder = 0
+                ExplicitWidth = 145
               end
               object pnBaixoEditar: TPanel
                 Left = 0
                 Top = 29
-                Width = 145
+                Width = 147
                 Height = 1
                 Align = alBottom
                 BevelOuter = bvNone
                 Color = clBlack
                 ParentBackground = False
                 TabOrder = 1
+                ExplicitWidth = 145
               end
               object pnDireitaEditar: TPanel
-                Left = 144
+                Left = 146
                 Top = 1
                 Width = 1
                 Height = 28
@@ -201,6 +204,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Color = clBlack
                 ParentBackground = False
                 TabOrder = 2
+                ExplicitLeft = 144
               end
               object pnEsquerdaEditar: TPanel
                 Left = 0
@@ -215,9 +219,9 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
               end
             end
             object pnNovoItem: TPanel
-              Left = 359
+              Left = 346
               Top = 21
-              Width = 161
+              Width = 178
               Height = 30
               BevelOuter = bvNone
               Color = clWhite
@@ -226,11 +230,11 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
               object spNovoItem: TSpeedButton
                 Left = 1
                 Top = 1
-                Width = 159
+                Width = 176
                 Height = 28
                 Align = alClient
                 DisabledImageIndex = 17
-                Caption = 'Novo Item'
+                Caption = 'Novo Item (Ctrl + N)'
                 ImageIndex = 15
                 Images = imageList
                 HotImageIndex = 16
@@ -250,27 +254,29 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
               object pnCimaNovoItem: TPanel
                 Left = 0
                 Top = 0
-                Width = 161
+                Width = 178
                 Height = 1
                 Align = alTop
                 BevelOuter = bvNone
                 Color = clBlack
                 ParentBackground = False
                 TabOrder = 0
+                ExplicitWidth = 161
               end
               object pnBaixoNovoItem: TPanel
                 Left = 0
                 Top = 29
-                Width = 161
+                Width = 178
                 Height = 1
                 Align = alBottom
                 BevelOuter = bvNone
                 Color = clBlack
                 ParentBackground = False
                 TabOrder = 1
+                ExplicitWidth = 161
               end
               object pnDireitaNovoItem: TPanel
-                Left = 160
+                Left = 177
                 Top = 1
                 Width = 1
                 Height = 28
@@ -279,6 +285,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Color = clBlack
                 ParentBackground = False
                 TabOrder = 2
+                ExplicitLeft = 160
               end
               object pnEsquerdaNovoItem: TPanel
                 Left = 0
@@ -498,7 +505,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Height = 28
                 Align = alClient
                 DisabledImageIndex = 14
-                Caption = 'Consultar'
+                Caption = 'Consultar (F9)'
                 ImageIndex = 12
                 Images = imageList
                 HotImageIndex = 13
@@ -574,7 +581,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Height = 28
                 Align = alClient
                 DisabledImageIndex = 11
-                Caption = 'Salvar'
+                Caption = 'Salvar (PgnDn)'
                 ImageIndex = 9
                 Images = imageList
                 HotImageIndex = 10
@@ -645,8 +652,8 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
           BevelOuter = bvNone
           TabOrder = 1
           object pnCentralCadastros: TPanel
-            Left = 266
-            Top = 131
+            Left = 81
+            Top = 40
             Width = 521
             Height = 231
             BevelOuter = bvNone
@@ -1330,5 +1337,19 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
       318C318C318C3E0313C813C813C83F019FF99FF99FF91F8087E187E187E10000
       C183C183C1838020F00FF00FF00FFFF000000000000000000000000000000000
       000000000000}
+  end
+  object actionList: TActionList
+    Left = 529
+    Top = 172
+    object aclNovoItem: TAction
+      Caption = 'aclNovoItem'
+      ShortCut = 16462
+      OnExecute = spNovoItemClick
+    end
+    object aclEditar: TAction
+      Caption = 'aclEditar'
+      ShortCut = 16453
+      OnExecute = spEditarClick
+    end
   end
 end

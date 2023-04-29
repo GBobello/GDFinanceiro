@@ -2,7 +2,6 @@ inherited frPesquisa_Padrao: TfrPesquisa_Padrao
   Caption = ''
   ClientHeight = 448
   ClientWidth = 554
-  OnCreate = FormCreate
   OnResize = FormResize
   OnShow = FormShow
   ExplicitWidth = 554
@@ -37,7 +36,6 @@ inherited frPesquisa_Padrao: TfrPesquisa_Padrao
       Align = alTop
       Caption = 'pesquisa'
       TabOrder = 1
-      ExplicitTop = 35
     end
     object pnGrid: TPanel
       Left = 0

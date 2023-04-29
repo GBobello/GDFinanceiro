@@ -22,7 +22,8 @@ uses
   udmNovo in 'src\dataModules\udmNovo.pas' {dmNovo: TDataModule},
   gdPesquisa_Padrao in 'src\views\padroes\gdPesquisa_Padrao.pas' {frPesquisa_Padrao},
   udmPesquisaSofas in 'src\dataModules\udmPesquisaSofas.pas' {dmPesquisaSofas: TDataModule},
-  gdPesquisaSofas in 'src\views\telas\gdPesquisaSofas.pas' {frPesquisaSofas};
+  gdPesquisaSofas in 'src\views\telas\gdPesquisaSofas.pas' {frPesquisaSofas},
+  gdValorNovo in 'src\classes\gdValorNovo.pas';
 
 {$R *.res}
 
@@ -30,8 +31,8 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TdmConexao, dmConexao);
-  Application.CreateForm(TdmUsuarios, dmUsuarios);
   Application.CreateForm(TdmNovo, dmNovo);
+  Application.CreateForm(TdmUsuarios, dmUsuarios);
   Application.CreateForm(TdmPesquisaSofas, dmPesquisaSofas);
   Application.CreateForm(TfrMain, frMain);
   Application.Run;

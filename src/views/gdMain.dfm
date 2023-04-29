@@ -736,6 +736,7 @@ object frMain: TfrMain
             7CBA3281BC39C5E1A5FEFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBF5
             E0BDDC98A3CF6F89C14689C146A3CF6FBDDC98EBF5E0FFFFFFFFFFFFFFFFFFFF
             FFFF}
+          Visible = False
           OnClick = Image1Click
         end
       end

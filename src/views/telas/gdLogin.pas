@@ -8,7 +8,8 @@ uses
   Vcl.Imaging.pngimage, Vcl.Buttons, udmConexao, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, gdClasses_GD, gdLoginClass;
+  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, gdClasses_GD, gdLoginClass,
+  gdFuncoes;
 
 type
   TfrLogin = class(TForm)
@@ -115,6 +116,8 @@ begin
 end;
 
 procedure TfrLogin.spEntrarClick(Sender: TObject);
+var
+  wSenhaCrypt: String;
 begin
   if Trim(edUsuario.Text) = '' then
   begin
@@ -132,7 +135,8 @@ begin
 
 
   try
-    FDaoLogin.EfetuarLogin(Trim(edUsuario.Text), Trim(edSenha.Text));
+    wSenhaCrypt := gdFuncoes.MD5(Trim(edSenha.Text));
+    FDaoLogin.EfetuarLogin(Trim(edUsuario.Text), wSenhaCrypt);
     ModalResult := mrOk;
   except on E: Exception do 
     begin                         

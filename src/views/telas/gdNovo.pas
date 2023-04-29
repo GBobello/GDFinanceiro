@@ -11,7 +11,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  GD_ComboBox, gdClasses_GD, gdSimples, udmNovo;
+  GD_ComboBox, gdClasses_GD, gdSimples, udmNovo, System.Actions, Vcl.ActnList;
 
 type
   TfrNovo = class(TfrCardPanels_Padrao)
@@ -170,7 +170,13 @@ begin
   end;
   dmNovo.queryModelo.Active := True;
   dmNovo.queryUsuarios.Active := True;
-  dbcbModelo.KeyValue := dmNovo.queryModelo.FieldByName('BDCODSOFA').AsInteger;
+  if gdClasses_GD.fValorSofa <> nil then
+  begin
+    dbcbModelo.KeyValue := gdClasses_GD.fValorSofa.CodSofa;
+    gdClasses_GD.SetDeletaValorSofa;
+  end
+  else
+    dbcbModelo.KeyValue := dmNovo.queryModelo.FieldByName('BDCODSOFA').AsInteger;
   dbcbResponsavel.KeyValue := dmNovo.queryUsuarios.FieldByName('BDCODUSU').AsInteger;
 end;
 
@@ -184,6 +190,7 @@ procedure TfrNovo.FormShow(Sender: TObject);
 begin
   inherited;
   cdPanel.ActiveCard := cardCadastroUsuarios;
+  dmNovo.cdsNovo.Insert;
   fFuncoes.SetCentralizaControles(TControl(pnEditsCadastro), TControl(pnCentralCadastros));
 end;
 
@@ -295,15 +302,24 @@ end;
 procedure TfrNovo.spExcluirClick(Sender: TObject);
 begin
   inherited;
-  if Application.MessageBox('Deseja realmente excluir esse registro?', 'Pergunta!', MB_YESNO + MB_ICONQUESTION) <> mrYes then
-    Exit;
+  if cdPanel.ActiveCard.Name = 'cardConsultaUsuarios' then
+  begin
+    if dmNovo.cdsNovo.IsEmpty then
+    begin
+      Application.MessageBox('Não há registros a serem excluidos!', 'Confirmação!', MB_OK + MB_ICONINFORMATION);
+      Exit;
+    end;
 
-  try
-    dmNovo.cdsNovo.Delete;
-    dmNovo.cdsNovo.ApplyUpdates(0);
-    Application.MessageBox('Registro excluído com sucesso!', 'Confirmação!', MB_OK + MB_ICONINFORMATION);
-  except on E: Exception do
-    Application.MessageBox(PWideChar(E.Message), 'Erro ao excluir registro!', MB_OK + MB_ICONERROR);
+    if Application.MessageBox('Deseja realmente excluir esse registro?', 'Pergunta!', MB_YESNO + MB_ICONQUESTION) <> mrYes then
+      Exit;
+
+    try
+      dmNovo.cdsNovo.Delete;
+      dmNovo.cdsNovo.ApplyUpdates(0);
+      Application.MessageBox('Registro excluído com sucesso!', 'Confirmação!', MB_OK + MB_ICONINFORMATION);
+    except on E: Exception do
+      Application.MessageBox(PWideChar(E.Message), 'Erro ao excluir registro!', MB_OK + MB_ICONERROR);
+    end;
   end;
 end;
 

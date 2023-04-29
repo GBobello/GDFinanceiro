@@ -61,6 +61,9 @@ type
     imageList: TImageList;
     GD_Edit1: TGD_Edit;
     Label1: TLabel;
+    actionList: TActionList;
+    aclNovoItem: TAction;
+    aclEditar: TAction;
     procedure spConsultarClick(Sender: TObject);
     procedure spEditarClick(Sender: TObject);
     procedure spCancelarClick(Sender: TObject);
@@ -72,9 +75,11 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure dbGridDblClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
-    procedure AjustaTamanhoCelulas;
     { Private declarations }
+  protected
+    procedure AjustaTamanhoCelulas;
   public
     { Public declarations }
   end;
@@ -127,6 +132,18 @@ begin
   end;
 end;
 
+procedure TfrCardPanels_Padrao.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  if Key = VK_F9 then
+    spConsultar.Click;
+  if Key = VK_DELETE then
+    spExcluir.Click;
+  if Key = 34 then
+    spSalvar.Click;
+end;
+
 procedure TfrCardPanels_Padrao.AjustaTamanhoCelulas;
 var
   wTotalWidth: Integer;
@@ -157,34 +174,51 @@ end;
 procedure TfrCardPanels_Padrao.spCancelarClick(Sender: TObject);
 begin
   inherited;
-  cdPanel.ActiveCard := cardConsultaUsuarios;
+  if cdPanel.ActiveCard.Name = 'cardCadastroUsuarios' then
+  begin
+    cdPanel.ActiveCard := cardConsultaUsuarios;
+    AjustaTamanhoCelulas;
+  end;
 end;
 
 procedure TfrCardPanels_Padrao.spConsultarClick(Sender: TObject);
 begin
   inherited;
-  cdPanel.ActiveCard := cardConsultaUsuarios;
-  AjustaTamanhoCelulas;
+  if cdPanel.ActiveCard.Name = 'cardCadastroUsuarios' then
+  begin
+    cdPanel.ActiveCard := cardConsultaUsuarios;
+    AjustaTamanhoCelulas;
+  end;
 end;
 
 procedure TfrCardPanels_Padrao.spEditarClick(Sender: TObject);
 begin
   inherited;
-  cdPanel.ActiveCard := cardCadastroUsuarios;
-  fFuncoes.SetCentralizaControles(TControl(pnEditsCadastro), TControl(pnCentralCadastros));
+  if cdPanel.ActiveCard.Name = 'cardConsultaUsuarios' then
+  begin
+    cdPanel.ActiveCard := cardCadastroUsuarios;
+    fFuncoes.SetCentralizaControles(TControl(pnEditsCadastro), TControl(pnCentralCadastros));
+  end;
 end;
 
 procedure TfrCardPanels_Padrao.spNovoItemClick(Sender: TObject);
 begin
   inherited;
-  cdPanel.ActiveCard := cardCadastroUsuarios;
-  fFuncoes.SetCentralizaControles(TControl(pnEditsCadastro), TControl(pnCentralCadastros));
+  if cdPanel.ActiveCard.Name = 'cardConsultaUsuarios' then
+  begin
+    cdPanel.ActiveCard := cardCadastroUsuarios;
+    fFuncoes.SetCentralizaControles(TControl(pnEditsCadastro), TControl(pnCentralCadastros));
+  end;
 end;
 
 procedure TfrCardPanels_Padrao.spSalvarClick(Sender: TObject);
 begin
   inherited;
-  cdPanel.ActiveCard := cardConsultaUsuarios;
+  if cdPanel.ActiveCard.Name = 'cardCadastroUsuarios' then
+  begin
+    cdPanel.ActiveCard := cardConsultaUsuarios;
+    AjustaTamanhoCelulas;
+  end;
 end;
 
 end.

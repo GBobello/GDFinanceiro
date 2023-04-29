@@ -11,7 +11,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  gdClasses_GD;
+  gdClasses_GD, System.Actions, Vcl.ActnList;
 
 type
   TfrUsuarios = class(TfrCardPanels_Padrao)
@@ -24,10 +24,22 @@ type
     lbNome: TLabel;
     lbLogin: TLabel;
     lbSenha: TLabel;
-    imgOlhoAberto: TImage;
-    imgOlhoFechado: TImage;
-    procedure imgOlhoAbertoClick(Sender: TObject);
-    procedure imgOlhoFechadoClick(Sender: TObject);
+    cardTrocaSenha: TCard;
+    pnCentralTrocaSenha: TPanel;
+    edSenhaAnterior: TGD_Edit;
+    edNovaSenha: TGD_Edit;
+    edConfirmaSenha: TGD_Edit;
+    lbSenhaAnterior: TLabel;
+    lbNovaSenha: TLabel;
+    lbConfirmacaoSenha: TLabel;
+    pnConfirmar: TPanel;
+    spConfirmar: TSpeedButton;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    lbAlterarSenha: TLabel;
+    spVoltar: TSpeedButton;
     procedure FormCreate(Sender: TObject);
     procedure dbGridDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
@@ -37,6 +49,13 @@ type
     procedure spCancelarClick(Sender: TObject);
     procedure spConsultarClick(Sender: TObject);
     procedure spExcluirClick(Sender: TObject);
+    procedure spConfirmarMouseEnter(Sender: TObject);
+    procedure spConfirmarMouseLeave(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure lbAlterarSenhaClick(Sender: TObject);
+    procedure spVoltarClick(Sender: TObject);
+    procedure spConfirmarClick(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     procedure SetaSQLs;
     { Private declarations }
@@ -78,30 +97,34 @@ end;
 procedure TfrUsuarios.FormCreate(Sender: TObject);
 begin
   inherited;
-  cdPanel.ActiveCard := cardConsultaUsuarios;
+  cdPanel.ActiveCard := cardCadastroUsuarios;
   SetaSQLs;
 end;
 
-procedure TfrUsuarios.imgOlhoAbertoClick(Sender: TObject);
+procedure TfrUsuarios.FormResize(Sender: TObject);
 begin
   inherited;
-  imgOlhoAberto.Visible := False;
-  imgOlhoFechado.Visible := True;
-  edSenha.PasswordChar := #0;
+  fFuncoes.SetCentralizaControles(TControl(pnPrincipal), TControl(pnCentralTrocaSenha));
 end;
 
-procedure TfrUsuarios.imgOlhoFechadoClick(Sender: TObject);
+procedure TfrUsuarios.FormShow(Sender: TObject);
 begin
   inherited;
-  imgOlhoAberto.Visible := True;
-  imgOlhoFechado.Visible := False;
-  edSenha.PasswordChar := '*';
+  dmUsuarios.cdsUsuarios.Insert;
+end;
+
+procedure TfrUsuarios.lbAlterarSenhaClick(Sender: TObject);
+begin
+  inherited;
+  cdPanel.ActiveCard := cardTrocaSenha;
+  fFuncoes.SetCentralizaControles(TControl(pnPrincipal), TControl(pnCentralTrocaSenha));
 end;
 
 procedure TfrUsuarios.spCancelarClick(Sender: TObject);
 begin
   inherited;
   dmUsuarios.cdsUsuarios.Cancel;
+  lbAlterarSenha.Visible := False;
 end;
 
 procedure TfrUsuarios.spConsultarClick(Sender: TObject);
@@ -114,11 +137,78 @@ procedure TfrUsuarios.spEditarClick(Sender: TObject);
 begin
   inherited;
   dmUsuarios.cdsUsuarios.Edit;
+  lbAlterarSenha.Visible := True;
 
   edNome.Text                 := dmUsuarios.cdsUsuariosBDNOMUSU.AsString;
   edLogin.Text                := dmUsuarios.cdsUsuariosBDLOGINUSU.AsString;
   edSenha.Text                := dmUsuarios.cdsUsuariosBDSENHAUSU.AsString;
   chkIsAdministrador.Checked  := dmUsuarios.cdsUsuariosBDISADM.AsBoolean;
+end;
+
+procedure TfrUsuarios.spConfirmarClick(Sender: TObject);
+var
+  wSenhaCrypt: String;
+begin
+  if Trim(edSenhaAnterior.Text) = '' then
+  begin
+    edSenhaAnterior.SetFocus;
+    Application.MessageBox('O campo de senha anterior não pode ser vazio!', 'Atenção!', MB_OK + MB_ICONWARNING);
+    Abort;
+  end;
+  if Trim(edNovaSenha.Text) = '' then
+  begin
+    edNovaSenha.SetFocus;
+    Application.MessageBox('O campo de nova senha não pode ser vazio!', 'Atenção!', MB_OK + MB_ICONWARNING);
+    Abort;
+  end;
+  if Trim(edConfirmaSenha.Text) = '' then
+  begin
+    edConfirmaSenha.SetFocus;
+    Application.MessageBox('O campo de confirmação de senha não pode ser vazio!', 'Atenção!', MB_OK + MB_ICONWARNING);
+    Abort;
+  end;
+  if not dmUsuarios.SenhaAnteriorIgual(dmUsuarios.cdsUsuariosBDCODUSU.AsString, dmUsuarios.cdsUsuariosBDSENHAUSU.AsString) then
+  begin
+    edSenhaAnterior.SetFocus;
+    Application.MessageBox('A senha anterior não está correta!', 'Atenção!', MB_OK + MB_ICONWARNING);
+    Abort;
+  end;
+  if Trim(edNovaSenha.Text) <> Trim(edConfirmaSenha.Text) then
+  begin
+    edNovaSenha.SetFocus;
+    Application.MessageBox('As senhas não conferem!', 'Atenção!', MB_OK + MB_ICONWARNING);
+    Abort;
+  end;
+
+  dmUsuarios.cdsUsuariosBDNOMUSU.AsString   := Trim(edNome.Text);
+  dmUsuarios.cdsUsuariosBDLOGINUSU.AsString := Trim(edLogin.Text);
+  wSenhaCrypt := gdFuncoes.MD5(Trim(edNovaSenha.Text));
+  dmUsuarios.cdsUsuariosBDSENHAUSU.AsString := wSenhaCrypt;
+  dmUsuarios.cdsUsuariosBDISADM.AsBoolean   := chkIsAdministrador.Checked;
+
+  dmUsuarios.cdsUsuarios.Post;
+  dmUsuarios.cdsUsuarios.ApplyUpdates(0);
+  Application.MessageBox('Senha alterada com sucesso!', 'Confirmação!', MB_OK + MB_ICONINFORMATION);
+
+  SetaSQLs;
+  dbGrid.Refresh;
+  cdPanel.ActiveCard := cardConsultaUsuarios;
+  AjustaTamanhoCelulas;
+  inherited;
+end;
+
+procedure TfrUsuarios.spConfirmarMouseEnter(Sender: TObject);
+begin
+  inherited;
+  pnConfirmar.Color := $006FFF6F;
+  spConfirmar.Font.Color := clWhite;
+end;
+
+procedure TfrUsuarios.spConfirmarMouseLeave(Sender: TObject);
+begin
+  inherited;
+  pnConfirmar.Color := clWhite;
+  spConfirmar.Font.Color := clBlack;
 end;
 
 procedure TfrUsuarios.spExcluirClick(Sender: TObject);
@@ -127,6 +217,11 @@ begin
   if gdClasses_GD.fUsuarioLogado.ID = dmUsuarios.cdsUsuariosBDCODUSU.AsInteger then
   begin
     Application.MessageBox('Você não pode excluir seu próprio usuário!', 'Atenção!', MB_OK + MB_ICONEXCLAMATION);
+    Exit;
+  end;
+  if dmUsuarios.cdsUsuariosBDISADM.AsBoolean then
+  begin
+    Application.MessageBox('Você não pode excluir usuários administradores!', 'Atenção!', MB_OK + MB_ICONEXCLAMATION);
     Exit;
   end;
 
@@ -159,23 +254,24 @@ end;
 procedure TfrUsuarios.spSalvarClick(Sender: TObject);
 var
   wMsg: String;
+  wSenhaCrypt: String;
 begin
   if Trim(edNome.Text) = '' then
   begin
     edNome.SetFocus;
-    Application.MessageBox('O campo nome não pode ser vazio!', 'Atenção!', MB_OK + MB_ICONWARNING);
+    Application.MessageBox('O campo de nome não pode ser vazio!', 'Atenção!', MB_OK + MB_ICONWARNING);
     Abort;
   end;
   if Trim(edLogin.Text) = '' then
   begin
     edLogin.SetFocus;
-    Application.MessageBox('O campo login não pode ser vazio!', 'Atenção!', MB_OK + MB_ICONWARNING);
+    Application.MessageBox('O campo de login não pode ser vazio!', 'Atenção!', MB_OK + MB_ICONWARNING);
     Abort;
   end;
   if Trim(edSenha.Text) = '' then
   begin
     edSenha.SetFocus;
-    Application.MessageBox('O campo senha não pode ser vazio!', 'Atenção!', MB_OK + MB_ICONWARNING);
+    Application.MessageBox('O campo de senha não pode ser vazio!', 'Atenção!', MB_OK + MB_ICONWARNING);
     Abort;
   end;
 
@@ -197,7 +293,8 @@ begin
 
   dmUsuarios.cdsUsuariosBDNOMUSU.AsString   := Trim(edNome.Text);
   dmUsuarios.cdsUsuariosBDLOGINUSU.AsString := Trim(edLogin.Text);
-  dmUsuarios.cdsUsuariosBDSENHAUSU.AsString := Trim(edSenha.Text);
+  wSenhaCrypt := gdFuncoes.MD5(Trim(edSenha.Text));
+  dmUsuarios.cdsUsuariosBDSENHAUSU.AsString := wSenhaCrypt;
   dmUsuarios.cdsUsuariosBDISADM.AsBoolean   := chkIsAdministrador.Checked;
 
   dmUsuarios.cdsUsuarios.Post;
@@ -208,6 +305,12 @@ begin
   dbGrid.Refresh;
 
   inherited;
+end;
+
+procedure TfrUsuarios.spVoltarClick(Sender: TObject);
+begin
+  inherited;
+  cdPanel.ActiveCard := cardCadastroUsuarios;
 end;
 
 end.

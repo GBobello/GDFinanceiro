@@ -16,12 +16,10 @@ type
     dsPesquisa: TDataSource;
     procedure dbGridDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
-    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);
   private
     { Private declarations }
-    fTamanhoGrid: Integer;
     procedure ResizeCampos;
   public
     { Public declarations }
@@ -55,12 +53,6 @@ begin
   dbGrid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
 end;
 
-procedure TfrPesquisa_Padrao.FormCreate(Sender: TObject);
-begin
-  inherited;
-  fTamanhoGrid := 0;
-end;
-
 procedure TfrPesquisa_Padrao.FormResize(Sender: TObject);
 begin
   inherited;
@@ -68,7 +60,6 @@ begin
 end;
 
 procedure TfrPesquisa_Padrao.FormShow(Sender: TObject);
-
 begin
   inherited;
   ResizeCampos;

@@ -162,6 +162,7 @@
             <Form>frPesquisaSofas</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="src\classes\gdValorNovo.pas"/>
         <None Include=".gitignore"/>
         <None Include="LICENSE"/>
         <BuildConfiguration Include="Release">

@@ -26,6 +26,7 @@ type
   public
     { Public declarations }
     function TemLoginCadastrado(prLogin: String; prID: String) : Boolean;
+    function SenhaAnteriorIgual(prID: String; prSenhaAnterior: String): Boolean;
     function GetChaveGenerator : Integer;
     procedure DecrementaGenerator(prID: Integer);
   end;
@@ -91,6 +92,27 @@ begin
     SQLConsulta.Open;
 
     Result := SQLConsulta.FieldByName('ID_ATUAL').AsInteger;
+  finally
+    SQLConsulta.Close;
+    FreeAndNil(SQLConsulta);
+  end;
+end;
+
+function TdmUsuarios.SenhaAnteriorIgual(prID, prSenhaAnterior: String): Boolean;
+var
+  SQLConsulta: TFDQuery;
+begin
+  Result := False;
+  SQLConsulta := TFDQuery.Create(nil);
+  try
+    SQLConsulta.Connection := dmConexao.Conexao;
+    SQLConsulta.SQL.Clear;
+    SQLConsulta.SQL.Add('SELECT BDSENHAUSU FROM TB_USUARIOS WHERE BDCODUSU = :ID');
+    SQLConsulta.ParamByName('ID').AsString := prID;
+    SQLConsulta.Open;
+
+    Result := (SQLConsulta.FieldByName('BDSENHAUSU').AsString = prSenhaAnterior);
+
   finally
     SQLConsulta.Close;
     FreeAndNil(SQLConsulta);

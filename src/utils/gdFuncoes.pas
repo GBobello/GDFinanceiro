@@ -17,9 +17,22 @@ type
 
   end;
 
+function MD5(const Value: String): String;
+
 
 implementation
 
+function MD5(const Value: String): String;
+var
+  wMD5: TIdHashMessageDigest5;
+begin
+  wMD5 := TIdHashMessageDigest5.Create;
+  try
+    Result := LowerCase(wMD5.HashStringAsHex(Value));
+  finally
+    FreeAndNil(wMD5);
+  end;
+end;
 
 { TFuncoes }
 
