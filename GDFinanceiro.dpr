@@ -23,7 +23,9 @@ uses
   gdPesquisa_Padrao in 'src\views\padroes\gdPesquisa_Padrao.pas' {frPesquisa_Padrao},
   udmPesquisaSofas in 'src\dataModules\udmPesquisaSofas.pas' {dmPesquisaSofas: TDataModule},
   gdPesquisaSofas in 'src\views\telas\gdPesquisaSofas.pas' {frPesquisaSofas},
-  gdValorNovo in 'src\classes\gdValorNovo.pas';
+  gdValorNovo in 'src\classes\gdValorNovo.pas',
+  udmRelatorio in 'src\dataModules\udmRelatorio.pas' {dmRelatorios: TDataModule},
+  gdRelatorio in 'src\views\telas\gdRelatorio.pas' {frRelatorio};
 
 {$R *.res}
 
@@ -34,6 +36,7 @@ begin
   Application.CreateForm(TdmNovo, dmNovo);
   Application.CreateForm(TdmUsuarios, dmUsuarios);
   Application.CreateForm(TdmPesquisaSofas, dmPesquisaSofas);
+  Application.CreateForm(TdmRelatorios, dmRelatorios);
   Application.CreateForm(TfrMain, frMain);
   Application.Run;
 end.

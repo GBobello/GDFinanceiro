@@ -130,6 +130,7 @@ inherited frNovo: TfrNovo
     inherited cdPanel: TCardPanel
       Width = 752
       Height = 450
+      ActiveCard = cardCadastroUsuarios
       ExplicitWidth = 752
       ExplicitHeight = 450
       inherited cardConsultaUsuarios: TCard
@@ -156,7 +157,7 @@ inherited frNovo: TfrNovo
           Width = 750
           ExplicitWidth = 750
           inherited Label1: TLabel
-            Height = 16
+            Height = 30
           end
           inherited GD_Edit1: TGD_Edit
             Width = 578
@@ -286,9 +287,11 @@ inherited frNovo: TfrNovo
           ExplicitWidth = 750
           ExplicitHeight = 376
           inherited pnCentralCadastros: TPanel
-            Left = 218
+            Left = 75
+            Top = 72
             Width = 600
-            ExplicitLeft = 218
+            ExplicitLeft = 75
+            ExplicitTop = 72
             ExplicitWidth = 600
             object lbDataDoItem: TLabel
               Left = 372
@@ -392,44 +395,6 @@ inherited frNovo: TfrNovo
                 'Corte + Costura')
               MudarCor = 13828095
             end
-            object dbcbModelo: TGD_DBLookupComboBox
-              Left = 27
-              Top = 50
-              Width = 334
-              Height = 27
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -16
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              KeyField = 'BDCODSOFA'
-              ListField = 'BDDESCSOFA'
-              ListFieldIndex = 1
-              ListSource = dsModelo
-              ParentFont = False
-              TabOrder = 0
-              OnEnter = dbcbModeloEnter
-              OnExit = dbcbModeloExit
-              MudarCor = 13828095
-            end
-            object dbcbResponsavel: TGD_DBLookupComboBox
-              Left = 159
-              Top = 113
-              Width = 311
-              Height = 27
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -16
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              KeyField = 'BDCODUSU'
-              ListField = 'BDNOMUSU'
-              ListFieldIndex = 1
-              ListSource = dsUsuarios
-              ParentFont = False
-              TabOrder = 3
-              MudarCor = 13828095
-            end
             object mskDataDoItem: TGD_MaskEdit_Data
               Left = 372
               Top = 50
@@ -469,6 +434,39 @@ inherited frNovo: TfrNovo
               OnExit = spedQuantidadeExit
               MudarCor = 13828095
             end
+            object cbModelo: TGD_ComboBox
+              Left = 27
+              Top = 50
+              Width = 334
+              Height = 27
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -16
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+              Text = 'cbModelo'
+              OnChange = cbModeloChange
+              OnEnter = cbModeloEnter
+              OnExit = cbModeloExit
+              MudarCor = 13828095
+            end
+            object cbResponsavel: TGD_ComboBox
+              Left = 159
+              Top = 113
+              Width = 311
+              Height = 27
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -16
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 3
+              Text = 'cbResponsavel'
+              MudarCor = 13828095
+            end
           end
         end
       end
@@ -482,13 +480,10 @@ inherited frNovo: TfrNovo
     Top = 41
   end
   object dsUsuarios: TDataSource [3]
-    DataSet = dmNovo.queryUsuarios
     Left = 752
     Top = 39
   end
   object dsModelo: TDataSource [4]
-    DataSet = dmNovo.queryModelo
-    OnDataChange = dsModeloDataChange
     Left = 816
     Top = 39
   end
@@ -496,5 +491,9 @@ inherited frNovo: TfrNovo
     DataSet = dmNovo.cdsNovo
     Left = 153
     Top = 404
+  end
+  inherited actionList: TActionList
+    Left = 561
+    Top = 172
   end
 end

@@ -76,6 +76,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure dbGridDblClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure dbGridKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
   protected
@@ -116,6 +117,14 @@ begin
 
   dbGrid.Canvas.FillRect(Rect);
   dbGrid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+end;
+
+procedure TfrCardPanels_Padrao.dbGridKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  if Key = VK_RETURN then
+    spEditar.Click;
 end;
 
 procedure TfrCardPanels_Padrao.FormCreate(Sender: TObject);

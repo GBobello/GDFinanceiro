@@ -66,23 +66,9 @@ object dmNovo: TdmNovo
       Size = 15
     end
   end
-  object queryModelo: TFDQuery
-    Connection = dmConexao.Conexao
-    SQL.Strings = (
-      '')
-    Left = 127
-    Top = 155
-  end
-  object queryUsuarios: TFDQuery
-    Connection = dmConexao.Conexao
-    SQL.Strings = (
-      '')
-    Left = 39
-    Top = 151
-  end
   object queryConsulta: TFDQuery
     Connection = dmConexao.Conexao
     Left = 304
-    Top = 200
+    Top = 56
   end
 end

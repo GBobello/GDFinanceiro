@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.WinXCtrls,
   Vcl.ExtCtrls, Vcl.Buttons, System.ImageList, Vcl.ImgList, gdFuncoes,
   Vcl.Imaging.pngimage, gdSimples, gdUsuarios, Vcl.Mask, GD_MaskEdit_Data,
-  gdNovo, Vcl.Menus, System.Actions, Vcl.ActnList, gdClasses_GD, gdPesquisaSofas;
+  gdNovo, Vcl.Menus, System.Actions, Vcl.ActnList, gdClasses_GD, gdPesquisaSofas,
+  gdRelatorio;
 
 type
   TfrMain = class(TForm)
@@ -103,7 +104,12 @@ end;
 procedure TfrMain.spRelatorioClick(Sender: TObject);
 begin
   if spRelatorio.Enabled then
-    ShowMessage('Abrir Relatórios')
+  begin
+    Application.CreateForm(TfrRelatorio, frRelatorio);
+    frRelatorio.Parent := pnCentral;
+    frRelatorio.Show;
+    frRelatorio.SetFocus;
+  end
   else
     Application.MessageBox('Somente usuários administradores podem acessar essa função!', 'Atenção!', MB_OK + MB_ICONERROR);
 end;

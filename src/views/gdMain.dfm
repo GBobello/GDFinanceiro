@@ -657,10 +657,7 @@ object frMain: TfrMain
           OnClick = spRelatorioClick
           OnMouseEnter = SetaFoco
           OnMouseLeave = TiraFoco
-          ExplicitLeft = 88
-          ExplicitTop = 26
-          ExplicitWidth = 23
-          ExplicitHeight = 22
+          ExplicitHeight = 45
         end
       end
       object pnUsuario: TPanel

@@ -14,8 +14,6 @@ type
     queryNovo: TFDQuery;
     dspNovo: TDataSetProvider;
     cdsNovo: TClientDataSet;
-    queryModelo: TFDQuery;
-    queryUsuarios: TFDQuery;
     queryConsulta: TFDQuery;
     cdsNovoBDCODSERV: TIntegerField;
     cdsNovoBDDATASERV: TDateField;
@@ -33,6 +31,8 @@ type
     { Public declarations }
     function GetChaveGenerator : Integer;
     procedure DecrementaGenerator(prID: Integer);
+    function GetModelos: TStrings;
+    function GetResponsavel: TStrings;
   end;
 
 var
@@ -91,6 +91,63 @@ begin
     SQLConsulta.Open;
 
     Result := SQLConsulta.FieldByName('ID_ATUAL').AsInteger;
+  finally
+    SQLConsulta.Close;
+    FreeAndNil(SQLConsulta);
+  end;
+end;
+
+function TdmNovo.GetModelos: TStrings;
+var
+  SQLConsulta: TFDQuery;
+begin
+
+  SQLConsulta := TFDQuery.Create(nil);
+  Result := TStringList.Create;
+  try
+    Result.BeginUpdate;
+    SQLConsulta.Connection := dmConexao.Conexao;
+    SQLConsulta.SQL.Clear;
+    SQLConsulta.SQL.Add('SELECT * FROM TB_SOFAS ORDER BY BDCODSOFA');
+    SQLConsulta.Open;
+
+    SQLConsulta.First;
+    while not SQLConsulta.Eof do
+    begin
+      Result.Add(SQLConsulta.FieldByName('BDDESCSOFA').AsString);
+      SQLConsulta.Next;
+    end;
+
+    Result.EndUpdate;
+
+  finally
+    SQLConsulta.Close;
+    FreeAndNil(SQLConsulta);
+  end;
+end;
+
+function TdmNovo.GetResponsavel: TStrings;
+var
+  SQLConsulta: TFDQuery;
+begin
+  SQLConsulta := TFDQuery.Create(nil);
+  Result := TStringList.Create;
+  try
+    Result.BeginUpdate;
+    SQLConsulta.Connection := dmConexao.Conexao;
+    SQLConsulta.SQL.Clear;
+    SQLConsulta.SQL.Add('SELECT * FROM TB_USUARIOS ORDER BY BDCODUSU');
+    SQLConsulta.Open;
+
+    SQLConsulta.First;
+    while not SQLConsulta.Eof do
+    begin
+      Result.Add(SQLConsulta.FieldByName('BDNOMUSU').AsString);
+      SQLConsulta.Next;
+    end;
+
+    Result.EndUpdate;
+
   finally
     SQLConsulta.Close;
     FreeAndNil(SQLConsulta);

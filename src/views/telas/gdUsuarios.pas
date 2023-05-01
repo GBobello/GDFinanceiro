@@ -116,6 +116,7 @@ end;
 procedure TfrUsuarios.lbAlterarSenhaClick(Sender: TObject);
 begin
   inherited;
+  cardTrocaSenha.Enabled := True;
   cdPanel.ActiveCard := cardTrocaSenha;
   fFuncoes.SetCentralizaControles(TControl(pnPrincipal), TControl(pnCentralTrocaSenha));
 end;
@@ -193,6 +194,7 @@ begin
   SetaSQLs;
   dbGrid.Refresh;
   cdPanel.ActiveCard := cardConsultaUsuarios;
+  cardTrocaSenha.Enabled := False;
   AjustaTamanhoCelulas;
   inherited;
 end;
@@ -311,6 +313,7 @@ procedure TfrUsuarios.spVoltarClick(Sender: TObject);
 begin
   inherited;
   cdPanel.ActiveCard := cardCadastroUsuarios;
+  cardTrocaSenha.Enabled := False;
 end;
 
 end.

@@ -34,7 +34,7 @@ end;
 
 procedure SetDeletaValorSofa;
 begin
-  fValorSofa.Destroy;
+  fValorSofa := nil;
 end;
 
 end.

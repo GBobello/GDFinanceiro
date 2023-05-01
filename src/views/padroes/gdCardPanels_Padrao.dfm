@@ -35,7 +35,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
       Width = 684
       Height = 384
       Align = alClient
-      ActiveCard = cardCadastroUsuarios
+      ActiveCard = cardConsultaUsuarios
       TabOrder = 1
       object cardConsultaUsuarios: TCard
         Left = 1
@@ -154,7 +154,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Height = 28
                 Align = alClient
                 DisabledImageIndex = 5
-                Caption = 'Editar (Ctrl + E)'
+                Caption = 'Editar (Enter)'
                 ImageIndex = 3
                 Images = imageList
                 HotImageIndex = 4
@@ -180,7 +180,6 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Color = clBlack
                 ParentBackground = False
                 TabOrder = 0
-                ExplicitWidth = 145
               end
               object pnBaixoEditar: TPanel
                 Left = 0
@@ -192,7 +191,6 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Color = clBlack
                 ParentBackground = False
                 TabOrder = 1
-                ExplicitWidth = 145
               end
               object pnDireitaEditar: TPanel
                 Left = 146
@@ -204,7 +202,6 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Color = clBlack
                 ParentBackground = False
                 TabOrder = 2
-                ExplicitLeft = 144
               end
               object pnEsquerdaEditar: TPanel
                 Left = 0
@@ -261,7 +258,6 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Color = clBlack
                 ParentBackground = False
                 TabOrder = 0
-                ExplicitWidth = 161
               end
               object pnBaixoNovoItem: TPanel
                 Left = 0
@@ -273,7 +269,6 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Color = clBlack
                 ParentBackground = False
                 TabOrder = 1
-                ExplicitWidth = 161
               end
               object pnDireitaNovoItem: TPanel
                 Left = 177
@@ -285,7 +280,6 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Color = clBlack
                 ParentBackground = False
                 TabOrder = 2
-                ExplicitLeft = 160
               end
               object pnEsquerdaNovoItem: TPanel
                 Left = 0
@@ -386,6 +380,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
             TitleFont.Style = []
             OnDrawColumnCell = dbGridDrawColumnCell
             OnDblClick = dbGridDblClick
+            OnKeyDown = dbGridKeyDown
           end
         end
       end
@@ -1340,7 +1335,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
   end
   object actionList: TActionList
     Left = 529
-    Top = 172
+    Top = 180
     object aclNovoItem: TAction
       Caption = 'aclNovoItem'
       ShortCut = 16462

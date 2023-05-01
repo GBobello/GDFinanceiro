@@ -18,8 +18,6 @@ type
     dsUsuarios: TDataSource;
     dsModelo: TDataSource;
     cbServico: TGD_ComboBox;
-    dbcbModelo: TGD_DBLookupComboBox;
-    dbcbResponsavel: TGD_DBLookupComboBox;
     lbDataDoItem: TLabel;
     lbModelo: TLabel;
     lbQuantidade: TLabel;
@@ -29,22 +27,24 @@ type
     mskDataDoItem: TGD_MaskEdit_Data;
     spedQuantidade: TGD_SpinEdit;
     dsNovo: TDataSource;
+    cbModelo: TGD_ComboBox;
+    cbResponsavel: TGD_ComboBox;
     procedure spNovoItemClick(Sender: TObject);
     procedure spEditarClick(Sender: TObject);
     procedure spConsultarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure spCancelarClick(Sender: TObject);
     procedure cbServicoChange(Sender: TObject);
-    procedure dbcbModeloExit(Sender: TObject);
     procedure spSalvarClick(Sender: TObject);
     procedure spExcluirClick(Sender: TObject);
     procedure cbServicoEnter(Sender: TObject);
     procedure cbServicoExit(Sender: TObject);
-    procedure dbcbModeloEnter(Sender: TObject);
-    procedure dsModeloDataChange(Sender: TObject; Field: TField);
     procedure spedQuantidadeExit(Sender: TObject);
     procedure spedQuantidadeChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure cbModeloChange(Sender: TObject);
+    procedure cbModeloEnter(Sender: TObject);
+    procedure cbModeloExit(Sender: TObject);
   private
     procedure SetaValor;
     procedure SetaSQLs;
@@ -61,6 +61,24 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrNovo.cbModeloChange(Sender: TObject);
+begin
+  inherited;
+  SetaValor;
+end;
+
+procedure TfrNovo.cbModeloEnter(Sender: TObject);
+begin
+  inherited;
+  SetaValor;
+end;
+
+procedure TfrNovo.cbModeloExit(Sender: TObject);
+begin
+  inherited;
+  SetaValor;
+end;
 
 procedure TfrNovo.cbServicoChange(Sender: TObject);
 begin
@@ -80,31 +98,12 @@ begin
   SetaValor;
 end;
 
-procedure TfrNovo.dbcbModeloEnter(Sender: TObject);
-begin
-  inherited;
-  SetaValor;
-end;
-
-procedure TfrNovo.dbcbModeloExit(Sender: TObject);
-begin
-  inherited;
-  SetaValor
-end;
-
-procedure TfrNovo.dsModeloDataChange(Sender: TObject; Field: TField);
-begin
-  inherited;
-  if dbcbModelo.KeyValue = null then
-    dbcbModelo.KeyValue := 1;
-  SetaValor;
-end;
 
 procedure TfrNovo.SetaValor;
 begin
   dmNovo.queryConsulta.SQL.Clear;
   dmNovo.queryConsulta.SQL.Add('SELECT * FROM TB_SOFAS WHERE BDCODSOFA = :ID');
-  dmNovo.queryConsulta.ParamByName('ID').AsInteger := dbcbModelo.KeyValue;
+  dmNovo.queryConsulta.ParamByName('ID').AsInteger := cbModelo.ItemIndex + 1;
   dmNovo.queryConsulta.Open;
   if cbServico.ItemIndex = 0 then
   begin
@@ -115,7 +114,7 @@ begin
   else
     wTotal := dmNovo.queryConsulta.FieldByName('BDVALCOSTURA').AsCurrency + dmNovo.queryConsulta.FieldByName('BDVALCORTE').AsCurrency;
   wTotal := wTotal * spedQuantidade.Value;
-  lbTotal.Caption := 'Total: R$ ' + CurrTostr(wTotal);
+  lbTotal.Caption := 'Total: ' + CurrToStrF(wTotal, ffCurrency, 2);
 end;
 
 procedure TfrNovo.SetaSQLs;
@@ -126,23 +125,16 @@ begin
     dmNovo.cdsNovo.Close;
     dmNovo.cdsNovo.CommandText := 'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA, ' +
                                   'case SERV.BDSERVICO ' +
-                                  'when ' + QuotedStr('0') + ' then ' + QuotedStr('Corte') + ' ' +
-                                  'when ' + QuotedStr('1') + ' then ' + QuotedStr('Costura') + ' ' + 
-                                  'when ' + QuotedStr('2') + ' then ' + QuotedStr('Corte + Costura') + ' ' +
+                                  'when ' + QuotedStr('1') + ' then ' + QuotedStr('Corte') + ' ' +
+                                  'when ' + QuotedStr('2') + ' then ' + QuotedStr('Costura') + ' ' +
+                                  'when ' + QuotedStr('3') + ' then ' + QuotedStr('Corte + Costura') + ' ' +
                                   'end as BDSERVICOPALAVRA ' +
                                   'from TB_SERVICOS SERV ' +
                                   'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU) ' +
-                                  'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA)';
+                                  'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA) ' +
+                                  'order by SERV.BDCODSERV';
     dmNovo.cdsNovo.Open;
     dbGrid.Columns[6].Visible := True;
-    dmNovo.queryUsuarios.Close;
-    dmNovo.queryUsuarios.SQL.Clear;
-    dmNovo.queryUsuarios.SQL.Add('SELECT * FROM TB_USUARIOS');
-    dmNovo.queryUsuarios.Open;
-    dmNovo.queryModelo.Close;
-    dmNovo.queryModelo.SQL.Clear;
-    dmNovo.queryModelo.SQL.Add('SELECT * FROM TB_SOFAS');
-    dmNovo.queryModelo.Open;
   end
   else
   begin
@@ -150,40 +142,34 @@ begin
     dmNovo.cdsNovo.Close;
     dmNovo.cdsNovo.CommandText := 'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA, ' +
                                   'case SERV.BDSERVICO ' +
-                                  'when ' + QuotedStr('0') + ' then ' + QuotedStr('Corte') + ' ' +
-                                  'when ' + QuotedStr('1') + ' then ' + QuotedStr('Costura') + ' ' +
-                                  'when ' + QuotedStr('2') + ' then ' + QuotedStr('Corte + Costura') + ' ' +
+                                  'when ' + QuotedStr('1') + ' then ' + QuotedStr('Corte') + ' ' +
+                                  'when ' + QuotedStr('2') + ' then ' + QuotedStr('Costura') + ' ' +
+                                  'when ' + QuotedStr('3') + ' then ' + QuotedStr('Corte + Costura') + ' ' +
                                   'end as BDSERVICOPALAVRA ' +
                                   'from TB_SERVICOS SERV ' +
                                   'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU) ' +
-                                  'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA)';
+                                  'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA) ' +
+                                  'where SERV.BDCODUSU = ' + IntToStr(gdClasses_GD.fUsuarioLogado.ID) +
+                                  ' order by SERV.BDCODSERV';
     dmNovo.cdsNovo.Open;
     dbGrid.Columns[6].Visible := False;
-    dmNovo.queryUsuarios.SQL.Clear;
-    dmNovo.queryUsuarios.SQL.Add('SELECT * FROM TB_USUARIOS WHERE BDCODUSU = :ID');
-    dmNovo.queryUsuarios.ParamByName('ID').AsInteger := gdClasses_GD.fUsuarioLogado.ID;
-    dmNovo.queryUsuarios.Open;
-    dmNovo.queryModelo.Close;
-    dmNovo.queryModelo.SQL.Clear;
-    dmNovo.queryModelo.SQL.Add('SELECT * FROM TB_SOFAS');
-    dmNovo.queryModelo.Open;
   end;
-  dmNovo.queryModelo.Active := True;
-  dmNovo.queryUsuarios.Active := True;
   if gdClasses_GD.fValorSofa <> nil then
   begin
-    dbcbModelo.KeyValue := gdClasses_GD.fValorSofa.CodSofa;
+    cbModelo.ItemIndex  := gdClasses_GD.fValorSofa.CodSofa - 1;
     gdClasses_GD.SetDeletaValorSofa;
   end
   else
-    dbcbModelo.KeyValue := dmNovo.queryModelo.FieldByName('BDCODSOFA').AsInteger;
-  dbcbResponsavel.KeyValue := dmNovo.queryUsuarios.FieldByName('BDCODUSU').AsInteger;
+    cbModelo.ItemIndex := 0;
 end;
 
 procedure TfrNovo.FormCreate(Sender: TObject);
 begin
   inherited;
+  cbModelo.Items := dmNovo.GetModelos;
+  cbResponsavel.Items := dmNovo.GetResponsavel;
   SetaSQLs;
+  cbResponsavel.ItemIndex := 0;
 end;
 
 procedure TfrNovo.FormShow(Sender: TObject);
@@ -258,10 +244,10 @@ begin
   end;
 
   dmNovo.cdsNovoBDDATASERV.AsString := mskDataDoItem.Text;
-  dmNovo.cdsNovoBDCODUSU.AsInteger := dbcbResponsavel.KeyValue;
+  dmNovo.cdsNovoBDCODUSU.AsInteger := cbResponsavel.ItemIndex + 1;
   dmNovo.cdsNovoBDQUANTIDADE.AsInteger := spedQuantidade.Value;
-  dmNovo.cdsNovoBDCODSOFA.AsInteger := dbcbModelo.KeyValue;
-  dmNovo.cdsNovoBDSERVICO.AsInteger := cbServico.ItemIndex;
+  dmNovo.cdsNovoBDCODSOFA.AsInteger := cbModelo.ItemIndex + 1;
+  dmNovo.cdsNovoBDSERVICO.AsInteger := cbServico.ItemIndex + 1;
   dmNovo.cdsNovoBDTOTALSERV.AsCurrency := wTotal;
 
   dmNovo.cdsNovo.Post;
@@ -280,11 +266,11 @@ begin
   inherited;
   dmNovo.cdsNovo.Edit;
 
-  dbcbModelo.KeyValue := dmNovo.cdsNovoBDCODSOFA.AsInteger;
+  cbModelo.ItemIndex := dmNovo.cdsNovoBDCODSOFA.AsInteger - 1;
   mskDataDoItem.Text  := dmNovo.cdsNovoBDDATASERV.AsString;
   spedQuantidade.Value := dmNovo.cdsNovoBDQUANTIDADE.AsInteger;
-  dbcbResponsavel.KeyValue := dmNovo.cdsNovoBDCODUSU.AsInteger;
-  cbServico.ItemIndex := dmNovo.cdsNovoBDSERVICO.AsInteger;
+  cbResponsavel.ItemIndex := dmNovo.cdsNovoBDCODUSU.AsInteger - 1;
+  cbServico.ItemIndex := dmNovo.cdsNovoBDSERVICO.AsInteger - 1;
 end;
 
 procedure TfrNovo.spedQuantidadeChange(Sender: TObject);
