@@ -12,6 +12,7 @@ type
   TfrPesquisaSofas = class(TfrPesquisa_Padrao)
     procedure FormCreate(Sender: TObject);
     procedure dbGridDblClick(Sender: TObject);
+    procedure dbGridKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     procedure SetaSQL;
     { Private declarations }
@@ -35,6 +36,21 @@ begin
   frNovo.Parent := frPesquisaSofas.Parent;
   frNovo.Show;
   frNovo.SetFocus;
+end;
+
+procedure TfrPesquisaSofas.dbGridKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  if Key = VK_RETURN then
+  begin
+    gdClasses_GD.SetValorSofa(dmPesquisaSofas.cdsPesquisaSofasBDCODSOFA.Value);
+    spMinimiza.Click;
+    Application.CreateForm(TfrNovo, frNovo);
+    frNovo.Parent := frPesquisaSofas.Parent;
+    frNovo.Show;
+    frNovo.SetFocus;
+  end;
 end;
 
 procedure TfrPesquisaSofas.FormCreate(Sender: TObject);

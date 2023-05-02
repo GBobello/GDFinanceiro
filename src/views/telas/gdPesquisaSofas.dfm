@@ -86,6 +86,7 @@ inherited frPesquisaSofas: TfrPesquisaSofas
     inherited pnGrid: TPanel
       inherited dbGrid: TDBGrid
         OnDblClick = dbGridDblClick
+        OnKeyDown = dbGridKeyDown
         Columns = <
           item
             Expanded = False
