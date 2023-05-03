@@ -26,7 +26,8 @@ uses
   gdValorNovo in 'src\classes\gdValorNovo.pas',
   udmRelatorio in 'src\dataModules\udmRelatorio.pas' {dmRelatorios: TDataModule},
   gdRelatorio in 'src\views\telas\gdRelatorio.pas' {frRelatorio},
-  gdRelatorioPreview in 'src\views\telas\gdRelatorioPreview.pas' {frRelatorioPreview};
+  gdRelatorioPreview in 'src\views\telas\gdRelatorioPreview.pas' {frRelatorioPreview},
+  gdLogSistema in 'src\classes\gdLogSistema.pas';
 
 {$R *.res}
 

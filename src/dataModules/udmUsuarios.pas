@@ -28,6 +28,7 @@ type
     function TemLoginCadastrado(prLogin: String; prID: String) : Boolean;
     function SenhaAnteriorIgual(prID: String; prSenhaAnterior: String): Boolean;
     function GetChaveGenerator : Integer;
+    function GetUltimaChave: Integer;
     procedure DecrementaGenerator(prID: Integer);
   end;
 
@@ -92,6 +93,25 @@ begin
     SQLConsulta.Open;
 
     Result := SQLConsulta.FieldByName('ID_ATUAL').AsInteger;
+  finally
+    SQLConsulta.Close;
+    FreeAndNil(SQLConsulta);
+  end;
+end;
+
+function TdmUsuarios.GetUltimaChave: Integer;
+var
+  SQLConsulta: TFDQuery;
+begin
+  //Ficou obsoleto pois é utilizado na trigger da tabela
+  SQLConsulta := TFDQuery.Create(nil);
+  try
+    SQLConsulta.Connection := dmConexao.Conexao;
+    SQLConsulta.SQL.Clear;
+    SQLConsulta.SQL.Add('select first 1 BDCODUSU from TB_USUARIOS order by BDCODUSU desc');
+    SQLConsulta.Open;
+
+    Result := SQLConsulta.FieldByName('BDCODUSU').AsInteger;
   finally
     SQLConsulta.Close;
     FreeAndNil(SQLConsulta);

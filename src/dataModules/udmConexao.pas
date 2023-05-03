@@ -32,6 +32,9 @@ implementation
 
 procedure TdmConexao.DataModuleCreate(Sender: TObject);
 begin
+  Conexao.Params.Values['Database'] := System.SysUtils.GetCurrentDir + '\db\BANCO.FDB';
+  Conexao.Params.Values['User_Name'] := 'SYSDBA';
+  Conexao.Params.Values['Password'] := 'masterkey';
   Conexao.Connected := True;
 end;
 

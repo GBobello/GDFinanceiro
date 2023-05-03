@@ -8,7 +8,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, gdSimples, System.ImageList,
   Vcl.ImgList, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, GD_ComboBox, Vcl.Mask,
   GD_MaskEdit_Data, GD_Edit, udmRelatorio, gdFuncoes, StrUtils,
-  gdRelatorioPreview, System.Actions, Vcl.ActnList;
+  gdRelatorioPreview, System.Actions, Vcl.ActnList, gdLogSistema, gdClasses_GD;
 
 type
   TfrRelatorio = class(TfrSimples)
@@ -205,6 +205,9 @@ begin
     frRelatorioPreview.frxPreview1.SetFocus;
 
     dmRelatorios.frxRelatorio.ShowReport(True);
+
+    gdLogSistema.AdicionarLog('Tela: Geração de relatórios',
+      'Gerando relatório!', Now, gdClasses_GD.fUsuarioLogado.ID);
   end;
 
 end;
@@ -228,6 +231,8 @@ begin
 
     dmRelatorios.frxRelatorio.PrepareReport();
     dmRelatorios.frxRelatorio.Export(dmRelatorios.frxPDFExport);
+    gdLogSistema.AdicionarLog('Tela: Geração de relatórios',
+      'Salvando relatório!', Now, gdClasses_GD.fUsuarioLogado.ID);
   end;
 end;
 

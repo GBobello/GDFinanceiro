@@ -3,7 +3,8 @@ unit gdNovo;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, gdCardPanels_Padrao, System.ImageList,
   Vcl.ImgList, Vcl.Buttons, Vcl.ExtCtrls, Vcl.WinXPanels, Vcl.StdCtrls, GD_Edit,
   Vcl.Mask, GD_MaskEdit_Data, Vcl.DBCtrls, Vcl.Samples.Spin, GD_SpinEdit,
@@ -11,7 +12,8 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  GD_ComboBox, gdClasses_GD, gdSimples, udmNovo, System.Actions, Vcl.ActnList;
+  GD_ComboBox, gdClasses_GD, gdSimples, udmNovo, System.Actions, Vcl.ActnList,
+  gdLogSistema, gdUsuarioLogado;
 
 type
   TfrNovo = class(TfrCardPanels_Padrao)
@@ -98,7 +100,6 @@ begin
   SetaValor;
 end;
 
-
 procedure TfrNovo.SetaValor;
 begin
   dmNovo.queryConsulta.SQL.Clear;
@@ -112,7 +113,8 @@ begin
   else if cbServico.ItemIndex = 1 then
     wTotal := dmNovo.queryConsulta.FieldByName('BDVALCOSTURA').AsCurrency
   else
-    wTotal := dmNovo.queryConsulta.FieldByName('BDVALCOSTURA').AsCurrency + dmNovo.queryConsulta.FieldByName('BDVALCORTE').AsCurrency;
+    wTotal := dmNovo.queryConsulta.FieldByName('BDVALCOSTURA').AsCurrency +
+      dmNovo.queryConsulta.FieldByName('BDVALCORTE').AsCurrency;
   wTotal := wTotal * spedQuantidade.Value;
   lbTotal.Caption := 'Total: ' + CurrToStrF(wTotal, ffCurrency, 2);
 end;
@@ -123,16 +125,15 @@ begin
   begin
     lbTotal.Visible := True;
     dmNovo.cdsNovo.Close;
-    dmNovo.cdsNovo.CommandText := 'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA, ' +
-                                  'case SERV.BDSERVICO ' +
-                                  'when ' + QuotedStr('1') + ' then ' + QuotedStr('Corte') + ' ' +
-                                  'when ' + QuotedStr('2') + ' then ' + QuotedStr('Costura') + ' ' +
-                                  'when ' + QuotedStr('3') + ' then ' + QuotedStr('Corte + Costura') + ' ' +
-                                  'end as BDSERVICOPALAVRA ' +
-                                  'from TB_SERVICOS SERV ' +
-                                  'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU) ' +
-                                  'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA) ' +
-                                  'order by SERV.BDCODSERV';
+    dmNovo.cdsNovo.CommandText :=
+      'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA, ' + 'case SERV.BDSERVICO ' +
+      'when ' + QuotedStr('1') + ' then ' + QuotedStr('Corte') + ' ' + 'when ' +
+      QuotedStr('2') + ' then ' + QuotedStr('Costura') + ' ' + 'when ' +
+      QuotedStr('3') + ' then ' + QuotedStr('Corte + Costura') + ' ' +
+      'end as BDSERVICOPALAVRA ' + 'from TB_SERVICOS SERV ' +
+      'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU) ' +
+      'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA) ' +
+      'order by SERV.BDCODSERV';
     dmNovo.cdsNovo.Open;
     dbGrid.Columns[6].Visible := True;
   end
@@ -140,23 +141,22 @@ begin
   begin
     lbTotal.Visible := False;
     dmNovo.cdsNovo.Close;
-    dmNovo.cdsNovo.CommandText := 'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA, ' +
-                                  'case SERV.BDSERVICO ' +
-                                  'when ' + QuotedStr('1') + ' then ' + QuotedStr('Corte') + ' ' +
-                                  'when ' + QuotedStr('2') + ' then ' + QuotedStr('Costura') + ' ' +
-                                  'when ' + QuotedStr('3') + ' then ' + QuotedStr('Corte + Costura') + ' ' +
-                                  'end as BDSERVICOPALAVRA ' +
-                                  'from TB_SERVICOS SERV ' +
-                                  'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU) ' +
-                                  'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA) ' +
-                                  'where SERV.BDCODUSU = ' + IntToStr(gdClasses_GD.fUsuarioLogado.ID) +
-                                  ' order by SERV.BDCODSERV';
+    dmNovo.cdsNovo.CommandText :=
+      'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA, ' + 'case SERV.BDSERVICO ' +
+      'when ' + QuotedStr('1') + ' then ' + QuotedStr('Corte') + ' ' + 'when ' +
+      QuotedStr('2') + ' then ' + QuotedStr('Costura') + ' ' + 'when ' +
+      QuotedStr('3') + ' then ' + QuotedStr('Corte + Costura') + ' ' +
+      'end as BDSERVICOPALAVRA ' + 'from TB_SERVICOS SERV ' +
+      'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU) ' +
+      'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA) ' +
+      'where SERV.BDCODUSU = ' + IntToStr(gdClasses_GD.fUsuarioLogado.ID) +
+      ' order by SERV.BDCODSERV';
     dmNovo.cdsNovo.Open;
     dbGrid.Columns[6].Visible := False;
   end;
   if gdClasses_GD.fValorSofa <> nil then
   begin
-    cbModelo.ItemIndex  := gdClasses_GD.fValorSofa.CodSofa - 1;
+    cbModelo.ItemIndex := gdClasses_GD.fValorSofa.CodSofa - 1;
     gdClasses_GD.SetDeletaValorSofa;
   end
   else
@@ -177,7 +177,8 @@ begin
   inherited;
   cdPanel.ActiveCard := cardCadastroUsuarios;
   dmNovo.cdsNovo.Insert;
-  fFuncoes.SetCentralizaControles(TControl(pnEditsCadastro), TControl(pnCentralCadastros));
+  fFuncoes.SetCentralizaControles(TControl(pnEditsCadastro),
+    TControl(pnCentralCadastros));
 end;
 
 procedure TfrNovo.spNovoItemClick(Sender: TObject);
@@ -192,6 +193,8 @@ end;
 procedure TfrNovo.spSalvarClick(Sender: TObject);
 var
   wMsg: String;
+  wLog: String;
+  wChave: Integer;
 begin
   if spedQuantidade.Value = 0 then
   begin
@@ -200,10 +203,11 @@ begin
       MB_OK + MB_ICONWARNING);
     Abort;
   end;
-  
+
   try
     StrToDate(mskDataDoItem.Text);
-  except on E: EConvertError do
+  except
+    on E: EConvertError do
     begin
       mskDataDoItem.SetFocus;
       Application.MessageBox('Data inválida!', 'Atenção!',
@@ -211,7 +215,7 @@ begin
       Abort;
     end;
   end;
-  
+
   if (mskDataDoItem.Text = '') then
   begin
     mskDataDoItem.SetFocus;
@@ -222,11 +226,11 @@ begin
   else if StrToDate(mskDataDoItem.Text) > Now then
   begin
     mskDataDoItem.SetFocus;
-    Application.MessageBox('A data não pode ser maior que a atual!',
-      'Atenção!', MB_OK + MB_ICONWARNING);
+    Application.MessageBox('A data não pode ser maior que a atual!', 'Atenção!',
+      MB_OK + MB_ICONWARNING);
     Abort;
   end
-  else if StrToDate(mskDataDoItem.Text) < StrToDate('01/01/1998')  then
+  else if StrToDate(mskDataDoItem.Text) < StrToDate('01/01/1998') then
   begin
     mskDataDoItem.SetFocus;
     Application.MessageBox('A data não pode ser menor que 01/01/1998!',
@@ -235,13 +239,20 @@ begin
   end;
 
   wMsg := 'Registro alterado com sucesso!';
+  wLog := 'Editando registro: Código: ' + dmNovo.cdsNovoBDCODSERV.AsString +
+    ', Descrição: ' + dmNovo.cdsNovoBDDESCSOFA.AsString;
 
   if dmNovo.cdsNovo.State in [dsInsert] then
   begin
     // Vai pegar o código direto da generator na trigger before insert
     dmNovo.cdsNovoBDCODSERV.AsInteger := 0;
+    wChave := dmNovo.GetUltimaChave + 1;
     wMsg := 'Registro inserido com sucesso!';
+    wLog := 'Adicionando novo registro: Código: ' + IntToStr(wChave);
   end;
+
+  gdLogSistema.AdicionarLog('Tela: Novo', wLog, Now,
+    gdClasses_GD.fUsuarioLogado.ID);
 
   dmNovo.cdsNovoBDDATASERV.AsString := mskDataDoItem.Text;
   dmNovo.cdsNovoBDCODUSU.AsInteger := cbResponsavel.ItemIndex + 1;
@@ -267,7 +278,7 @@ begin
   dmNovo.cdsNovo.Edit;
 
   cbModelo.ItemIndex := dmNovo.cdsNovoBDCODSOFA.AsInteger - 1;
-  mskDataDoItem.Text  := dmNovo.cdsNovoBDDATASERV.AsString;
+  mskDataDoItem.Text := dmNovo.cdsNovoBDDATASERV.AsString;
   spedQuantidade.Value := dmNovo.cdsNovoBDQUANTIDADE.AsInteger;
   cbResponsavel.ItemIndex := dmNovo.cdsNovoBDCODUSU.AsInteger - 1;
   cbServico.ItemIndex := dmNovo.cdsNovoBDSERVICO.AsInteger - 1;
@@ -292,19 +303,27 @@ begin
   begin
     if dmNovo.cdsNovo.IsEmpty then
     begin
-      Application.MessageBox('Não há registros a serem excluidos!', 'Confirmação!', MB_OK + MB_ICONINFORMATION);
+      Application.MessageBox('Não há registros a serem excluidos!',
+        'Confirmação!', MB_OK + MB_ICONINFORMATION);
       Exit;
     end;
 
-    if Application.MessageBox('Deseja realmente excluir esse registro?', 'Pergunta!', MB_YESNO + MB_ICONQUESTION) <> mrYes then
+    if Application.MessageBox('Deseja realmente excluir esse registro?',
+      'Pergunta!', MB_YESNO + MB_ICONQUESTION) <> mrYes then
       Exit;
 
     try
       dmNovo.cdsNovo.Delete;
       dmNovo.cdsNovo.ApplyUpdates(0);
-      Application.MessageBox('Registro excluído com sucesso!', 'Confirmação!', MB_OK + MB_ICONINFORMATION);
-    except on E: Exception do
-      Application.MessageBox(PWideChar(E.Message), 'Erro ao excluir registro!', MB_OK + MB_ICONERROR);
+      gdLogSistema.AdicionarLog('Tela: Novo', 'Excluindo registro! Código: ' +
+        dmNovo.cdsNovoBDCODSERV.AsString + ', Descrição: ' +
+        dmNovo.cdsNovoBDDESCSOFA.AsString, Now, gdClasses_GD.fUsuarioLogado.ID);
+      Application.MessageBox('Registro excluído com sucesso!', 'Confirmação!',
+        MB_OK + MB_ICONINFORMATION);
+    except
+      on E: Exception do
+        Application.MessageBox(PWideChar(E.Message),
+          'Erro ao excluir registro!', MB_OK + MB_ICONERROR);
     end;
   end;
 end;
@@ -320,6 +339,5 @@ begin
   inherited;
   dmNovo.cdsNovo.Cancel;
 end;
-
 
 end.

@@ -150,11 +150,6 @@ inherited frNovo: TfrNovo
                 OnClick = spExcluirClick
               end
             end
-            inherited pnNovoItem: TPanel
-              inherited spNovoItem: TSpeedButton
-                Caption = 'Novo Item (Insert)'
-              end
-            end
           end
         end
         inherited pnPesquisa: TPanel

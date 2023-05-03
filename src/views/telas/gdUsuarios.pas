@@ -11,7 +11,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  gdClasses_GD, System.Actions, Vcl.ActnList;
+  gdClasses_GD, System.Actions, Vcl.ActnList, gdUsuarioLogado, gdLogSistema;
 
 type
   TfrUsuarios = class(TfrCardPanels_Padrao)
@@ -233,6 +233,10 @@ begin
   try
     dmUsuarios.cdsUsuarios.Delete;
     dmUsuarios.cdsUsuarios.ApplyUpdates(0);
+    gdLogSistema.AdicionarLog('Tela: Novo', 'Excluindo registro! Código: ' +
+      dmUsuarios.cdsUsuariosBDCODUSU.AsString + ', Descrição: ' +
+      dmUsuarios.cdsUsuariosBDNOMUSU.AsString, Now,
+      gdClasses_GD.fUsuarioLogado.ID);
     Application.MessageBox('Registro excluído com sucesso!', 'Confirmação!', MB_OK + MB_ICONINFORMATION);
   except on E: Exception do
     Application.MessageBox(PWideChar(E.Message), 'Erro ao excluir registro!', MB_OK + MB_ICONERROR);
@@ -257,6 +261,8 @@ procedure TfrUsuarios.spSalvarClick(Sender: TObject);
 var
   wMsg: String;
   wSenhaCrypt: String;
+  wLog: String;
+  wChave: Integer;
 begin
   if Trim(edNome.Text) = '' then
   begin
@@ -285,13 +291,20 @@ begin
   end;
 
   wMsg := 'Registro alterado com sucesso!';
+  wLog := 'Editando registro: Código: ' + dmUsuarios.cdsUsuariosBDCODUSU.
+    AsString + ', Descrição: ' + dmUsuarios.cdsUsuariosBDNOMUSU.AsString;
 
   if dmUsuarios.cdsUsuarios.State in [dsInsert] then
   begin
     // Vai pegar o código direto da generator na trigger before insert
     dmUsuarios.cdsUsuariosBDCODUSU.AsInteger := 0;
-    wMsg := 'Registro incluído com sucesso!'
+    wChave := dmUsuarios.GetUltimaChave + 1;
+    wMsg := 'Registro incluído com sucesso!';
+    wLog := 'Adicionando novo registro: Código: ' + IntToStr(wChave);
   end;
+
+  gdLogSistema.AdicionarLog('Tela: Usuário', wLog, Now,
+    gdClasses_GD.fUsuarioLogado.ID);
 
   dmUsuarios.cdsUsuariosBDNOMUSU.AsString   := Trim(edNome.Text);
   dmUsuarios.cdsUsuariosBDLOGINUSU.AsString := Trim(edLogin.Text);

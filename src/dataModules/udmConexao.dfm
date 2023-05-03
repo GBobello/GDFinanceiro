@@ -13,7 +13,7 @@ object dmConexao: TdmConexao
       'DriverID=FB')
     LoginPrompt = False
     Left = 48
-    Top = 16
+    Top = 32
   end
   object conectionWaitCursor: TFDGUIxWaitCursor
     Provider = 'Forms'

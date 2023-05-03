@@ -33,6 +33,7 @@ type
     procedure DecrementaGenerator(prID: Integer);
     function GetModelos: TStrings;
     function GetResponsavel: TStrings;
+    function GetUltimaChave: Integer;
   end;
 
 var
@@ -148,6 +149,25 @@ begin
 
     Result.EndUpdate;
 
+  finally
+    SQLConsulta.Close;
+    FreeAndNil(SQLConsulta);
+  end;
+end;
+
+function TdmNovo.GetUltimaChave: Integer;
+var
+  SQLConsulta: TFDQuery;
+begin
+  //Ficou obsoleto pois é utilizado na trigger da tabela
+  SQLConsulta := TFDQuery.Create(nil);
+  try
+    SQLConsulta.Connection := dmConexao.Conexao;
+    SQLConsulta.SQL.Clear;
+    SQLConsulta.SQL.Add('select first 1 BDCODSERV from TB_SERVICOS order by BDCODSERV desc');
+    SQLConsulta.Open;
+
+    Result := SQLConsulta.FieldByName('BDCODSERV').AsInteger;
   finally
     SQLConsulta.Close;
     FreeAndNil(SQLConsulta);

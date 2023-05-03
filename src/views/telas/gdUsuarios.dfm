@@ -157,9 +157,6 @@ inherited frUsuarios: TfrUsuarios
         inherited pnPesquisa: TPanel
           Width = 749
           ExplicitWidth = 749
-          inherited Label1: TLabel
-            Height = 16
-          end
           inherited GD_Edit1: TGD_Edit
             Width = 577
             ExplicitWidth = 577
