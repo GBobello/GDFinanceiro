@@ -151,6 +151,8 @@ begin
     spExcluir.Click;
   if Key = 34 then
     spSalvar.Click;
+  if Key = VK_INSERT then
+    spNovoItem.Click;
 end;
 
 procedure TfrCardPanels_Padrao.AjustaTamanhoCelulas;

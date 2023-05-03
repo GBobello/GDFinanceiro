@@ -231,7 +231,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Height = 28
                 Align = alClient
                 DisabledImageIndex = 17
-                Caption = 'Novo Item (Ctrl + N)'
+                Caption = 'Novo Item (Insert)'
                 ImageIndex = 15
                 Images = imageList
                 HotImageIndex = 16

@@ -3,20 +3,10 @@ object dmRelatorios: TdmRelatorios
   Height = 272
   Width = 370
   object queryRelatorios: TFDQuery
+    Active = True
     Connection = dmConexao.Conexao
     SQL.Strings = (
-      'select SERV.*, USU.*, SOFA.*,'
-      '       case SERV.BDSERVICO'
-      '         when '#39'0'#39' then '#39'Corte'#39
-      '         when '#39'1'#39' then '#39'Costura'#39
-      '         when '#39'2'#39' then '#39'Corte e Costura'#39
-      '       end as BDSERVICOPALAVRA'
-      'from TB_SERVICOS SERV'
-      'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU)'
-      'inner join TB_SOFAS SOFA on (SERV.BDCODSOFA = SOFA.BDCODSOFA)'
-      'where (SERV.BDDATASERV >= '#39'01.04.2023'#39' and'
-      '      SERV.BDDATASERV <= '#39'30.04.2023'#39') and'
-      '      (SERV.BDSERVICO = 2);')
+      'SELECT * FROM TB_SERVICOS')
     Left = 40
     Top = 48
   end
@@ -24,12 +14,13 @@ object dmRelatorios: TdmRelatorios
     Version = '6.9.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
+    OldStyleProgress = True
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 45045.685673159700000000
-    ReportOptions.LastChange = 45047.093800671300000000
+    ReportOptions.LastChange = 45048.891764768520000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'procedure masterDataOnBeforePrint(Sender: TfrxComponent);'
@@ -42,6 +33,9 @@ object dmRelatorios: TdmRelatorios
       '    frxDsRelatorioBDSERVICO.Color := $00EBEBEB;'
       '    frxDsRelatorioBDTOTALSERV.Color := $00EBEBEB;'
       '    frxDsRelatorioBDDATASERV.Color := $00EBEBEB;'
+      
+        '    frxDsRelatorioBDQUANTIDADE.Color := $00EBEBEB;              ' +
+        '                                 '
       '  end'
       '  else'
       '  begin'
@@ -51,6 +45,7 @@ object dmRelatorios: TdmRelatorios
       '    frxDsRelatorioBDSERVICO.Color := clWhite;'
       '    frxDsRelatorioBDTOTALSERV.Color := clWhite;'
       '    frxDsRelatorioBDDATASERV.Color := clWhite;'
+      '    frxDsRelatorioBDQUANTIDADE.Color := clWhite;        '
       '  end;'
       ''
       'end;'
@@ -98,7 +93,7 @@ object dmRelatorios: TdmRelatorios
           Left = 189.971113160000000000
           Width = 80.358854150000000000
           Height = 41.574830000000000000
-          DataField = 'DataServico'
+          DataField = 'BDDATASERV'
           DataSet = frxDsRelatorio
           DataSetName = 'frxDsRelatorio'
           Font.Charset = DEFAULT_CHARSET
@@ -109,7 +104,7 @@ object dmRelatorios: TdmRelatorios
           Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
-            '[frxDsRelatorio."DataServico"]')
+            '[frxDsRelatorio."BDDATASERV"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -118,9 +113,9 @@ object dmRelatorios: TdmRelatorios
           Align = baWidth
           AllowVectorExport = True
           Left = 270.329967310000000000
-          Width = 218.184006550000000000
+          Width = 159.880007418110100000
           Height = 41.574830000000000000
-          DataField = 'NomeResponsavel'
+          DataField = 'BDNOMUSU'
           DataSet = frxDsRelatorio
           DataSetName = 'frxDsRelatorio'
           Font.Charset = DEFAULT_CHARSET
@@ -131,7 +126,7 @@ object dmRelatorios: TdmRelatorios
           Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
-            '[frxDsRelatorio."NomeResponsavel"]')
+            '[frxDsRelatorio."BDNOMUSU"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -141,7 +136,7 @@ object dmRelatorios: TdmRelatorios
           AllowVectorExport = True
           Width = 189.971113160000000000
           Height = 41.574830000000000000
-          DataField = 'DescSofa'
+          DataField = 'BDDESCSOFA'
           DataSet = frxDsRelatorio
           DataSetName = 'frxDsRelatorio'
           Font.Charset = DEFAULT_CHARSET
@@ -152,7 +147,7 @@ object dmRelatorios: TdmRelatorios
           Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
-            '[frxDsRelatorio."DescSofa"]')
+            '[frxDsRelatorio."BDDESCSOFA"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -160,10 +155,10 @@ object dmRelatorios: TdmRelatorios
           IndexTag = 1
           Align = baRight
           AllowVectorExport = True
-          Left = 603.312336930000000000
-          Width = 114.798363070000000000
+          Left = 629.669755118110200000
+          Width = 88.440944881889800000
           Height = 41.574830000000000000
-          DataField = 'ValServico'
+          DataField = 'BDTOTALSERV'
           DataSet = frxDsRelatorio
           DataSetName = 'frxDsRelatorio'
           DisplayFormat.FormatStr = '%2.2m'
@@ -176,7 +171,7 @@ object dmRelatorios: TdmRelatorios
           Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
-            '[frxDsRelatorio."ValServico"]')
+            '[frxDsRelatorio."BDTOTALSERV"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -184,10 +179,10 @@ object dmRelatorios: TdmRelatorios
           IndexTag = 1
           Align = baRight
           AllowVectorExport = True
-          Left = 488.513973860000000000
+          Left = 430.209974728110100000
           Width = 114.798363070000000000
           Height = 41.574830000000000000
-          DataField = 'DescServico'
+          DataField = 'BDSERVICOPALAVRA'
           DataSet = frxDsRelatorio
           DataSetName = 'frxDsRelatorio'
           Font.Charset = DEFAULT_CHARSET
@@ -198,7 +193,29 @@ object dmRelatorios: TdmRelatorios
           Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
-            '[frxDsRelatorio."DescServico"]')
+            '[frxDsRelatorio."BDSERVICOPALAVRA"]')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+        object frxDsRelatorioBDQUANTIDADE: TfrxMemoView
+          IndexTag = 1
+          Align = baRight
+          AllowVectorExport = True
+          Left = 545.008337798110100000
+          Width = 84.661417320000000000
+          Height = 41.574830000000000000
+          DataField = 'BDQUANTIDADE'
+          DataSet = frxDsRelatorio
+          DataSetName = 'frxDsRelatorio'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          HAlign = haCenter
+          Memo.UTF8W = (
+            '[frxDsRelatorio."BDQUANTIDADE"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -282,8 +299,8 @@ object dmRelatorios: TdmRelatorios
         object mmValor: TfrxMemoView
           Align = baRight
           AllowVectorExport = True
-          Left = 603.218949530000000000
-          Width = 114.891750470000000000
+          Left = 629.675659530000000000
+          Width = 88.435040470000000000
           Height = 41.574830000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -301,7 +318,7 @@ object dmRelatorios: TdmRelatorios
         object mmServico: TfrxMemoView
           Align = baRight
           AllowVectorExport = True
-          Left = 488.327199060000000000
+          Left = 430.128398590000000000
           Width = 114.891750470000000000
           Height = 41.574830000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -321,7 +338,7 @@ object dmRelatorios: TdmRelatorios
           Align = baWidth
           AllowVectorExport = True
           Left = 270.610048230000000000
-          Width = 217.717150830000000000
+          Width = 159.518350360000000000
           Height = 41.574830000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -336,46 +353,71 @@ object dmRelatorios: TdmRelatorios
           ParentFont = False
           VAlign = vaCenter
         end
-      end
-      object childTotal: TfrxChild
-        FillType = ftBrush
-        Frame.Typ = []
-        Height = 22.677180000000000000
-        Top = 359.055350000000000000
-        Width = 718.110700000000000000
-        ToNRows = 0
-        ToNRowsMode = rmCount
-        object Memo1: TfrxMemoView
+        object mmQuantidade: TfrxMemoView
           Align = baRight
           AllowVectorExport = True
-          Left = 488.315424404724000000
+          Left = 545.020149060000000000
+          Width = 84.655510470000000000
+          Height = 41.574830000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Fill.BackColor = 7165253
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Quantidade')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+      end
+      object Footer1: TfrxFooter
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 41.574830000000000000
+        Top = 359.055350000000000000
+        Width = 718.110700000000000000
+        object Memo2: TfrxMemoView
+          Align = baRight
+          AllowVectorExport = True
+          Left = 603.213062200000000000
+          Top = 18.897650000000000000
           Width = 114.897637800000000000
           Height = 22.677180000000000000
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'arial'
+          Font.Height = -12
+          Font.Name = 'Arial'
           Font.Style = [fsBold]
           Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
-            'Total: ')
+            '[SUM(<frxDsRelatorio."BDTOTALSERV">,masterData)]')
           ParentFont = False
           VAlign = vaCenter
         end
-        object frxDsRelatorioTotalServicos: TfrxMemoView
-          IndexTag = 1
+        object Memo1: TfrxMemoView
           Align = baRight
           AllowVectorExport = True
-          Left = 603.213062204724000000
-          Width = 114.897637795276000000
+          Left = 488.315424400000000000
+          Top = 18.897650000000000000
+          Width = 114.897637800000000000
           Height = 22.677180000000000000
-          DataField = 'TotalServicos'
-          DataSet = frxDsRelatorio
-          DataSetName = 'frxDsRelatorio'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
+          HAlign = haRight
           Memo.UTF8W = (
-            '[frxDsRelatorio."TotalServicos"]')
+            'Total: ')
+          ParentFont = False
+          VAlign = vaCenter
         end
       end
     end
@@ -384,16 +426,25 @@ object dmRelatorios: TdmRelatorios
     UserName = 'frxDsRelatorio'
     CloseDataSource = False
     FieldAliases.Strings = (
-      'DescSofa=DescSofa'
-      'DataServico=DataServico'
-      'NomeResponsavel=NomeResponsavel'
-      'QuantidadeServico=QuantidadeServico'
-      'DescServico=DescServico'
-      'ValServico=ValServico'
-      'TotalServicos=TotalServicos'
-      'DataAtual=DataAtual'
-      'NomeUsuario=NomeUsuario')
-    DataSet = cdsRelatorio
+      'BDCODSERV=BDCODSERV'
+      'BDDATASERV=BDDATASERV'
+      '-BDCODUSU=BDCODUSU'
+      'BDQUANTIDADE=BDQUANTIDADE'
+      'BDCODSOFA=BDCODSOFA'
+      'BDSERVICO=BDSERVICO'
+      'BDTOTALSERV=BDTOTALSERV'
+      '-BDCODUSU_1=BDCODUSU_1'
+      'BDNOMUSU=BDNOMUSU'
+      '-BDLOGINUSU=BDLOGINUSU'
+      '-BDSENHAUSU=BDSENHAUSU'
+      '-BDISADM=BDISADM'
+      '-BDCODSOFA_1=BDCODSOFA_1'
+      'BDDESCSOFA=BDDESCSOFA'
+      '-BDVALCOSTURA=BDVALCOSTURA'
+      '-BDVALCORTE=BDVALCORTE'
+      '-BDHORAS=BDHORAS'
+      'BDSERVICOPALAVRA=BDSERVICOPALAVRA')
+    DataSet = queryRelatorios
     BCDToCurrency = False
     Left = 136
     Top = 136
@@ -402,42 +453,70 @@ object dmRelatorios: TdmRelatorios
     Aggregates = <>
     Params = <>
     ProviderName = 'dspRelatorio'
-    Left = 216
-    Top = 56
-    object cdsRelatorioDescSofa: TStringField
-      FieldName = 'DescSofa'
-      Size = 255
+    Left = 200
+    Top = 48
+    object cdsRelatorioBDCODSERV: TIntegerField
+      FieldName = 'BDCODSERV'
+      Required = True
     end
-    object cdsRelatorioDataServico: TDateField
-      FieldName = 'DataServico'
+    object cdsRelatorioBDDATASERV: TDateField
+      FieldName = 'BDDATASERV'
+      Required = True
     end
-    object cdsRelatorioNomeResponsavel: TStringField
-      FieldName = 'NomeResponsavel'
-      Size = 255
+    object cdsRelatorioBDCODUSU: TIntegerField
+      FieldName = 'BDCODUSU'
+      Required = True
     end
-    object cdsRelatorioQuantidadeServico: TIntegerField
-      FieldName = 'QuantidadeServico'
+    object cdsRelatorioBDQUANTIDADE: TIntegerField
+      FieldName = 'BDQUANTIDADE'
+      Required = True
     end
-    object cdsRelatorioDescServico: TStringField
-      FieldName = 'DescServico'
-      Size = 255
+    object cdsRelatorioBDCODSOFA: TIntegerField
+      FieldName = 'BDCODSOFA'
+      Required = True
     end
-    object cdsRelatorioValServico: TCurrencyField
-      FieldName = 'ValServico'
+    object cdsRelatorioBDSERVICO: TIntegerField
+      FieldName = 'BDSERVICO'
+      Required = True
     end
-    object cdsRelatorioTotalServicos: TCurrencyField
-      FieldName = 'TotalServicos'
-    end
-    object cdsRelatorioDataAtual: TDateField
-      FieldName = 'DataAtual'
-    end
-    object cdsRelatorioNomeUsuario: TIntegerField
-      FieldName = 'NomeUsuario'
+    object cdsRelatorioBDTOTALSERV: TFMTBCDField
+      FieldName = 'BDTOTALSERV'
+      Required = True
+      Precision = 18
+      Size = 2
     end
   end
   object dspRelatorio: TDataSetProvider
     DataSet = queryRelatorios
-    Left = 144
+    Left = 120
     Top = 48
+  end
+  object frxPDFExport: TfrxPDFExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    InteractiveFormsFontSubset = 'A-Z,a-z,0-9,#43-#47 '
+    OpenAfterExport = False
+    PrintOptimized = False
+    Outline = False
+    Background = False
+    HTMLTags = True
+    Quality = 95
+    Transparency = False
+    Author = 'FastReport'
+    Subject = 'FastReport PDF export'
+    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
+    HideToolbar = False
+    HideMenubar = False
+    HideWindowUI = False
+    FitWindow = False
+    CenterWindow = False
+    PrintScaling = False
+    PdfA = False
+    PDFStandard = psNone
+    PDFVersion = pv17
+    Left = 56
+    Top = 184
   end
 end

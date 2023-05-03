@@ -7,7 +7,8 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, gdSimples, System.ImageList,
   Vcl.ImgList, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, GD_ComboBox, Vcl.Mask,
-  GD_MaskEdit_Data, GD_Edit, udmRelatorio, gdFuncoes, StrUtils;
+  GD_MaskEdit_Data, GD_Edit, udmRelatorio, gdFuncoes, StrUtils,
+  gdRelatorioPreview, System.Actions, Vcl.ActnList;
 
 type
   TfrRelatorio = class(TfrSimples)
@@ -24,26 +25,30 @@ type
     lbServico: TLabel;
     pnBotoesCadastro: TPanel;
     pnLeftBotoesCadastro: TPanel;
-    pnCancelar: TPanel;
-    spCancelar: TSpeedButton;
+    pnSalvar: TPanel;
+    spSalvar: TSpeedButton;
     pnCimaCancelar: TPanel;
     pnBaixoCancelar: TPanel;
     pnDireitaCancelar: TPanel;
     pnEsquerdaCancelar: TPanel;
-    pnSalvar: TPanel;
-    spSalvar: TSpeedButton;
+    pnGerarRelatorio: TPanel;
+    spGerarRelatorio: TSpeedButton;
     pnCimaSalvar: TPanel;
     pnBaixoSalvar: TPanel;
     pnDireitaSalvar: TPanel;
     pnEsquerdaSalvar: TPanel;
     ImageList: TImageList;
+    actionListRelatorio: TActionList;
+    aclSalvar: TAction;
+    aclVisualizar: TAction;
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure spCancelarClick(Sender: TObject);
+    procedure spGerarRelatorioClick(Sender: TObject);
     procedure spSalvarClick(Sender: TObject);
   private
     { Private declarations }
+    function GetSqlRelatorio: String;
   public
     { Public declarations }
   end;
@@ -78,13 +83,7 @@ begin
   fFuncoes.SetCentralizaControles(TControl(pnPrincipal), TControl(pnCentral));
 end;
 
-procedure TfrRelatorio.spCancelarClick(Sender: TObject);
-begin
-  inherited;
-  Close;
-end;
-
-procedure TfrRelatorio.spSalvarClick(Sender: TObject);
+function TfrRelatorio.GetSqlRelatorio: String;
 var
   wSql: String;
   wWhere: String;
@@ -103,7 +102,15 @@ var
   end;
 begin
   inherited;
-  wSql := 'SELECT * FROM TB_SERVICOS ';
+  wSql := 'SELECT SERV.*, USU.*, SOFA.*, ' +
+          'CASE SERV.BDSERVICO ' +
+                   'WHEN ' + QuotedStr('1') + ' THEN ' + QuotedStr('Corte') + ' ' +
+                   'WHEN ' + QuotedStr('2') + ' THEN ' + QuotedStr('Costura') + ' ' +
+                   'WHEN ' + QuotedStr('3') + ' THEN ' + QuotedStr('Corte e Costura') + ' ' +
+                 'END AS BDSERVICOPALAVRA ' +
+          'FROM TB_SERVICOS SERV ' +
+          'INNER JOIN TB_USUARIOS USU ON (SERV.BDCODUSU = USU.BDCODUSU) ' +
+          'INNER JOIN TB_SOFAS SOFA ON (SERV.BDCODSOFA = SOFA.BDCODSOFA)';
   wWhere := '';
   // Gerar o SQL do relatório
 
@@ -112,9 +119,10 @@ begin
     (Trim(mskDataFinal.Text) <> '/  /') then
   begin
 
+
     if cbSofas.ItemIndex <> 0 then
     begin
-      AddWhere('(BDCODSOFA = ' + IntToStr(cbSofas.ItemIndex) + ')');
+      AddWhere('(SERV.BDCODSOFA = ' + IntToStr(cbSofas.ItemIndex) + ')');
     end;
 
     if (Trim(mskDataInicial.Text) <> '/  /') and
@@ -150,30 +158,77 @@ begin
         Abort;
       end;
 
-      AddWhere('((BDDATASERV >= ' + QuotedStr(AnsiReplaceStr(Trim(mskDataInicial.Text), '/', '.')) +
-        ') and (BDDATASERV <= ' + QuotedStr(AnsiReplaceStr(Trim(mskDataFinal.Text), '/', '.')) + '))');
-    end
-    else
-    begin
-      Application.MessageBox
-        ('Não é possível filtrar por data caso as duas não estejam preenchidas!',
-        'Atenção!', MB_OK + MB_ICONWARNING);
-      Abort;
+      AddWhere('((SERV.BDDATASERV >= ' +
+        QuotedStr(AnsiReplaceStr(Trim(mskDataInicial.Text), '/', '.')) +
+        ') and (SERV.BDDATASERV <= ' +
+        QuotedStr(AnsiReplaceStr(Trim(mskDataFinal.Text), '/', '.')) + '))');
     end;
 
     if cbUsuarios.ItemIndex <> 0 then
     begin
-      AddWhere('(BDCODUSU = ' + IntToStr(cbUsuarios.ItemIndex) + ')');
+      AddWhere('(SERV.BDCODUSU = ' + IntToStr(cbUsuarios.ItemIndex) + ')');
     end;
 
     if cbServicos.ItemIndex <> 0 then
     begin
-      AddWhere('(BDSERVICO = ' + IntToStr(cbServicos.ItemIndex) + ')');
+      AddWhere('(SERV.BDSERVICO = ' + IntToStr(cbServicos.ItemIndex) + ')');
     end;
 
     wSql := wSql + wWhere;
   end;
 
+  wSql := wSql + ' order by SERV.BDDATASERV';
+  Result := wSql;
+end;
+
+procedure TfrRelatorio.spGerarRelatorioClick(Sender: TObject);
+begin
+  if GetSqlRelatorio <> '' then
+  begin
+
+    dmRelatorios.queryRelatorios.SQL.Clear;
+    dmRelatorios.queryRelatorios.SQL.Add(GetSqlRelatorio);
+    dmRelatorios.queryRelatorios.Open;
+
+    if dmRelatorios.queryRelatorios.IsEmpty then
+    begin
+      Application.MessageBox('Não há dados para gerar um relatório!',
+        'Atenção!', MB_OK + MB_ICONWARNING);
+      Abort;
+    end;
+
+    Application.CreateForm(TfrRelatorioPreview, frRelatorioPreview);
+    frRelatorioPreview.Parent := frRelatorio.Parent;
+    dmRelatorios.frxRelatorio.Preview := frRelatorioPreview.frxPreview1;
+    frRelatorioPreview.Show;
+
+    frRelatorioPreview.frxPreview1.SetFocus;
+
+    dmRelatorios.frxRelatorio.ShowReport(True);
+  end;
+
+end;
+
+procedure TfrRelatorio.spSalvarClick(Sender: TObject);
+begin
+  inherited;
+  if GetSqlRelatorio <> '' then
+  begin
+
+    dmRelatorios.queryRelatorios.SQL.Clear;
+    dmRelatorios.queryRelatorios.SQL.Add(GetSqlRelatorio);
+    dmRelatorios.queryRelatorios.Open;
+
+    if dmRelatorios.queryRelatorios.IsEmpty then
+    begin
+      Application.MessageBox('Não há dados para gerar um relatório!',
+        'Atenção!', MB_OK + MB_ICONWARNING);
+      Abort;
+    end;
+
+    dmRelatorios.frxRelatorio.PrepareReport();
+    dmRelatorios.frxRelatorio.Export(dmRelatorios.frxPDFExport);
+  end;
 end;
 
 end.

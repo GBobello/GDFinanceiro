@@ -172,6 +172,10 @@
             <Form>frRelatorio</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="src\views\telas\gdRelatorioPreview.pas">
+            <Form>frRelatorioPreview</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include=".gitignore"/>
         <None Include="LICENSE"/>
         <BuildConfiguration Include="Release">

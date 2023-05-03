@@ -7,7 +7,8 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, udmConexao, frxClass, frxDBSet,
-  Datasnap.DBClient, gdClasses_GD, Datasnap.Provider;
+  Datasnap.DBClient, gdClasses_GD, Datasnap.Provider, frxExportBaseDialog,
+  frxExportPDF, frxExportXLSX, frxExportCSV;
 
 type
   TdmRelatorios = class(TDataModule)
@@ -15,16 +16,15 @@ type
     frxRelatorio: TfrxReport;
     frxDsRelatorio: TfrxDBDataset;
     cdsRelatorio: TClientDataSet;
-    cdsRelatorioDescSofa: TStringField;
-    cdsRelatorioDataServico: TDateField;
-    cdsRelatorioNomeResponsavel: TStringField;
-    cdsRelatorioQuantidadeServico: TIntegerField;
-    cdsRelatorioDescServico: TStringField;
-    cdsRelatorioValServico: TCurrencyField;
-    cdsRelatorioTotalServicos: TCurrencyField;
-    cdsRelatorioDataAtual: TDateField;
-    cdsRelatorioNomeUsuario: TIntegerField;
     dspRelatorio: TDataSetProvider;
+    cdsRelatorioBDCODSERV: TIntegerField;
+    cdsRelatorioBDDATASERV: TDateField;
+    cdsRelatorioBDCODUSU: TIntegerField;
+    cdsRelatorioBDQUANTIDADE: TIntegerField;
+    cdsRelatorioBDCODSOFA: TIntegerField;
+    cdsRelatorioBDSERVICO: TIntegerField;
+    cdsRelatorioBDTOTALSERV: TFMTBCDField;
+    frxPDFExport: TfrxPDFExport;
   private
     { Private declarations }
   public

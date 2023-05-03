@@ -25,7 +25,8 @@ uses
   gdPesquisaSofas in 'src\views\telas\gdPesquisaSofas.pas' {frPesquisaSofas},
   gdValorNovo in 'src\classes\gdValorNovo.pas',
   udmRelatorio in 'src\dataModules\udmRelatorio.pas' {dmRelatorios: TDataModule},
-  gdRelatorio in 'src\views\telas\gdRelatorio.pas' {frRelatorio};
+  gdRelatorio in 'src\views\telas\gdRelatorio.pas' {frRelatorio},
+  gdRelatorioPreview in 'src\views\telas\gdRelatorioPreview.pas' {frRelatorioPreview};
 
 {$R *.res}
 

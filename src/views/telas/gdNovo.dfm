@@ -130,7 +130,6 @@ inherited frNovo: TfrNovo
     inherited cdPanel: TCardPanel
       Width = 752
       Height = 450
-      ActiveCard = cardCadastroUsuarios
       ExplicitWidth = 752
       ExplicitHeight = 450
       inherited cardConsultaUsuarios: TCard
@@ -149,6 +148,11 @@ inherited frNovo: TfrNovo
             inherited pnExcluir: TPanel
               inherited spExcluir: TSpeedButton
                 OnClick = spExcluirClick
+              end
+            end
+            inherited pnNovoItem: TPanel
+              inherited spNovoItem: TSpeedButton
+                Caption = 'Novo Item (Insert)'
               end
             end
           end
@@ -493,7 +497,12 @@ inherited frNovo: TfrNovo
     Top = 404
   end
   inherited actionList: TActionList
-    Left = 561
-    Top = 172
+    Left = 609
+    inherited aclNovoItem: TAction
+      ShortCut = 16460
+    end
+    inherited aclEditar: TAction
+      OnExecute = nil
+    end
   end
 end
