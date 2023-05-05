@@ -34,7 +34,6 @@ inherited frPesquisa_Padrao: TfrPesquisa_Padrao
       Width = 554
       Height = 50
       Align = alTop
-      Caption = 'pesquisa'
       TabOrder = 1
     end
     object pnGrid: TPanel

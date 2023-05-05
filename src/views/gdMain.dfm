@@ -43,17 +43,18 @@ object frMain: TfrMain
     ParentBackground = False
     TabOrder = 1
     object pnLateral: TPanel
-      Left = 185
+      Left = 201
       Top = 0
       Width = 1
       Height = 749
       Align = alLeft
       TabOrder = 2
+      ExplicitLeft = 185
     end
     object pnMenu: TPanel
       Left = 0
       Top = 0
-      Width = 185
+      Width = 201
       Height = 749
       Align = alLeft
       BevelOuter = bvNone
@@ -63,54 +64,59 @@ object frMain: TfrMain
       object pnSeparador4: TPanel
         Left = 0
         Top = 352
-        Width = 185
+        Width = 201
         Height = 1
         Align = alTop
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 8
+        ExplicitWidth = 185
       end
       object pnSeparador3: TPanel
         Left = 0
         Top = 303
-        Width = 185
+        Width = 201
         Height = 1
         Align = alTop
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 5
+        ExplicitWidth = 185
       end
       object pnSeparador2: TPanel
         Left = 0
         Top = 254
-        Width = 185
+        Width = 201
         Height = 1
         Align = alTop
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 6
+        ExplicitWidth = 185
       end
       object pnSeparador1: TPanel
         Left = 0
         Top = 205
-        Width = 185
+        Width = 201
         Height = 1
         Align = alTop
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 7
+        ExplicitWidth = 185
       end
       object pnLogo: TPanel
         Left = 0
         Top = 0
-        Width = 185
+        Width = 201
         Height = 205
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 0
+        ExplicitWidth = 185
         object lbLogo: TLabel
-          Left = 26
-          Top = 98
+          Left = 34
+          Top = 103
           Width = 132
           Height = 22
           Caption = 'GD Financeiro'
@@ -122,8 +128,8 @@ object frMain: TfrMain
           ParentFont = False
         end
         object imgLogo: TImage
-          Left = 56
-          Top = 16
+          Left = 64
+          Top = 21
           Width = 69
           Height = 76
           Center = True
@@ -545,15 +551,16 @@ object frMain: TfrMain
       object pnPesquisa: TPanel
         Left = 0
         Top = 255
-        Width = 185
+        Width = 201
         Height = 48
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 1
+        ExplicitWidth = 185
         object spPesquisa: TSpeedButton
           Left = 0
           Top = 0
-          Width = 185
+          Width = 201
           Height = 48
           Margins.Left = 0
           Margins.Top = 0
@@ -561,7 +568,7 @@ object frMain: TfrMain
           Margins.Bottom = 0
           Align = alClient
           DisabledImageIndex = 5
-          Caption = 'Pesquisa'
+          Caption = 'Pesquisa sof'#225's'
           ImageIndex = 3
           Images = imgListMenu
           HotImageIndex = 4
@@ -586,15 +593,16 @@ object frMain: TfrMain
       object pnProdutos: TPanel
         Left = 0
         Top = 206
-        Width = 185
+        Width = 201
         Height = 48
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 2
+        ExplicitWidth = 185
         object spProdutos: TSpeedButton
           Left = 0
           Top = 0
-          Width = 185
+          Width = 201
           Height = 48
           Margins.Left = 0
           Margins.Top = 0
@@ -602,7 +610,7 @@ object frMain: TfrMain
           Margins.Bottom = 0
           Align = alClient
           DisabledImageIndex = 2
-          Caption = 'Novo'
+          Caption = 'Novo servi'#231'o'
           ImageIndex = 0
           Images = imgListMenu
           HotImageIndex = 1
@@ -620,20 +628,22 @@ object frMain: TfrMain
           OnMouseLeave = TiraFoco
           ExplicitLeft = -2
           ExplicitTop = -2
+          ExplicitWidth = 185
         end
       end
       object pnRelatorio: TPanel
         Left = 0
         Top = 304
-        Width = 185
+        Width = 201
         Height = 48
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 3
+        ExplicitWidth = 185
         object spRelatorio: TSpeedButton
           Left = 0
           Top = 0
-          Width = 185
+          Width = 201
           Height = 48
           Margins.Left = 0
           Margins.Top = 0
@@ -657,21 +667,23 @@ object frMain: TfrMain
           OnClick = spRelatorioClick
           OnMouseEnter = SetaFoco
           OnMouseLeave = TiraFoco
+          ExplicitWidth = 185
           ExplicitHeight = 45
         end
       end
       object pnUsuario: TPanel
         Left = 0
         Top = 701
-        Width = 185
+        Width = 201
         Height = 48
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 4
+        ExplicitWidth = 185
         object spUsuario: TSpeedButton
           Left = 0
           Top = 0
-          Width = 185
+          Width = 201
           Height = 48
           Margins.Left = 0
           Margins.Top = 0
@@ -740,12 +752,13 @@ object frMain: TfrMain
       object pnSeparador5: TPanel
         Left = 0
         Top = 700
-        Width = 185
+        Width = 201
         Height = 1
         Align = alBottom
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 9
+        ExplicitWidth = 185
       end
     end
     object pnFoco: TPanel
@@ -760,14 +773,16 @@ object frMain: TfrMain
       Visible = False
     end
     object pnCentral: TPanel
-      Left = 186
+      Left = 202
       Top = 0
-      Width = 1164
+      Width = 1148
       Height = 749
       Align = alClient
       BevelOuter = bvNone
       Caption = 'pnCentral'
       TabOrder = 3
+      ExplicitLeft = 186
+      ExplicitWidth = 1164
       object pnLogoCentral: TPanel
         Left = 421
         Top = 219

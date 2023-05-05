@@ -168,7 +168,7 @@ begin
     Application.MessageBox('O campo de confirmação de senha não pode ser vazio!', 'Atenção!', MB_OK + MB_ICONWARNING);
     Abort;
   end;
-  if not dmUsuarios.SenhaAnteriorIgual(dmUsuarios.cdsUsuariosBDCODUSU.AsString, dmUsuarios.cdsUsuariosBDSENHAUSU.AsString) then
+  if not dmUsuarios.SenhaAnteriorIgual(dmUsuarios.cdsUsuariosBDCODUSU.AsString, gdFuncoes.MD5(Trim(edSenhaAnterior.Text))) then
   begin
     edSenhaAnterior.SetFocus;
     Application.MessageBox('A senha anterior não está correta!', 'Atenção!', MB_OK + MB_ICONWARNING);
@@ -191,11 +191,16 @@ begin
   dmUsuarios.cdsUsuarios.ApplyUpdates(0);
   Application.MessageBox('Senha alterada com sucesso!', 'Confirmação!', MB_OK + MB_ICONINFORMATION);
 
+  edSenhaAnterior.Clear;
+  edConfirmaSenha.Clear;
+  edNovaSenha.Clear;
+
   SetaSQLs;
   dbGrid.Refresh;
   cdPanel.ActiveCard := cardConsultaUsuarios;
   cardTrocaSenha.Enabled := False;
   AjustaTamanhoCelulas;
+  lbAlterarSenha.Visible := False;
   inherited;
 end;
 

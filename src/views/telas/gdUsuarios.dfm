@@ -26,6 +26,7 @@ inherited frUsuarios: TfrUsuarios
         inherited lbNomeDaTela: TLabel
           Caption = 'Usu'#225'rios'
           Font.Name = 'Tahoma'
+          ExplicitHeight = 30
         end
         inherited imgTela: TImage
           Picture.Data = {
@@ -156,11 +157,8 @@ inherited frUsuarios: TfrUsuarios
         end
         inherited pnPesquisa: TPanel
           Width = 749
+          Visible = False
           ExplicitWidth = 749
-          inherited GD_Edit1: TGD_Edit
-            Width = 577
-            ExplicitWidth = 577
-          end
         end
         inherited pnCentralPesquisa: TPanel
           Width = 749
@@ -239,7 +237,6 @@ inherited frUsuarios: TfrUsuarios
                 Title.Font.Height = -11
                 Title.Font.Name = 'Tahoma'
                 Title.Font.Style = [fsBold]
-                Width = 64
                 Visible = True
               end>
           end

@@ -59,11 +59,11 @@ type
     pnEditsCadastro: TPanel;
     pnCentralCadastros: TPanel;
     imageList: TImageList;
-    GD_Edit1: TGD_Edit;
-    Label1: TLabel;
     actionList: TActionList;
     aclNovoItem: TAction;
     aclEditar: TAction;
+    spRetirarFiltro: TSpeedButton;
+    spFiltrar: TSpeedButton;
     procedure spConsultarClick(Sender: TObject);
     procedure spEditarClick(Sender: TObject);
     procedure spCancelarClick(Sender: TObject);

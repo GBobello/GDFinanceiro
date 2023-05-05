@@ -307,40 +307,20 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
           Padding.Right = 50
           Padding.Bottom = 10
           TabOrder = 1
-          object Label1: TLabel
-            Left = 55
+          object spRetirarFiltro: TSpeedButton
+            Left = 85
             Top = 10
-            Width = 67
+            Width = 30
             Height = 30
             Align = alLeft
-            Caption = 'Pesquisa: '
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -15
-            Font.Name = 'JejuGothic'
-            Font.Style = []
-            ParentFont = False
-            Layout = tlCenter
-            Visible = False
-            ExplicitHeight = 16
+            ExplicitTop = 5
           end
-          object GD_Edit1: TGD_Edit
-            Left = 122
+          object spFiltrar: TSpeedButton
+            Left = 55
             Top = 10
-            Width = 510
+            Width = 30
             Height = 30
-            Align = alClient
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 0
-            Text = 'GD_Edit1'
-            Visible = False
-            MudarCor = 13828095
-            ExplicitHeight = 27
+            Align = alLeft
           end
         end
         object pnCentralPesquisa: TPanel

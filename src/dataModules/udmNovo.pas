@@ -34,6 +34,9 @@ type
     function GetModelos: TStrings;
     function GetResponsavel: TStrings;
     function GetUltimaChave: Integer;
+
+    function GetUsuarios: TStrings;
+    function GetSofas: TStrings;
   end;
 
 var
@@ -155,6 +158,36 @@ begin
   end;
 end;
 
+function TdmNovo.GetSofas: TStrings;
+var
+  SQLConsulta: TFDQuery;
+begin
+
+  SQLConsulta := TFDQuery.Create(nil);
+  Result := TStringList.Create;
+  try
+    Result.BeginUpdate;
+    Result.Add('Todos os modelos');
+    SQLConsulta.Connection := dmConexao.Conexao;
+    SQLConsulta.SQL.Clear;
+    SQLConsulta.SQL.Add('SELECT * FROM TB_SOFAS ORDER BY BDCODSOFA');
+    SQLConsulta.Open;
+
+    SQLConsulta.First;
+    while not SQLConsulta.Eof do
+    begin
+      Result.Add(SQLConsulta.FieldByName('BDDESCSOFA').AsString);
+      SQLConsulta.Next;
+    end;
+
+    Result.EndUpdate;
+
+  finally
+    SQLConsulta.Close;
+    FreeAndNil(SQLConsulta);
+  end;
+end;
+
 function TdmNovo.GetUltimaChave: Integer;
 var
   SQLConsulta: TFDQuery;
@@ -168,6 +201,35 @@ begin
     SQLConsulta.Open;
 
     Result := SQLConsulta.FieldByName('BDCODSERV').AsInteger;
+  finally
+    SQLConsulta.Close;
+    FreeAndNil(SQLConsulta);
+  end;
+end;
+
+function TdmNovo.GetUsuarios: TStrings;
+var
+  SQLConsulta: TFDQuery;
+begin
+  SQLConsulta := TFDQuery.Create(nil);
+  Result := TStringList.Create;
+  try
+    Result.BeginUpdate;
+    Result.Add('Todos os responsáveis');
+    SQLConsulta.Connection := dmConexao.Conexao;
+    SQLConsulta.SQL.Clear;
+    SQLConsulta.SQL.Add('SELECT * FROM TB_USUARIOS ORDER BY BDCODUSU');
+    SQLConsulta.Open;
+
+    SQLConsulta.First;
+    while not SQLConsulta.Eof do
+    begin
+      Result.Add(SQLConsulta.FieldByName('BDNOMUSU').AsString);
+      SQLConsulta.Next;
+    end;
+
+    Result.EndUpdate;
+
   finally
     SQLConsulta.Close;
     FreeAndNil(SQLConsulta);

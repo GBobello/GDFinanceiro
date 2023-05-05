@@ -13,7 +13,7 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   GD_ComboBox, gdClasses_GD, gdSimples, udmNovo, System.Actions, Vcl.ActnList,
-  gdLogSistema, gdUsuarioLogado;
+  gdLogSistema, gdUsuarioLogado, StrUtils;
 
 type
   TfrNovo = class(TfrCardPanels_Padrao)
@@ -31,6 +31,29 @@ type
     dsNovo: TDataSource;
     cbModelo: TGD_ComboBox;
     cbResponsavel: TGD_ComboBox;
+    cardFiltro: TCard;
+    pnFiltro: TPanel;
+    pnCentral: TPanel;
+    lbSofas: TLabel;
+    lbDataInicial: TLabel;
+    lbDataFinal: TLabel;
+    lbResponsavelFiltro: TLabel;
+    lbServicoFiltro: TLabel;
+    mskDataInicial: TGD_MaskEdit_Data;
+    mskDataFinal: TGD_MaskEdit_Data;
+    cbServicos: TGD_ComboBox;
+    cbUsuarios: TGD_ComboBox;
+    cbSofas: TGD_ComboBox;
+    spVoltar: TSpeedButton;
+    pnBotoes: TPanel;
+    pnBotoesRight: TPanel;
+    pnbtnFiltrar: TPanel;
+    spAplicaFiltro: TSpeedButton;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    Panel7: TPanel;
+    Panel8: TPanel;
+    imgListFiltro: TImageList;
     procedure spNovoItemClick(Sender: TObject);
     procedure spEditarClick(Sender: TObject);
     procedure spConsultarClick(Sender: TObject);
@@ -47,12 +70,21 @@ type
     procedure cbModeloChange(Sender: TObject);
     procedure cbModeloEnter(Sender: TObject);
     procedure cbModeloExit(Sender: TObject);
+    procedure spVoltarClick(Sender: TObject);
+    procedure spAplicaFiltroClick(Sender: TObject);
+    procedure spFiltrarClick(Sender: TObject);
+    procedure spRetirarFiltroClick(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
+    FSQL: String;
     procedure SetaValor;
     procedure SetaSQLs;
+    procedure SetSQL(const Value: String);
+    procedure SetSQLTela(prFiltro: Boolean);
     { Private declarations }
   public
     { Public declarations }
+    property SQL: String read FSQL write SetSQL;
   end;
 
 var
@@ -119,21 +151,18 @@ begin
   lbTotal.Caption := 'Total: ' + CurrToStrF(wTotal, ffCurrency, 2);
 end;
 
+procedure TfrNovo.SetSQL(const Value: String);
+begin
+  FSQL := Value;
+end;
+
 procedure TfrNovo.SetaSQLs;
 begin
   if gdClasses_GD.fUsuarioLogado.IsAdm then
   begin
     lbTotal.Visible := True;
     dmNovo.cdsNovo.Close;
-    dmNovo.cdsNovo.CommandText :=
-      'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA, ' + 'case SERV.BDSERVICO ' +
-      'when ' + QuotedStr('1') + ' then ' + QuotedStr('Corte') + ' ' + 'when ' +
-      QuotedStr('2') + ' then ' + QuotedStr('Costura') + ' ' + 'when ' +
-      QuotedStr('3') + ' then ' + QuotedStr('Corte + Costura') + ' ' +
-      'end as BDSERVICOPALAVRA ' + 'from TB_SERVICOS SERV ' +
-      'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU) ' +
-      'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA) ' +
-      'order by SERV.BDCODSERV';
+    dmNovo.cdsNovo.CommandText := FSQL;
     dmNovo.cdsNovo.Open;
     dbGrid.Columns[6].Visible := True;
   end
@@ -141,16 +170,7 @@ begin
   begin
     lbTotal.Visible := False;
     dmNovo.cdsNovo.Close;
-    dmNovo.cdsNovo.CommandText :=
-      'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA, ' + 'case SERV.BDSERVICO ' +
-      'when ' + QuotedStr('1') + ' then ' + QuotedStr('Corte') + ' ' + 'when ' +
-      QuotedStr('2') + ' then ' + QuotedStr('Costura') + ' ' + 'when ' +
-      QuotedStr('3') + ' then ' + QuotedStr('Corte + Costura') + ' ' +
-      'end as BDSERVICOPALAVRA ' + 'from TB_SERVICOS SERV ' +
-      'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU) ' +
-      'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA) ' +
-      'where SERV.BDCODUSU = ' + IntToStr(gdClasses_GD.fUsuarioLogado.ID) +
-      ' order by SERV.BDCODSERV';
+    dmNovo.cdsNovo.CommandText := FSQL;
     dmNovo.cdsNovo.Open;
     dbGrid.Columns[6].Visible := False;
   end;
@@ -168,8 +188,20 @@ begin
   inherited;
   cbModelo.Items := dmNovo.GetModelos;
   cbResponsavel.Items := dmNovo.GetResponsavel;
+  cbSofas.Items := dmNovo.GetSofas;
+  cbUsuarios.Items := dmNovo.GetUsuarios;
+  SetSQLTela(False);
   SetaSQLs;
   cbResponsavel.ItemIndex := 0;
+  cbSofas.ItemIndex := 0;
+  cbUsuarios.ItemIndex := 0;
+  cbServicos.ItemIndex := 0;
+end;
+
+procedure TfrNovo.FormResize(Sender: TObject);
+begin
+  inherited;
+  fFuncoes.SetCentralizaControles(TControl(pnFiltro), TControl(pnCentral));
 end;
 
 procedure TfrNovo.FormShow(Sender: TObject);
@@ -181,6 +213,122 @@ begin
     TControl(pnCentralCadastros));
 end;
 
+procedure TfrNovo.SetSQLTela(prFiltro: Boolean);
+var
+  wWhere: String;
+
+  procedure AddWhere(prCond: String);
+  begin
+    if prCond <> '' then
+    begin
+      if wWhere <> '' then
+        wWhere := wWhere + ' and '
+      else
+        wWhere := wWhere + ' where ';
+
+      wWhere := wWhere + prCond;
+    end;
+  end;
+
+begin
+  // Pegar o sql da pesquisa
+  wWhere := '';
+
+  if gdClasses_GD.fUsuarioLogado.IsAdm then
+  begin
+    FSQL := 'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA, ' +
+      'case SERV.BDSERVICO ' + 'when ' + QuotedStr('1') + ' then ' +
+      QuotedStr('Corte') + ' ' + 'when ' + QuotedStr('2') + ' then ' +
+      QuotedStr('Costura') + ' ' + 'when ' + QuotedStr('3') + ' then ' +
+      QuotedStr('Corte + Costura') + ' ' + 'end as BDSERVICOPALAVRA ' +
+      'from TB_SERVICOS SERV ' +
+      'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU) ' +
+      'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA) ';
+  end
+  else
+  begin
+    FSQL := 'select SERV.*, USU.BDNOMUSU, MOL.BDDESCSOFA, ' +
+      'case SERV.BDSERVICO ' + 'when ' + QuotedStr('1') + ' then ' +
+      QuotedStr('Corte') + ' ' + 'when ' + QuotedStr('2') + ' then ' +
+      QuotedStr('Costura') + ' ' + 'when ' + QuotedStr('3') + ' then ' +
+      QuotedStr('Corte + Costura') + ' ' + 'end as BDSERVICOPALAVRA ' +
+      'from TB_SERVICOS SERV ' +
+      'inner join TB_USUARIOS USU on (SERV.BDCODUSU = USU.BDCODUSU) ' +
+      'inner join TB_SOFAS MOL on (SERV.BDCODSOFA = MOL.BDCODSOFA) ' +
+      'where SERV.BDCODUSU = ' + IntToStr(gdClasses_GD.fUsuarioLogado.ID);
+  end;
+
+  if prFiltro then
+  begin
+    if (cbSofas.ItemIndex <> 0) or (cbUsuarios.ItemIndex <> 0) or
+      (cbServicos.ItemIndex <> 0) or (Trim(mskDataInicial.Text) <> '/  /') or
+      (Trim(mskDataFinal.Text) <> '/  /') then
+    begin
+
+      if cbSofas.ItemIndex <> 0 then
+      begin
+        AddWhere('(SERV.BDCODSOFA = ' + IntToStr(cbSofas.ItemIndex) + ')');
+      end;
+
+      if (Trim(mskDataInicial.Text) <> '/  /') and
+        (Trim(mskDataFinal.Text) <> '/  /') then
+      begin
+        try
+          StrToDate(mskDataInicial.Text);
+        except
+          on E: EConvertError do
+          begin
+            mskDataInicial.SetFocus;
+            Application.MessageBox('Data inválida!', 'Atenção!',
+              MB_OK + MB_ICONWARNING);
+            Abort;
+          end;
+        end;
+
+        try
+          StrToDate(mskDataFinal.Text);
+        except
+          on E: EConvertError do
+          begin
+            mskDataFinal.SetFocus;
+            Application.MessageBox('Data inválida!', 'Atenção!',
+              MB_OK + MB_ICONWARNING);
+            Abort;
+          end;
+        end;
+
+        if StrToDate(Trim(mskDataInicial.Text)) >
+          StrToDate(Trim(mskDataFinal.Text)) then
+        begin
+          Application.MessageBox
+            ('A data inicial não pode ser maior que a final!', 'Atenção!',
+            MB_OK + MB_ICONWARNING);
+          Abort;
+        end;
+
+        AddWhere('((SERV.BDDATASERV >= ' +
+          QuotedStr(AnsiReplaceStr(Trim(mskDataInicial.Text), '/', '.')) +
+          ') and (SERV.BDDATASERV <= ' +
+          QuotedStr(AnsiReplaceStr(Trim(mskDataFinal.Text), '/', '.')) + '))');
+      end;
+
+      if cbUsuarios.ItemIndex <> 0 then
+      begin
+        AddWhere('(SERV.BDCODUSU = ' + IntToStr(cbUsuarios.ItemIndex) + ')');
+      end;
+
+      if cbServicos.ItemIndex <> 0 then
+      begin
+        AddWhere('(SERV.BDSERVICO = ' + IntToStr(cbServicos.ItemIndex) + ')');
+      end;
+
+      FSQL := FSQL + wWhere;
+    end;
+  end;
+
+  FSQL := FSQL + ' order by SERV.BDCODSERV';
+end;
+
 procedure TfrNovo.spNovoItemClick(Sender: TObject);
 begin
   inherited;
@@ -188,6 +336,15 @@ begin
   spedQuantidade.Value := 1;
   cbServico.ItemIndex := 0;
   dmNovo.cdsNovo.Insert;
+end;
+
+procedure TfrNovo.spRetirarFiltroClick(Sender: TObject);
+begin
+  inherited;
+  // Retira filtro
+  SetSQLTela(False);
+  SetaSQLs;
+  dbGrid.Refresh;
 end;
 
 procedure TfrNovo.spSalvarClick(Sender: TObject);
@@ -296,6 +453,17 @@ begin
   SetaValor;
 end;
 
+procedure TfrNovo.spVoltarClick(Sender: TObject);
+begin
+  inherited;
+  cdPanel.ActiveCard := cardConsultaUsuarios;
+  cbSofas.ItemIndex := 0;
+  cbUsuarios.ItemIndex := 0;
+  cbServicos.ItemIndex := 0;
+  mskDataInicial.Clear;
+  mskDataFinal.Clear;
+end;
+
 procedure TfrNovo.spExcluirClick(Sender: TObject);
 begin
   inherited;
@@ -326,6 +494,27 @@ begin
           'Erro ao excluir registro!', MB_OK + MB_ICONERROR);
     end;
   end;
+end;
+
+procedure TfrNovo.spFiltrarClick(Sender: TObject);
+begin
+  inherited;
+  cdPanel.ActiveCard := cardFiltro;
+  fFuncoes.SetCentralizaControles(TControl(pnFiltro), TControl(pnCentral));
+end;
+
+procedure TfrNovo.spAplicaFiltroClick(Sender: TObject);
+begin
+  inherited;
+  SetSQLTela(True);
+  SetaSQLs;
+  dbGrid.Refresh;
+  cbSofas.ItemIndex := 0;
+  cbUsuarios.ItemIndex := 0;
+  cbServicos.ItemIndex := 0;
+  mskDataInicial.Clear;
+  mskDataFinal.Clear;
+  cdPanel.ActiveCard := cardConsultaUsuarios;
 end;
 
 procedure TfrNovo.spCancelarClick(Sender: TObject);

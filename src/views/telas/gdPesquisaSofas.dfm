@@ -7,7 +7,7 @@ inherited frPesquisaSofas: TfrPesquisaSofas
     inherited pnBarraSuperior: TPanel
       inherited pnNomeDaTela: TPanel
         inherited lbNomeDaTela: TLabel
-          Caption = 'Pesquisa de sof'#225's'
+          Caption = 'Pesquisa sof'#225's'
           Font.Name = 'Tahoma'
           ExplicitLeft = 55
           ExplicitTop = -6
@@ -83,6 +83,46 @@ inherited frPesquisaSofas: TfrPesquisaSofas
         end
       end
     end
+    inherited pnPesquisa: TPanel
+      Margins.Top = 50
+      BevelOuter = bvNone
+      Caption = ''
+      Padding.Left = 20
+      Padding.Top = 20
+      Padding.Right = 50
+      object lbPesquisa: TLabel
+        Left = 20
+        Top = 20
+        Width = 71
+        Height = 30
+        Align = alLeft
+        Caption = 'Pesquisa:  '
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Layout = tlCenter
+        ExplicitHeight = 18
+      end
+      object edPesquisa: TGD_Edit
+        Left = 91
+        Top = 20
+        Width = 413
+        Height = 30
+        Align = alClient
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        MudarCor = 13828095
+        ExplicitHeight = 27
+      end
+    end
     inherited pnGrid: TPanel
       inherited dbGrid: TDBGrid
         OnDblClick = dbGridDblClick
@@ -143,7 +183,7 @@ inherited frPesquisaSofas: TfrPesquisaSofas
             Font.Height = -12
             Font.Name = 'Tahoma'
             Font.Style = []
-            Title.Caption = 'Quantidade de horas'
+            Title.Caption = 'Quantidade de minutos'
             Width = 96
             Visible = True
           end>
