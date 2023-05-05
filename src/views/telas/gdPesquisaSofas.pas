@@ -6,10 +6,11 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, gdPesquisa_Padrao, Data.DB,
   System.ImageList, Vcl.ImgList, Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls,
-  Vcl.StdCtrls, Vcl.Buttons, udmPesquisaSofas, gdClasses_GD, gdNovo;
+  Vcl.StdCtrls, Vcl.Buttons, udmPesquisaSofas, gdClasses_GD, gdNovo, GD_Edit;
 
 type
   TfrPesquisaSofas = class(TfrPesquisa_Padrao)
+    edPesquisa: TGD_Edit;
     procedure FormCreate(Sender: TObject);
     procedure dbGridDblClick(Sender: TObject);
     procedure dbGridKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);

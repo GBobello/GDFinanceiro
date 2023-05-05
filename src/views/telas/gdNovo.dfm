@@ -4,7 +4,6 @@ inherited frNovo: TfrNovo
   ClientWidth = 628
   ExplicitWidth = 628
   ExplicitHeight = 453
-  PixelsPerInch = 96
   TextHeight = 13
   inherited pnPrincipal: TPanel
     Width = 628
@@ -154,6 +153,11 @@ inherited frNovo: TfrNovo
             inherited pnExcluir: TPanel
               inherited spExcluir: TSpeedButton
                 OnClick = spExcluirClick
+              end
+            end
+            inherited pnNovoItem: TPanel
+              inherited spNovoItem: TSpeedButton
+                Caption = 'Consultar'
               end
             end
           end

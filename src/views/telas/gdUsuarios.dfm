@@ -4,7 +4,6 @@ inherited frUsuarios: TfrUsuarios
   ClientWidth = 751
   ExplicitWidth = 751
   ExplicitHeight = 485
-  PixelsPerInch = 96
   TextHeight = 13
   inherited pnPrincipal: TPanel
     Width = 751
@@ -237,6 +236,7 @@ inherited frUsuarios: TfrUsuarios
                 Title.Font.Height = -11
                 Title.Font.Name = 'Tahoma'
                 Title.Font.Style = [fsBold]
+                Width = 64
                 Visible = True
               end>
           end

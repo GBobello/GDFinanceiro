@@ -1,7 +1,6 @@
 inherited frPesquisaSofas: TfrPesquisaSofas
   Caption = 'Pesquisa Sof'#225's'
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   inherited pnPrincipal: TPanel
     inherited pnBarraSuperior: TPanel
@@ -86,7 +85,6 @@ inherited frPesquisaSofas: TfrPesquisaSofas
     inherited pnPesquisa: TPanel
       Margins.Top = 50
       BevelOuter = bvNone
-      Caption = ''
       Padding.Left = 20
       Padding.Top = 20
       Padding.Right = 50
@@ -115,12 +113,15 @@ inherited frPesquisaSofas: TfrPesquisaSofas
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
-        Font.Name = 'Tahoma'
+        Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
         TabOrder = 0
         MudarCor = 13828095
-        ExplicitHeight = 27
+        ExplicitLeft = 128
+        ExplicitTop = 32
+        ExplicitWidth = 121
+        ExplicitHeight = 29
       end
     end
     inherited pnGrid: TPanel

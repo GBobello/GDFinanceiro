@@ -7,7 +7,6 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
   OnShow = FormShow
   ExplicitWidth = 684
   ExplicitHeight = 425
-  PixelsPerInch = 96
   TextHeight = 13
   inherited pnPrincipal: TPanel
     Width = 684
@@ -35,7 +34,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
       Width = 684
       Height = 384
       Align = alClient
-      ActiveCard = cardConsultaUsuarios
+      ActiveCard = cardCadastroUsuarios
       TabOrder = 1
       object cardConsultaUsuarios: TCard
         Left = 1
@@ -154,7 +153,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Height = 28
                 Align = alClient
                 DisabledImageIndex = 5
-                Caption = 'Editar (Enter)'
+                Caption = 'Editar'
                 ImageIndex = 3
                 Images = imageList
                 HotImageIndex = 4
@@ -231,7 +230,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Height = 28
                 Align = alClient
                 DisabledImageIndex = 17
-                Caption = 'Novo Item (Insert)'
+                Caption = 'Novo Item'
                 ImageIndex = 15
                 Images = imageList
                 HotImageIndex = 16
@@ -480,7 +479,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Height = 28
                 Align = alClient
                 DisabledImageIndex = 14
-                Caption = 'Consultar (F9)'
+                Caption = 'Consultar'
                 ImageIndex = 12
                 Images = imageList
                 HotImageIndex = 13
@@ -556,7 +555,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Height = 28
                 Align = alClient
                 DisabledImageIndex = 11
-                Caption = 'Salvar (PgnDn)'
+                Caption = 'Salvar'
                 ImageIndex = 9
                 Images = imageList
                 HotImageIndex = 10
