@@ -14,9 +14,13 @@ type
     procedure FormCreate(Sender: TObject);
     procedure dbGridDblClick(Sender: TObject);
     procedure dbGridKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edPesquisaChange(Sender: TObject);
   private
+    FSQLTela: String;
     procedure SetaSQL;
+    procedure SetSQLTela(const Value: String);
     { Private declarations }
+    property SQLTela: String read FSQLTela write SetSQLTela;
   public
     { Public declarations }
   end;
@@ -54,6 +58,12 @@ begin
   end;
 end;
 
+procedure TfrPesquisaSofas.edPesquisaChange(Sender: TObject);
+begin
+  inherited;
+  SetaSQL;
+end;
+
 procedure TfrPesquisaSofas.FormCreate(Sender: TObject);
 begin
   inherited;
@@ -61,9 +71,21 @@ begin
 end;
 
 procedure TfrPesquisaSofas.SetaSQL;
+var
+  wWhere: String;
 begin
+  wWhere := '';
+  if Trim(edPesquisa.Text) <> '' then
+  begin
+    wWhere := ' WHERE BDDESCSOFA LIKE ' + QuotedStr('%' + edPesquisa.Text + '%');
+    FSQLTela := 'select * from TB_SOFAS' + wWhere;
+  end
+  else
+    FSQLTela := 'select * from TB_SOFAS';
+
+
   dmPesquisaSofas.cdsPesquisaSofas.Close;
-  dmPesquisaSofas.cdsPesquisaSofas.CommandText := 'select * from TB_SOFAS order by BDCODSOFA';
+  dmPesquisaSofas.cdsPesquisaSofas.CommandText := FSQLTela + ' order by BDCODSOFA';
   dmPesquisaSofas.cdsPesquisaSofas.Open;
   if gdClasses_GD.fUsuarioLogado.IsAdm then
   begin
@@ -79,4 +101,10 @@ begin
   end;
 end;
 
+procedure TfrPesquisaSofas.SetSQLTela(const Value: String);
+begin
+  FSQLTela := Value;
+end;
+
 end.
+

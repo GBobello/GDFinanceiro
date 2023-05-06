@@ -15,8 +15,6 @@ uses
   gdClasses_GD in 'src\utils\gdClasses_GD.pas',
   gdUsuarioLogado in 'src\classes\gdUsuarioLogado.pas',
   gdLoginClass in 'src\classes\gdLoginClass.pas',
-  gdNovoClass in 'src\classes\gdNovoClass.pas',
-  gdUsuarioClass in 'src\classes\gdUsuarioClass.pas',
   udmUsuarios in 'src\dataModules\udmUsuarios.pas' {dmUsuarios: TDataModule},
   gdCardPanels_Padrao in 'src\views\padroes\gdCardPanels_Padrao.pas' {frCardPanels_Padrao},
   udmNovo in 'src\dataModules\udmNovo.pas' {dmNovo: TDataModule},

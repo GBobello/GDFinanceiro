@@ -110,6 +110,7 @@ inherited frPesquisaSofas: TfrPesquisaSofas
         Width = 413
         Height = 30
         Align = alClient
+        CharCase = ecUpperCase
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -117,10 +118,8 @@ inherited frPesquisaSofas: TfrPesquisaSofas
         Font.Style = []
         ParentFont = False
         TabOrder = 0
+        OnChange = edPesquisaChange
         MudarCor = 13828095
-        ExplicitLeft = 128
-        ExplicitTop = 32
-        ExplicitWidth = 121
         ExplicitHeight = 29
       end
     end
