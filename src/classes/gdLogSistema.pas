@@ -7,7 +7,7 @@ uses
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
   Data.DB, FireDAC.Comp.Client, FireDAC.Phys.FB, FireDAC.Phys.FBDef,
-  FireDAC.Phys.IBBase, FireDAC.Comp.UI, udmConexao;
+  FireDAC.Phys.IBBase, FireDAC.Comp.UI, udmConexao, StrUtils;
 
   procedure AdicionarLog(prTela: String; prDescricao: String; prDataHora: TDateTime; prUsuario: Integer);
 
@@ -23,7 +23,7 @@ begin
     SQLCommand.CommandText.Clear;
     SQLCommand.CommandText.Add
       ('INSERT INTO TB_LOG(BDCODLOG, BDDESCLOG, BDDATA, BDHORA, BDCODUSU, BDTELASISTEMA) values (0,'
-      + QuotedStr(prDescricao) + ', ' + QuotedStr(DateToStr(prDataHora)) + ', '
+      + QuotedStr(prDescricao) + ', ' + AnsiReplaceStr(QuotedStr(DateToStr(prDataHora)), '/', '.') + ', '
       + QuotedStr(TimeToStr(prDataHora)) + ', ' + IntToStr(prUsuario) + ', ' +
       QuotedStr(prTela) + ');');
     SQLCommand.Open;

@@ -2,8 +2,8 @@ object frMain: TfrMain
   Left = 0
   Top = 0
   Caption = 'GD Financeiro'
-  ClientHeight = 749
-  ClientWidth = 1350
+  ClientHeight = 748
+  ClientWidth = 1346
   Color = clWhite
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -11,7 +11,6 @@ object frMain: TfrMain
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poScreenCenter
   WindowState = wsMaximized
   OnActivate = FormActivate
@@ -20,7 +19,6 @@ object frMain: TfrMain
   OnKeyDown = FormKeyDown
   OnResize = FormResize
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 13
   object cbEstilos: TComboBox
     Left = 495
@@ -35,8 +33,8 @@ object frMain: TfrMain
   object pnPrincipal: TPanel
     Left = 0
     Top = 0
-    Width = 1350
-    Height = 749
+    Width = 1346
+    Height = 748
     Align = alClient
     BevelOuter = bvNone
     Color = clWhite
@@ -49,7 +47,7 @@ object frMain: TfrMain
       Height = 749
       Align = alLeft
       TabOrder = 2
-      ExplicitLeft = 185
+      ExplicitHeight = 748
     end
     object pnMenu: TPanel
       Left = 0
@@ -61,6 +59,7 @@ object frMain: TfrMain
       Color = clWhite
       ParentBackground = False
       TabOrder = 0
+      ExplicitHeight = 748
       object pnSeparador4: TPanel
         Left = 0
         Top = 352
@@ -70,7 +69,6 @@ object frMain: TfrMain
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 8
-        ExplicitWidth = 185
       end
       object pnSeparador3: TPanel
         Left = 0
@@ -81,7 +79,6 @@ object frMain: TfrMain
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 5
-        ExplicitWidth = 185
       end
       object pnSeparador2: TPanel
         Left = 0
@@ -92,7 +89,6 @@ object frMain: TfrMain
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 6
-        ExplicitWidth = 185
       end
       object pnSeparador1: TPanel
         Left = 0
@@ -103,7 +99,6 @@ object frMain: TfrMain
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 7
-        ExplicitWidth = 185
       end
       object pnLogo: TPanel
         Left = 0
@@ -113,7 +108,6 @@ object frMain: TfrMain
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitWidth = 185
         object lbLogo: TLabel
           Left = 34
           Top = 103
@@ -556,7 +550,6 @@ object frMain: TfrMain
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitWidth = 185
         object spPesquisa: TSpeedButton
           Left = 0
           Top = 0
@@ -598,7 +591,6 @@ object frMain: TfrMain
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 2
-        ExplicitWidth = 185
         object spProdutos: TSpeedButton
           Left = 0
           Top = 0
@@ -639,7 +631,6 @@ object frMain: TfrMain
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 3
-        ExplicitWidth = 185
         object spRelatorio: TSpeedButton
           Left = 0
           Top = 0
@@ -679,7 +670,7 @@ object frMain: TfrMain
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 4
-        ExplicitWidth = 185
+        ExplicitTop = 700
         object spUsuario: TSpeedButton
           Left = 0
           Top = 0
@@ -758,7 +749,7 @@ object frMain: TfrMain
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 9
-        ExplicitWidth = 185
+        ExplicitTop = 699
       end
     end
     object pnFoco: TPanel
@@ -781,8 +772,8 @@ object frMain: TfrMain
       BevelOuter = bvNone
       Caption = 'pnCentral'
       TabOrder = 3
-      ExplicitLeft = 186
-      ExplicitWidth = 1164
+      ExplicitWidth = 1144
+      ExplicitHeight = 748
       object pnLogoCentral: TPanel
         Left = 421
         Top = 219
@@ -1619,8 +1610,8 @@ object frMain: TfrMain
         object lbSistemas: TLabel
           Left = 114
           Top = 225
-          Width = 150
-          Height = 27
+          Width = 133
+          Height = 22
           Caption = 'S I S T E M A S'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = 12822864

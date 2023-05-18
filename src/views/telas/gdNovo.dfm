@@ -130,6 +130,7 @@ inherited frNovo: TfrNovo
     inherited cdPanel: TCardPanel
       Width = 628
       Height = 412
+      ActiveCard = cardCadastroUsuarios
       BevelOuter = bvNone
       ExplicitWidth = 628
       ExplicitHeight = 412
@@ -153,11 +154,6 @@ inherited frNovo: TfrNovo
             inherited pnExcluir: TPanel
               inherited spExcluir: TSpeedButton
                 OnClick = spExcluirClick
-              end
-            end
-            inherited pnNovoItem: TPanel
-              inherited spNovoItem: TSpeedButton
-                Caption = 'Consultar'
               end
             end
           end

@@ -34,7 +34,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
       Width = 684
       Height = 384
       Align = alClient
-      ActiveCard = cardCadastroUsuarios
+      ActiveCard = cardConsultaUsuarios
       TabOrder = 1
       object cardConsultaUsuarios: TCard
         Left = 1
@@ -76,7 +76,7 @@ inherited frCardPanels_Padrao: TfrCardPanels_Padrao
                 Height = 28
                 Align = alClient
                 DisabledImageIndex = 8
-                Caption = 'Excluir (Del)'
+                Caption = 'Excluir'
                 ImageIndex = 6
                 Images = imageList
                 HotImageIndex = 7

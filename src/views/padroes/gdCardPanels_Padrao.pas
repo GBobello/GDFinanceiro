@@ -225,11 +225,11 @@ end;
 procedure TfrCardPanels_Padrao.spSalvarClick(Sender: TObject);
 begin
   inherited;
-  if cdPanel.ActiveCard.Name = 'cardCadastroUsuarios' then
-  begin
-    cdPanel.ActiveCard := cardConsultaUsuarios;
-    AjustaTamanhoCelulas;
-  end;
+//  if cdPanel.ActiveCard.Name = 'cardCadastroUsuarios' then
+//  begin
+//    cdPanel.ActiveCard := cardConsultaUsuarios;
+//    AjustaTamanhoCelulas;
+//  end;
 end;
 
 end.
