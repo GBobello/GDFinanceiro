@@ -1,5 +1,4 @@
 object dmUsuarios: TdmUsuarios
-  OldCreateOrder = False
   Height = 189
   Width = 312
   object queryUsuarios: TFDQuery

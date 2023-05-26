@@ -1,5 +1,5 @@
 inherited frNovo: TfrNovo
-  Caption = 'Novo'
+  Caption = '='
   ClientHeight = 453
   ClientWidth = 628
   ExplicitWidth = 628

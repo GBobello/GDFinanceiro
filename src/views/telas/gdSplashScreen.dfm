@@ -10,10 +10,8 @@ object frSplashScreen: TfrSplashScreen
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poScreenCenter
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object pnPrincipal: TPanel
     Left = 0
@@ -27,8 +25,8 @@ object frSplashScreen: TfrSplashScreen
     object lbSistemas: TLabel
       Left = 313
       Top = 274
-      Width = 150
-      Height = 27
+      Width = 133
+      Height = 22
       Caption = 'S I S T E M A S'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 12822864
@@ -40,8 +38,8 @@ object frSplashScreen: TfrSplashScreen
     object lbVersao: TLabel
       Left = 307
       Top = 389
-      Width = 65
-      Height = 19
+      Width = 59
+      Height = 16
       Caption = 'vers'#227'o 1.0'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText

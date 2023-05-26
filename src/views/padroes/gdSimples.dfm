@@ -13,10 +13,8 @@ object frSimples: TfrSimples
   Font.Name = 'Tahoma'
   Font.Style = []
   KeyPreview = True
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnKeyDown = FormKeyDown
-  PixelsPerInch = 96
   TextHeight = 13
   object pnPrincipal: TPanel
     Left = 0
@@ -28,8 +26,6 @@ object frSimples: TfrSimples
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 1164
-    ExplicitHeight = 729
     object pnBarraSuperior: TPanel
       Left = 0
       Top = 0
@@ -38,7 +34,6 @@ object frSimples: TfrSimples
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 1164
       DesignSize = (
         627
         41)

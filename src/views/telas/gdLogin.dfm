@@ -4,8 +4,8 @@ object frLogin: TfrLogin
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Login'
-  ClientHeight = 371
-  ClientWidth = 344
+  ClientHeight = 370
+  ClientWidth = 340
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWhite
@@ -13,19 +13,17 @@ object frLogin: TfrLogin
   Font.Name = 'Tahoma'
   Font.Style = []
   KeyPreview = True
-  OldCreateOrder = False
   Position = poScreenCenter
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
-  PixelsPerInch = 96
   TextHeight = 13
   object pnPrincipal: TPanel
     Left = 0
     Top = 0
-    Width = 344
-    Height = 371
+    Width = 340
+    Height = 370
     Align = alClient
     BevelOuter = bvNone
     Color = clWhite

@@ -591,11 +591,6 @@ inherited frUsuarios: TfrUsuarios
       end
     end
   end
-  object dsUsuarios: TDataSource
-    DataSet = dmUsuarios.cdsUsuarios
-    Left = 688
-    Top = 56
-  end
   object imgGrid: TImageList
     Left = 672
     Top = 184
@@ -738,5 +733,10 @@ inherited frUsuarios: TfrUsuarios
       0000000000000000000000000000000080018001000000008001800100000000
       C003C00300000000F00FF00F0000000000000000000000000000000000000000
       000000000000}
+  end
+  object dsUsuarios: TDataSource
+    DataSet = dmUsuarios.cdsUsuarios
+    Left = 409
+    Top = 236
   end
 end

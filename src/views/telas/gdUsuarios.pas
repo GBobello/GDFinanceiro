@@ -1,3 +1,10 @@
+/////////////////////////////////////////////////////////////////////////////
+{
+    Unit Usuarios
+    Criação: Gabriel Bobello
+}
+/////////////////////////////////////////////////////////////////////////////
+
 unit gdUsuarios;
 
 interface
@@ -15,7 +22,6 @@ uses
 
 type
   TfrUsuarios = class(TfrCardPanels_Padrao)
-    dsUsuarios: TDataSource;
     imgGrid: TImageList;
     edNome: TGD_Edit;
     edLogin: TGD_Edit;
@@ -40,6 +46,7 @@ type
     Panel5: TPanel;
     lbAlterarSenha: TLabel;
     spVoltar: TSpeedButton;
+    dsUsuarios: TDataSource;
     procedure FormCreate(Sender: TObject);
     procedure dbGridDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
@@ -71,6 +78,8 @@ implementation
 
 {$R *.dfm}
 
+uses udmConexao, gdUsuarioClass;
+
 procedure TfrUsuarios.dbGridDrawColumnCell(Sender: TObject; const Rect: TRect;
   DataCol: Integer; Column: TColumn; State: TGridDrawState);
 var
@@ -97,8 +106,8 @@ end;
 procedure TfrUsuarios.FormCreate(Sender: TObject);
 begin
   inherited;
+  dmConexao.FUsuario := TUsuario.Create(dmConexao.Conexao);
   cdPanel.ActiveCard := cardCadastroUsuarios;
-  SetaSQLs;
 end;
 
 procedure TfrUsuarios.FormResize(Sender: TObject);
@@ -110,6 +119,7 @@ end;
 procedure TfrUsuarios.FormShow(Sender: TObject);
 begin
   inherited;
+  SetaSQLs;
   dmUsuarios.cdsUsuarios.Insert;
 end;
 
@@ -323,6 +333,10 @@ begin
 
   SetaSQLs;
   dbGrid.Refresh;
+
+  LimparCampos;
+  edNome.SetFocus;
+  dmUsuarios.cdsUsuarios.Insert;
 
   inherited;
 end;

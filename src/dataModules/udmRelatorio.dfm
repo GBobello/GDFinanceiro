@@ -1,5 +1,4 @@
 object dmRelatorios: TdmRelatorios
-  OldCreateOrder = False
   Height = 272
   Width = 370
   object queryRelatorios: TFDQuery
@@ -11,7 +10,7 @@ object dmRelatorios: TdmRelatorios
     Top = 48
   end
   object frxRelatorio: TfrxReport
-    Version = '6.9.3'
+    Version = '6.9.14'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     OldStyleProgress = True
@@ -78,6 +77,10 @@ object dmRelatorios: TdmRelatorios
       MirrorMode = []
       object masterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 41.574830000000000000
         Top = 294.803340000000000000
@@ -222,6 +225,10 @@ object dmRelatorios: TdmRelatorios
       end
       object relTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 151.181200000000000000
         Top = 18.897650000000000000
@@ -255,6 +262,10 @@ object dmRelatorios: TdmRelatorios
       end
       object headerNomes: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 41.574803150000000000
         Top = 230.551330000000000000
@@ -375,6 +386,10 @@ object dmRelatorios: TdmRelatorios
       end
       object Footer1: TfrxFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 41.574830000000000000
         Top = 359.055350000000000000
@@ -496,6 +511,7 @@ object dmRelatorios: TdmRelatorios
     ShowProgress = True
     OverwritePrompt = False
     DataOnly = False
+    EmbedFontsIfProtected = False
     InteractiveFormsFontSubset = 'A-Z,a-z,0-9,#43-#47 '
     OpenAfterExport = False
     PrintOptimized = False

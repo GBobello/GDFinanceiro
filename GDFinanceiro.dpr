@@ -25,7 +25,11 @@ uses
   udmRelatorio in 'src\dataModules\udmRelatorio.pas' {dmRelatorios: TDataModule},
   gdRelatorio in 'src\views\telas\gdRelatorio.pas' {frRelatorio},
   gdRelatorioPreview in 'src\views\telas\gdRelatorioPreview.pas' {frRelatorioPreview},
-  gdLogSistema in 'src\classes\gdLogSistema.pas';
+  gdLogSistema in 'src\classes\gdLogSistema.pas',
+  gdUsuarioClass in 'src\classes\gdUsuarioClass.pas',
+  gdNovoSofa in 'src\views\telas\gdNovoSofa.pas' {frNovoSofa},
+  udmNovoSofa in 'src\dataModules\udmNovoSofa.pas' {dmNovoSofa: TDataModule},
+  gdFormat in 'src\utils\gdFormat.pas';
 
 {$R *.res}
 
@@ -36,6 +40,7 @@ begin
   Application.CreateForm(TdmNovo, dmNovo);
   Application.CreateForm(TdmUsuarios, dmUsuarios);
   Application.CreateForm(TdmPesquisaSofas, dmPesquisaSofas);
+  Application.CreateForm(TdmNovoSofa, dmNovoSofa);
   Application.CreateForm(TdmRelatorios, dmRelatorios);
   Application.CreateForm(TfrMain, frMain);
   Application.Run;

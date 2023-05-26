@@ -1,5 +1,4 @@
 object dmPesquisaSofas: TdmPesquisaSofas
-  OldCreateOrder = False
   Height = 141
   Width = 334
   object queryPesquisaSofas: TFDQuery

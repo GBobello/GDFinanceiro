@@ -181,6 +181,17 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="src\classes\gdLogSistema.pas"/>
+        <DCCReference Include="src\classes\gdUsuarioClass.pas"/>
+        <DCCReference Include="src\views\telas\gdNovoSofa.pas">
+            <Form>frNovoSofa</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="src\dataModules\udmNovoSofa.pas">
+            <Form>dmNovoSofa</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\utils\gdFormat.pas"/>
         <None Include=".gitignore"/>
         <None Include="LICENSE"/>
         <BuildConfiguration Include="Base">

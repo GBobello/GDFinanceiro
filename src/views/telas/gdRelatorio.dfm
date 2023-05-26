@@ -7,7 +7,6 @@ inherited frRelatorio: TfrRelatorio
   OnShow = FormShow
   ExplicitWidth = 633
   ExplicitHeight = 452
-  PixelsPerInch = 96
   TextHeight = 13
   inherited pnPrincipal: TPanel
     Width = 633

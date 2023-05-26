@@ -1,3 +1,10 @@
+/////////////////////////////////////////////////////////////////////////////
+{
+    Unit Main
+    Criação: Gabriel Bobello
+}
+/////////////////////////////////////////////////////////////////////////////
+
 unit gdMain;
 
 interface
@@ -45,6 +52,9 @@ type
     aclRelatoriosShortCut: TAction;
     aclUsuarios: TAction;
     Image1: TImage;
+    pnNovoSofa: TPanel;
+    spNovoSofa: TSpeedButton;
+    Separador6: TPanel;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
@@ -59,6 +69,7 @@ type
     procedure spUsuarioClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure Image1Click(Sender: TObject);
+    procedure spNovoSofaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -73,7 +84,7 @@ implementation
 
 {$R *.dfm}
 
-uses gdLogin, gdSplashScreen, Themes;
+uses gdLogin, gdSplashScreen, Themes, gdNovoSofa;
 
 procedure TfrMain.cbEstilosChange(Sender: TObject);
 begin
@@ -83,6 +94,14 @@ end;
 procedure TfrMain.SetaFoco(Sender: TObject);
 begin
   fFuncoes.SetaFoco(pnFoco, TComponent(Sender) as TSpeedButton, TComponent(Sender).GetParentComponent as TPanel, True);
+end;
+
+procedure TfrMain.spNovoSofaClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrNovoSofa, frNovoSofa);
+  frNovoSofa.Parent := pnCentral;
+  frNovoSofa.Show;
+  frNovoSofa.SetFocus;
 end;
 
 procedure TfrMain.spPesquisaClick(Sender: TObject);
@@ -145,6 +164,11 @@ begin
     spRelatorio.OnMouseEnter := SetaFoco;
     spRelatorio.OnMouseLeave := TiraFoco;
     spUsuario.ShowHint := False;
+
+    spNovoSofa.Enabled := True;
+    spNovoSofa.OnMouseEnter := SetaFoco;
+    spNovoSofa.OnMouseLeave := TiraFoco;
+    spNovoSofa.ShowHint := False;
   end
   else
   begin
@@ -159,6 +183,12 @@ begin
     spRelatorio.OnMouseLeave := nil;
     spRelatorio.Hint := 'Somente usuários administradores podem acessar essa função!';
     spRelatorio.ShowHint := True;
+
+    spNovoSofa.Enabled := False;
+    spNovoSofa.OnMouseEnter := nil;
+    spNovoSofa.OnMouseLeave := nil;
+    spNovoSofa.Hint := 'Somente usuários administradores podem acessar essa função!';
+    spNovoSofa.ShowHint := True;
   end;
 end;
 

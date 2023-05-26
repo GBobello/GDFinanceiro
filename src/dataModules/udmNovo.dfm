@@ -1,5 +1,4 @@
 object dmNovo: TdmNovo
-  OldCreateOrder = False
   Height = 299
   Width = 415
   object queryNovo: TFDQuery

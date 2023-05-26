@@ -1,3 +1,10 @@
+/////////////////////////////////////////////////////////////////////////////
+{
+    Unit Novo
+    Criação: Gabriel Bobello
+}
+/////////////////////////////////////////////////////////////////////////////
+
 unit gdNovo;
 
 interface
@@ -425,6 +432,13 @@ begin
 
   SetaSQLs;
   dbGrid.Refresh;
+
+  LimparCampos;
+  cbServico.ItemIndex := 0;
+  spedQuantidade.Value    := 1;
+  cbModelo.ItemIndex      := 0;
+  cbModelo.SetFocus;
+  dmNovo.cdsNovo.Insert;
 
   inherited;
 end;

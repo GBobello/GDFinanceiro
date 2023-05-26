@@ -1,5 +1,4 @@
 object dmConexao: TdmConexao
-  OldCreateOrder = False
   OnCreate = DataModuleCreate
   Height = 265
   Width = 383
@@ -7,10 +6,11 @@ object dmConexao: TdmConexao
     Params.Strings = (
       
         'Database=C:\Users\bobel\OneDrive - Storage\'#193'rea de Trabalho\dev\' +
-        'GDFinanceiro\db\BANCO.FDB'
+        'GDFinanceiro\bin\db\BANCO.FDB'
       'User_Name=SYSDBA'
       'Password=masterkey'
       'DriverID=FB')
+    Connected = True
     LoginPrompt = False
     Left = 48
     Top = 32

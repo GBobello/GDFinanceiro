@@ -6,7 +6,6 @@ inherited frPesquisa_Padrao: TfrPesquisa_Padrao
   OnShow = FormShow
   ExplicitWidth = 554
   ExplicitHeight = 448
-  PixelsPerInch = 96
   TextHeight = 13
   inherited pnPrincipal: TPanel
     Width = 554
