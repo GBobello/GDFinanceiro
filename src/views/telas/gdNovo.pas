@@ -198,7 +198,6 @@ begin
   cbSofas.Items := dmNovo.GetSofas;
   cbUsuarios.Items := dmNovo.GetUsuarios;
   SetSQLTela(False);
-  SetaSQLs;
   cbResponsavel.ItemIndex := 0;
   cbSofas.ItemIndex := 0;
   cbUsuarios.ItemIndex := 0;
@@ -214,6 +213,7 @@ end;
 procedure TfrNovo.FormShow(Sender: TObject);
 begin
   inherited;
+  SetaSQLs;
   cdPanel.ActiveCard := cardCadastroUsuarios;
   dmNovo.cdsNovo.Insert;
   fFuncoes.SetCentralizaControles(TControl(pnEditsCadastro),

@@ -15,7 +15,7 @@ uses
   Vcl.ExtCtrls, Vcl.Buttons, System.ImageList, Vcl.ImgList, gdFuncoes,
   Vcl.Imaging.pngimage, gdSimples, gdUsuarios, Vcl.Mask, GD_MaskEdit_Data,
   gdNovo, Vcl.Menus, System.Actions, Vcl.ActnList, gdClasses_GD, gdPesquisaSofas,
-  gdRelatorio;
+  gdRelatorio, gdInfo;
 
 type
   TfrMain = class(TForm)
@@ -70,6 +70,7 @@ type
     procedure FormActivate(Sender: TObject);
     procedure Image1Click(Sender: TObject);
     procedure spNovoSofaClick(Sender: TObject);
+    procedure imgLogoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -98,23 +99,28 @@ end;
 
 procedure TfrMain.spNovoSofaClick(Sender: TObject);
 begin
-  Application.CreateForm(TfrNovoSofa, frNovoSofa);
+  if not Assigned(frNovoSofa) then
+    Application.CreateForm(TfrNovoSofa, frNovoSofa);
   frNovoSofa.Parent := pnCentral;
   frNovoSofa.Show;
   frNovoSofa.SetFocus;
+  frNovo.Hide;
 end;
 
 procedure TfrMain.spPesquisaClick(Sender: TObject);
 begin
-  Application.CreateForm(TfrPesquisaSofas, frPesquisaSofas);
+  if not Assigned(frPesquisaSofas) then
+    Application.CreateForm(TfrPesquisaSofas, frPesquisaSofas);
   frPesquisaSofas.Parent := pnCentral;
   frPesquisaSofas.Show;
   frPesquisaSofas.SetFocus;
+  frNovo.Hide;
 end;
 
 procedure TfrMain.spProdutosClick(Sender: TObject);
 begin
-  Application.CreateForm(TfrNovo, frNovo);
+  if not Assigned(frNovo) then
+    Application.CreateForm(TfrNovo,frNovo);
   frNovo.Parent := pnCentral;
   frNovo.Show;
   frNovo.SetFocus;
@@ -124,10 +130,12 @@ procedure TfrMain.spRelatorioClick(Sender: TObject);
 begin
   if spRelatorio.Enabled then
   begin
-    Application.CreateForm(TfrRelatorio, frRelatorio);
+    if not Assigned(frRelatorio) then
+      Application.CreateForm(TfrRelatorio, frRelatorio);
     frRelatorio.Parent := pnCentral;
     frRelatorio.Show;
     frRelatorio.SetFocus;
+    frNovo.Hide;
   end
   else
     Application.MessageBox('Somente usuários administradores podem acessar essa função!', 'Atenção!', MB_OK + MB_ICONERROR);
@@ -137,10 +145,12 @@ procedure TfrMain.spUsuarioClick(Sender: TObject);
 begin
   if spUsuario.Enabled then
   begin
-    Application.CreateForm(TfrUsuarios, frUsuarios);
+    if not Assigned(frUsuarios) then
+      Application.CreateForm(TfrUsuarios, frUsuarios);
     frUsuarios.Parent := pnCentral;
     frUsuarios.Show;
     frUsuarios.SetFocus;
+    frNovo.Hide;
   end
   else
     Application.MessageBox('Somente usuários administradores podem acessar essa função!', 'Atenção!', MB_OK + MB_ICONERROR);
@@ -266,6 +276,12 @@ begin    //Só para trocar a personalização
   finally
     FreeAndNil(frLogin);
   end;
+end;
+
+procedure TfrMain.imgLogoClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrInfo, frInfo);
+  frInfo.ShowModal;
 end;
 
 end.

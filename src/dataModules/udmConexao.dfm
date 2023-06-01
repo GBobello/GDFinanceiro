@@ -4,13 +4,10 @@ object dmConexao: TdmConexao
   Width = 383
   object Conexao: TFDConnection
     Params.Strings = (
-      
-        'Database=C:\Users\bobel\OneDrive - Storage\'#193'rea de Trabalho\dev\' +
-        'GDFinanceiro\bin\db\BANCO.FDB'
+      'Database=C:\Users\bobel\Documents\GDFinanceiro\bin\db\BANCO.FDB'
       'User_Name=SYSDBA'
       'Password=masterkey'
       'DriverID=FB')
-    Connected = True
     LoginPrompt = False
     Left = 48
     Top = 32

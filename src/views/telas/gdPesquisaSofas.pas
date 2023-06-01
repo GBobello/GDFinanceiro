@@ -43,8 +43,8 @@ procedure TfrPesquisaSofas.dbGridDblClick(Sender: TObject);
 begin
   inherited;
   gdClasses_GD.SetValorSofa(dmPesquisaSofas.cdsPesquisaSofasBDCODSOFA.Value);
-  spMinimiza.Click;
-  Application.CreateForm(TfrNovo, frNovo);
+  if not Assigned(frNovo) then
+    Application.CreateForm(TfrNovo, frNovo);
   frNovo.Parent := frPesquisaSofas.Parent;
   frNovo.Show;
   frNovo.SetFocus;
@@ -56,12 +56,13 @@ begin
   inherited;
   if Key = VK_RETURN then
   begin
-    gdClasses_GD.SetValorSofa(dmPesquisaSofas.cdsPesquisaSofasBDCODSOFA.Value);
-    spMinimiza.Click;
-    Application.CreateForm(TfrNovo, frNovo);
-    frNovo.Parent := frPesquisaSofas.Parent;
-    frNovo.Show;
-    frNovo.SetFocus;
+    dbGridDblClick(Self);
+//    gdClasses_GD.SetValorSofa(dmPesquisaSofas.cdsPesquisaSofasBDCODSOFA.Value);
+//    spMinimiza.Click;
+//    Application.CreateForm(TfrNovo, frNovo);
+//    frNovo.Parent := frPesquisaSofas.Parent;
+//    frNovo.Show;
+//    frNovo.SetFocus;
   end;
 end;
 

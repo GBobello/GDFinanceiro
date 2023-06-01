@@ -2,8 +2,8 @@ object frMain: TfrMain
   Left = 0
   Top = 0
   Caption = 'GD Financeiro'
-  ClientHeight = 534
-  ClientWidth = 737
+  ClientHeight = 491
+  ClientWidth = 665
   Color = clWhite
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -33,33 +33,35 @@ object frMain: TfrMain
   object pnPrincipal: TPanel
     Left = 0
     Top = 0
-    Width = 737
-    Height = 534
+    Width = 665
+    Height = 491
     Align = alClient
     BevelOuter = bvNone
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitWidth = 745
-    ExplicitHeight = 536
+    ExplicitWidth = 661
+    ExplicitHeight = 490
     object pnLateral: TPanel
       Left = 201
       Top = 0
       Width = 1
-      Height = 536
+      Height = 491
       Align = alLeft
       TabOrder = 2
+      ExplicitHeight = 490
     end
     object pnMenu: TPanel
       Left = 0
       Top = 0
       Width = 201
-      Height = 536
+      Height = 491
       Align = alLeft
       BevelOuter = bvNone
       Color = clWhite
       ParentBackground = False
       TabOrder = 0
+      ExplicitHeight = 490
       object pnSeparador4: TPanel
         Left = 0
         Top = 401
@@ -126,7 +128,9 @@ object frMain: TfrMain
           Top = 21
           Width = 69
           Height = 76
+          Hint = 'Sobre'
           Center = True
+          ParentShowHint = False
           Picture.Data = {
             0954506E67496D61676589504E470D0A1A0A0000000D49484452000000450000
             004C08060000003B827AE1000000C87A5458745261772070726F66696C652074
@@ -540,6 +544,8 @@ object frMain: TfrMain
             278F05A415DE243361B6E62995C2989878C3B2C9D354BFE1D0BFA9FD2FFDAF26
             CC909721470000000049454E44AE426082}
           Proportional = True
+          ShowHint = True
+          OnClick = imgLogoClick
         end
       end
       object pnPesquisa: TPanel
@@ -664,12 +670,13 @@ object frMain: TfrMain
       end
       object pnUsuario: TPanel
         Left = 0
-        Top = 488
+        Top = 443
         Width = 201
         Height = 48
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 4
+        ExplicitTop = 442
         object spUsuario: TSpeedButton
           Left = 0
           Top = 0
@@ -741,13 +748,14 @@ object frMain: TfrMain
       end
       object pnSeparador5: TPanel
         Left = 0
-        Top = 487
+        Top = 442
         Width = 201
         Height = 1
         Align = alBottom
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 9
+        ExplicitTop = 441
       end
       object pnNovoSofa: TPanel
         Left = 0
@@ -812,14 +820,16 @@ object frMain: TfrMain
     object pnCentral: TPanel
       Left = 202
       Top = 0
-      Width = 543
-      Height = 536
+      Width = 463
+      Height = 491
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 3
+      ExplicitWidth = 459
+      ExplicitHeight = 490
       object pnLogoCentral: TPanel
-        Left = 421
-        Top = 219
+        Left = 71
+        Top = 101
         Width = 321
         Height = 290
         BevelOuter = bvNone

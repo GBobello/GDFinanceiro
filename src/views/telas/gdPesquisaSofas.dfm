@@ -92,7 +92,7 @@ inherited frPesquisaSofas: TfrPesquisaSofas
         Left = 20
         Top = 20
         Width = 71
-        Height = 30
+        Height = 18
         Align = alLeft
         Caption = 'Pesquisa:  '
         Font.Charset = DEFAULT_CHARSET
@@ -102,7 +102,6 @@ inherited frPesquisaSofas: TfrPesquisaSofas
         Font.Style = []
         ParentFont = False
         Layout = tlCenter
-        ExplicitHeight = 18
       end
       object edPesquisa: TGD_Edit
         Left = 91
