@@ -29,7 +29,8 @@ uses
   gdUsuarioClass in 'src\classes\gdUsuarioClass.pas',
   gdNovoSofa in 'src\views\telas\gdNovoSofa.pas' {frNovoSofa},
   udmNovoSofa in 'src\dataModules\udmNovoSofa.pas' {dmNovoSofa: TDataModule},
-  gdFormat in 'src\utils\gdFormat.pas';
+  gdFormat in 'src\utils\gdFormat.pas',
+  gdInfo in 'src\views\padroes\gdInfo.pas' {frInfo};
 
 {$R *.res}
 

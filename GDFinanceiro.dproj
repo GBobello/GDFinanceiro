@@ -192,6 +192,10 @@
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="src\utils\gdFormat.pas"/>
+        <DCCReference Include="src\views\padroes\gdInfo.pas">
+            <Form>frInfo</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include=".gitignore"/>
         <None Include="LICENSE"/>
         <BuildConfiguration Include="Base">
